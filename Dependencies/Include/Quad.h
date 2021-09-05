@@ -3,6 +3,10 @@
 
 #include "Common.h"
 
+/*
+ *   a simple unit length quad on which sprites could be rendered
+*/
+
 namespace Umbra2D {
     class Quad {
     private:

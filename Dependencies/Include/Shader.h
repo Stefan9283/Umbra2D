@@ -2,15 +2,23 @@
 
 #include <Common.h>
 
-typedef struct ShaderProgramSource
+/*
+ *  Shader class used for:
+ *  - reading shaders from file
+ *  - compiling the code
+ *  - sending different types of data structures to the vertex/geometry/fragment shader
+ */
+
+
+struct ShaderProgramSource
 {
     char* vertexShader;
     char* fragmentShader;
     char* geometryShader;
-} ShaderProgramSource;
+};
+
 
 namespace Umbra2D {
-
 class Shader
 {
 	unsigned int id;
@@ -38,11 +46,11 @@ private:
     static ShaderProgramSource ParseShader(std::string filepath_v, std::string filepath_f, std::string filepath_g);
     
     /* compiles the shader
-    - type: GL_VERTEX_SHADER/GL_FRAGMENT_SHADER/GL_GEOMETRY_SHADER
-    - source: char array containing the source code of the shader
-    */
+     *  - type: GL_VERTEX_SHADER/GL_FRAGMENT_SHADER/GL_GEOMETRY_SHADER
+     *  - source: char array containing the source code of the shader
+     */
     unsigned int CompileShader(unsigned int type, const char* source);
-    // Links the shaders together and returns the internal id of the group
+    //* Links the shaders together and returns the internal id of the group
     unsigned int CreateShader(const char* vertexShader, const char* fragmentShader, const char* geometryShader);
 
 };

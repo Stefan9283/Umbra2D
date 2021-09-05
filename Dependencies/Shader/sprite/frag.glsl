@@ -12,7 +12,7 @@ uniform int pixelateLevel;
 
 void main() {
     vec4 color;
-
+    
     if (bias < 0.5) {
         vec2 Tex = Tex1;
         if (pixelateLevel != 0)

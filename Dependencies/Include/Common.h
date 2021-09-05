@@ -1,5 +1,9 @@
 #pragma once
 
+/*
+ *  add any STL or external lib header reference here  
+*/
+
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 

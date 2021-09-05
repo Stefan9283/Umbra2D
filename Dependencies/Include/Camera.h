@@ -2,6 +2,13 @@
 
 #include "Common.h"
 
+/*
+ * A simple camera object. 
+ * It provides the projection and view matrices for the shading part 
+ * of the engine pipeline.
+ *
+ * Can be moved in any direction using the MoveDIRECTION() funcs
+*/
 namespace Umbra2D {
     class Window;
     

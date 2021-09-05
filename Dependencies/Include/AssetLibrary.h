@@ -2,6 +2,13 @@
 
 #include "Common.h" 
 
+/*
+ *  A complete database of all the assets needed 
+ *  - all the simple textures used for rendering
+ *    static objects
+ *  - sprite sheets for dynamic objects
+ *  - a unit quad used for rendering any in-game object
+ */
 namespace Umbra2D {
     class Texture;
     class SpriteSheet;

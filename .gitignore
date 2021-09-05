@@ -1,5 +1,5 @@
-
 build/*
-.idea/*
+.vs/*
 .vscode/*
+.idea/*
 Dependencies/Vendor/freetype/builds/*

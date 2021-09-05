@@ -1,3 +1,2 @@
 bash clear.sh
-
-cmake .
+cmake . -B build

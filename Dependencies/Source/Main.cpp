@@ -18,7 +18,7 @@ int main()
 
     Umbra2D::Camera c(w);
     
-    Umbra2D::Shader s("Dependencies/Shaders/sprite/vert.glsl", "Dependencies/Shaders/sprite/frag.glsl");
+    Umbra2D::Shader s("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
     
     Umbra2D::SpriteSheet ss("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72);
     Umbra2D::Actor character;
