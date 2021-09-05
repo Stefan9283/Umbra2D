@@ -1,0 +1,24 @@
+#pragma once
+
+#include "Common.h"
+
+namespace Umbra2D {
+    class Window;
+    
+    class Camera {
+     private:
+        glm::vec2 position{};
+        glm::mat4 proj, view;
+     public:
+        Camera(Umbra2D::Window window);
+        
+        void UpdateProjMatrix(Umbra2D::Window window);
+        void UpdateViewMatrix();
+        
+        glm::mat4 getView();
+        glm::mat4 getProj();
+        
+        void MoveVertically(float units);
+        void MoveHorizontally(float units);
+    };
+} 
