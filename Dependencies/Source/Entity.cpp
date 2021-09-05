@@ -1,7 +1,8 @@
 #include "Entity.h"
+#include "AssetLibrary.h"
+#include "Colliders.h"
 #include "Shader.h"
 #include "Quad.h"
-#include "AssetLibrary.h"
 
 extern Umbra2D::AssetLibrary* lib;
 
@@ -43,6 +44,11 @@ namespace Umbra2D {
         ImGui::Checkbox(std::string("Draw ").append(std::to_string(id)).c_str(), &render);
         transform.gui(id);
     }
+    void Entity::setCollider(Colliders::AbstractCollider* c) {
+        delete this->collider;
+        this->collider = c;
+    }
+
     void Dynamic::draw(Shader* s) {
         if (!render) return; 
         glm::mat4 model = transform.toMat4();
@@ -50,6 +56,9 @@ namespace Umbra2D {
         s->setInt("pixelateLevel", pixelateLevel);
         s->setFloat("depth", (const float)transform.layer);
         lib->q->Draw();
+    }
+
+    void Static::setTexture(std::string path) { // TODO
     }
     void Static::draw(Shader* s) {
         if (!render) return; 

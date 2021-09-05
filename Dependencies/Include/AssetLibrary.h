@@ -10,21 +10,17 @@
  *  - a unit quad used for rendering any in-game object
  */
 namespace Umbra2D {
-    class Texture;
-    class SpriteSheet;
-    class Quad;
-
     class AssetLibrary {
         public:
-        std::vector<Texture*> textures;
-        std::vector<SpriteSheet*> spriteSheets;
+        std::vector<Umbra2D::Assets::Texture*> textures;
+        std::vector<Umbra2D::Assets::SpriteSheet*> spriteSheets;
         Quad* q;
 
         void gui();
 
         AssetLibrary();
         
-        void addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites);
-        void addTexture(std::string path);
+        unsigned int addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites);
+        unsigned int addTexture(std::string path);
     };
 }

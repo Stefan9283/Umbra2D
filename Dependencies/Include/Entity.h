@@ -3,8 +3,6 @@
 #include "Common.h"
 
 namespace Umbra2D {
-    class Texture;
-    class SpriteSheet;
     class Shader;
 
     struct transform2D {
@@ -18,23 +16,31 @@ namespace Umbra2D {
     };
 
     class Entity {
+     private:
+        Umbra2D::Colliders::AbstractCollider* collider = nullptr;
      public:
         long long unsigned int id;
         unsigned int pixelateLevel = 0;
-        transform2D transform;
         bool render = true;
+        transform2D transform;
+
+        void setCollider(Umbra2D::Colliders::AbstractCollider* c);
         Entity();
         virtual void draw(Shader* s) = 0;
         void gui();
     };
     class Dynamic : public Entity {
         public:
-        SpriteSheet* ss;
+        Umbra2D::Assets::SpriteSheet* ss;
+        int animationPlaying;
+        double time;
+
         void draw(Shader* s) override;
     };
     class Static : public Entity {
         public:
-        Texture* t;
+        Umbra2D::Assets::Texture* t;
+        void setTexture(std::string path);
         void draw(Shader* s) override;
     };
 }

@@ -23,10 +23,9 @@
 
 #include <GLFW/glfw3.h>
 
+#include <cstdlib>
+#include <cstdio>
 #include <filesystem>
-
-#include <stdlib.h>
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -34,3 +33,30 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+
+
+namespace Umbra2D {
+    class AssetLibrary;
+
+    namespace Assets {
+        class Texture;    
+        class SpriteSheet;
+    }    
+
+    class Camera;
+    class Window;
+    class Shader;
+    class Quad;
+
+    namespace Colliders {
+        class AbstractCollider;
+        class Rectangle;
+        class Circle;
+        class Line;
+    }
+
+    // entity types
+    class Entity;
+    class Static;
+    class Dynamic;
+}

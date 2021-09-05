@@ -4,7 +4,7 @@
 
 #define Sprite Texture
 
-namespace Umbra2D {
+namespace Umbra2D::Assets {
     class Animation {
         public:
         std::string name;
@@ -17,7 +17,7 @@ namespace Umbra2D {
         int id;
         std::string name;
         std::string path;
-        glm::vec2 resolution;
+        glm::ivec2 resolution;
 
         // if the second field is ommited by default the name of the texture will be the same as the path
         Texture(std::string path, std::string name = "");

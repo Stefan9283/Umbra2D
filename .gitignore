@@ -3,3 +3,8 @@ build/*
 .vscode/*
 .idea/*
 Dependencies/Vendor/freetype/builds/*
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+Umbra2D.exe.manifest
+Umbra2D.cbp

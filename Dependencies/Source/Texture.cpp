@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include "Gui.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Assets {
     Texture::Texture(std::string path, std::string name) {
         auto r = loadFromFile(path);
         this->id = r.first;
@@ -15,17 +15,20 @@ namespace Umbra2D {
     void Texture::gui() {
         ImGui::Text(
                 ("name: " + name + "\n" +
-                "path " + path + "\n" +
-                "resolution " + std::to_string(resolution.x) + "x" + std::to_string(resolution.y) + "\n").c_str());
+                 "path: " + path + "\n" +
+                 "resolution: " + std::to_string(resolution.x) + "x" + std::to_string(resolution.y) + "\n").c_str());
         Umbra2D::Gui::showTexture(this);
     }
     
     void Texture::destroy() {
         glDeleteTextures(1, (GLuint*)&this->id);
     }
+    
     std::pair<int, glm::vec2> Texture::loadFromFile(std::string path) {
         if (!std::filesystem::exists(path)) {
-            std::cout << "File " << path << " doesn't exist\n";
+            std::string current = std::filesystem::current_path().string();
+            std::replace(current.begin(), current.end(), '\\', '/');
+            std::cout << "File " << current << '/' << path << " doesn't exist\n";
             return {-1, {}};
         }
         // load and create a texture

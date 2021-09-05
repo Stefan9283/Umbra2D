@@ -22,11 +22,24 @@ namespace Umbra2D {
             ImGui::TreePop();
         }
     }
-    void AssetLibrary::addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites) {
-        this->spriteSheets.push_back(new SpriteSheet(path, gridSize, numSprites));
+    unsigned int AssetLibrary::addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites) {
+        unsigned int index = 0;
+        for (auto ss : this->spriteSheets) {
+            if (ss->tex->path == path)
+                return index;
+            
+        }
+        this->spriteSheets.push_back(new Umbra2D::Assets::SpriteSheet(path, gridSize, numSprites));
+        return index;
     }
-    void AssetLibrary::addTexture(std::string path) {
-        this->textures.push_back(new Texture(path));
+    unsigned int AssetLibrary::addTexture(std::string path) {
+        unsigned int index = 0;
+        for (auto tex : this->textures) {
+            if (tex->path == path)
+                return index;
+        }
+        this->textures.push_back(new Umbra2D::Assets::Texture(path));
+        return index;
     }
 }
 

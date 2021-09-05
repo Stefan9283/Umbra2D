@@ -10,8 +10,6 @@
  * Can be moved in any direction using the MoveDIRECTION() funcs
 */
 namespace Umbra2D {
-    class Window;
-    
     class Camera {
      private:
         glm::vec2 position{};

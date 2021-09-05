@@ -1,4 +1,7 @@
 #include "Window.h"
+#include "AssetLibrary.h"
+
+extern Umbra2D::AssetLibrary* lib;
 
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -46,6 +49,8 @@ namespace Umbra2D {
         glEnable(GL_BLEND); 
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
         glClearColor(0.3f, 0.1f, 0.4f, 1.f);
+
+        lib = new Umbra2D::AssetLibrary();
     }
     Window::~Window() {
         // glfwTerminate();

@@ -9,18 +9,18 @@ option(GLFW_BUILD_TESTS OFF)
 add_subdirectory(Dependencies/Vendor/glfw)
 add_subdirectory(Dependencies/Vendor/glad)
 
-set(freetype-gl_BUILD_APIDOC OFF)
+#set(freetype-gl_BUILD_APIDOC OFF)
 # add_subdirectory(Dependencies/Vendor/freetype) #### ADD LATER
 
 
 if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /MDd /std:c++17")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /MDd /std:c++20")
     add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
 	set (CMAKE_CXX_STANDARD 20)
 else()
 	if(UNIX)
 		message("Linux")
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lfreetype -Wall -Wextra -Wpedantic -std=c++17")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lfreetype -Wall -Wextra -Wpedantic -std=c++20")
 		set(GLAD_LIBRARIES g dl GL GLU glfw X11 Xrandr pthread Xi Xinerama Xcursor )
 	endif()
 endif()
@@ -47,7 +47,6 @@ file(GLOB  PROJECT_SHADERS
 source_group("SHADERS"            FILES ${PROJECT_SHADERS})
 
 message(STATUS "SHADERS SHADERS SHADERS SHADERS SHADERS SHADERS " ${PROJECT_SHADERS})
-
 
 
 include_directories(
@@ -78,7 +77,7 @@ target_link_libraries(${PROJECT_NAME}
 								glfw
 								)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES 
+set_target_properties(${PROJECT_NAME} PROPERTIES
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME}
 		VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
