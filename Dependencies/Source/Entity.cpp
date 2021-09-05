@@ -43,7 +43,7 @@ namespace Umbra2D {
         ImGui::Checkbox(std::string("Draw ").append(std::to_string(id)).c_str(), &render);
         transform.gui(id);
     }
-    void Actor::draw(Shader* s) {
+    void Dynamic::draw(Shader* s) {
         if (!render) return; 
         glm::mat4 model = transform.toMat4();
         s->setMat4("model", &model);
@@ -51,7 +51,7 @@ namespace Umbra2D {
         s->setFloat("depth", (const float)transform.layer);
         lib->q->Draw();
     }
-    void Decor::draw(Shader* s) {
+    void Static::draw(Shader* s) {
         if (!render) return; 
         glm::mat4 model = transform.toMat4();
         s->setMat4("model", &model);
@@ -59,6 +59,4 @@ namespace Umbra2D {
         s->setFloat("depth", (const float)transform.layer);
         lib->q->Draw();
     }
-
-
 }

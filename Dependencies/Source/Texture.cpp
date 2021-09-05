@@ -1,27 +1,32 @@
 #include "Texture.h"
+#include "Gui.h"
 
 namespace Umbra2D {
-    Texture::Texture(std::string name, std::string path, int id, glm::vec2 resolution) {
-        this->name = name;
-        this->id = id;
+    Texture::Texture(std::string path, std::string name) {
+        auto r = loadFromFile(path);
+        this->id = r.first;
+        this->resolution = r.second;
         this->path = path;
-        this->resolution = resolution;
+        if (name.size())
+            this->name = name;
+        else 
+            this->name = path;
     }
-    Texture::Texture(std::string path) {
-        *this = this->loadFromFile(path);
-    }
-    Texture::Texture() {
-        name = "";
-        path = "";
-        id = -1;
-        resolution = glm::vec2(0);
+    void Texture::gui() {
+        ImGui::Text(
+                ("name: " + name + "\n" +
+                "path " + path + "\n" +
+                "resolution " + std::to_string(resolution.x) + "x" + std::to_string(resolution.y) + "\n").c_str());
+        Umbra2D::Gui::showTexture(this);
     }
     
-    void destroy() {} // TODO
-    Texture Texture::loadFromFile(std::string path) {
+    void Texture::destroy() {
+        glDeleteTextures(1, (GLuint*)&this->id);
+    }
+    std::pair<int, glm::vec2> Texture::loadFromFile(std::string path) {
         if (!std::filesystem::exists(path)) {
             std::cout << "File " << path << " doesn't exist\n";
-            return {};
+            return {-1, {}};
         }
         // load and create a texture
         // -------------------------
@@ -62,16 +67,20 @@ namespace Umbra2D {
             throw std::runtime_error("Failed to load texture");
         }
         stbi_image_free(data);
-        return {path, path, (int)texture, {width, height}};
+        return {(int)texture, {width, height}};
     }
 
-
-    SpriteSheet::SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites) {
+    SpriteSheet::SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
         this->gridSize = gridSize;
         this->numOfSprites = numOfSprites;
-        tex = Texture::loadFromFile(pathToImage);
+        tex = new Texture(pathToImage);
+        frameDescriptions.reserve(numOfSprites);
+    }
+    void SpriteSheet::gui() {
+        this->tex->gui();
     }
     void SpriteSheet::addSpriteDescription(std::string name, unsigned int index) {
+        frameDescriptions[index] = name;
     } // TODO
     std::pair<glm::vec2, glm::vec2> SpriteSheet::getSpriteCell(unsigned int index) {
         glm::vec2 spriteDimension = glm::vec2(1.) / (glm::vec2)gridSize;

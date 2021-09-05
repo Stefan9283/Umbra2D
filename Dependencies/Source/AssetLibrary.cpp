@@ -9,7 +9,16 @@ namespace Umbra2D {
     }
     void AssetLibrary::gui() {
         if (ImGui::TreeNode("AssetLibrary")) {
-            // TODO
+            if (ImGui::TreeNode("Textures")) {
+                for (auto t : this->textures)
+                    t->gui();
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("SpriteSheets")) {
+                for (auto ss : this->spriteSheets)
+                    ss->gui();
+                ImGui::TreePop();
+            }
             ImGui::TreePop();
         }
     }

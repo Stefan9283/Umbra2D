@@ -27,12 +27,12 @@ namespace Umbra2D {
         virtual void draw(Shader* s) = 0;
         void gui();
     };
-    class Actor : public Entity {
+    class Dynamic : public Entity {
         public:
         SpriteSheet* ss;
         void draw(Shader* s) override;
     };
-    class Decor : public Entity {
+    class Static : public Entity {
         public:
         Texture* t;
         void draw(Shader* s) override;

@@ -4,10 +4,6 @@
 
 #define Sprite Texture
 
-
-
-
-
 namespace Umbra2D {
     class Animation {
         public:
@@ -23,25 +19,26 @@ namespace Umbra2D {
         std::string path;
         glm::vec2 resolution;
 
-        Texture(std::string name, std::string path, int id, glm::vec2 resolution);
-        // by default the name of the texture will be the same as the path
-        Texture(std::string path);
-        Texture();
-        static Texture loadFromFile(std::string path);
+        // if the second field is ommited by default the name of the texture will be the same as the path
+        Texture(std::string path, std::string name = "");
+        void gui();
+        static std::pair<int, glm::vec2> loadFromFile(std::string path);
         void destroy();
     };
 
     
     class SpriteSheet {
         private:
-            std::unordered_map<std::string, std::pair<glm::vec2, glm::vec2>> sprites; // not used atm
             glm::ivec2 gridSize;
             unsigned int numOfSprites;
             std::vector<Animation> animations; 
+            std::vector<std::string> frameDescriptions;
         public:
-        Texture tex;
+        Texture* tex;
 
-        SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numSprites);
+        SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
+        void gui();
+        
         void addSpriteDescription(std::string name, unsigned int index);
         /*
          *    Example of sprite cell indexing on a simple prite sheet        

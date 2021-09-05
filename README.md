@@ -10,8 +10,11 @@ AssetLibrary {
 
     [] SpriteSheet {
         int SpritesNo 
-        ivec2 gridSize 
-        Texture t
+        ivec2 gridSize // the distribution of frames in the sprite sheet
+                      // gridSize.x = num of columns | gridSize.y = num of rows
+        Texture {
+            str name, path
+        }
         [] Animation {
             str name
             [] Keyframes {
@@ -19,6 +22,9 @@ AssetLibrary {
                 float timeUntilNextFrame
             }
         }
+        [] str FrameDescriptions  // each of the SpriteNo frames 
+                                 // has a brief description/name
+                                // (it can be an empty string)
     }
 }
 ```

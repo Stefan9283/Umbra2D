@@ -20,12 +20,14 @@ int main()
     
     Umbra2D::Shader s("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
     
+    lib->addSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72);
+
     Umbra2D::SpriteSheet ss("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72);
-    Umbra2D::Actor character;
+    Umbra2D::Dynamic character;
     character.transform.scale = 15.f * glm::vec2(43, 37);
     character.pixelateLevel = 500;
 
-    Umbra2D::Decor bg;
+    Umbra2D::Static bg;
     Umbra2D::Sprite bgtex("Dependencies/Assets/Textures/UndertaleFin.png");
     bg.transform.scale = glm::vec2(10000, 10000);
     bg.transform.layer = 3;
@@ -51,7 +53,7 @@ int main()
 
         if (ImGui::TreeNode("bg")) {
             bg.gui();
-            Umbra2D::Gui::showTexture(bgtex);
+            Umbra2D::Gui::showTexture(&bgtex);
             ImGui::TreePop();
         }
         if (ImGui::TreeNode("character")) {
@@ -79,7 +81,7 @@ int main()
         
         s.setVec2("start1", start);
         s.setVec2("end1", end);
-        s.setTexture("texture1", ss.tex.id, 0);
+        s.setTexture("texture1", ss.tex->id, 0);
         character.draw(&s);
         
         if (w.wasKeyPressed(GLFW_KEY_ESCAPE))

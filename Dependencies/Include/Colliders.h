@@ -9,35 +9,43 @@ namespace Umbra2D {
 
     class Collider {
         public:
+        glm::vec2 pos;
         virtual bool checkCollision(Rectangle* c) = 0;
         virtual bool checkCollision(Circle* c) = 0;
         virtual bool checkCollision(Line* c) = 0;
+        virtual void draw() = 0;
+        virtual void gui() = 0;
     };
     
-    class Rectangle : Collider {
+    class Rectangle : public Collider {
         public:
-        glm::vec2 min, max;
+        glm::vec2 dimensions;
         bool checkCollision(Rectangle* c) override;
         bool checkCollision(Circle* c) override;
         bool checkCollision(Line* c) override;
+        void draw() override;
+        void gui() override;
     };
     
-    class Circle : Collider {
+    class Circle : public Collider {
         public:
         float radius;
-        glm::vec2 pos;
         bool checkCollision(Rectangle* c) override;
         bool checkCollision(Circle* c) override;
         bool checkCollision(Line* c) override;
+        void draw() override;
+        void gui() override;
     };
     
-    class Line : Collider {
+    class Line : public Collider {
         public:
         float length;
-        glm::vec2 pos, direction;
+        glm::vec2 direction;
         bool checkCollision(Rectangle* c) override;
         bool checkCollision(Circle* c) override;
         bool checkCollision(Line* c) override;
+        void draw() override;
+        void gui() override;
     };
 }
 
