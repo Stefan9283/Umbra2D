@@ -1,0 +1,48 @@
+AssetLibrary[
+    Textures[
+		Texture[name1, path1]
+		Texture[name2, path2]
+    ]
+
+    SpriteSheets[
+		SpriteSheet[
+            SpriteSize[10, 5, 69]
+            Texture[name1, path1]
+            Animations[
+                Animation[
+                    AnimationName[hranaMontana]
+                    KeyFrames[
+                        KeyFrame[5, 11.5]
+                        KeyFrame[15, 111.5]
+                        KeyFrame[158, 111.5]
+                    ]
+                ]
+            ]
+            FrameDescriptions[
+                FrameDescription[ana]
+                FrameDescription[are]
+                FrameDescription[mere]
+            ]
+        ]
+
+        SpriteSheet[
+            SpriteSize[10, 5, 69]
+            Texture[name1, path1]
+            Animations[
+                Animation[
+                    AnimationName[hranaMontana]
+                    KeyFrames[
+                        KeyFrame[5, 11.5]
+                        KeyFrame[1545, 111.5]
+                        KeyFrame[157878, 11.1]
+                    ]
+                ]
+            ]
+            FrameDescriptions[
+                FrameDescription[ana]
+                FrameDescription[are]
+                FrameDescription[mere]
+            ]
+        ]
+    ]
+]

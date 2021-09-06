@@ -1,0 +1,26 @@
+AssetLibrary[
+    Textures[
+	Texture[UndertaleFin, Dependencies/Assets/Textures/UndertaleFin.png]
+    ]
+
+    SpriteSheets[
+	SpriteSheet[
+            SpriteSize[72, 7, 11]
+            Texture[adventurer-Sheet, Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png]
+            Animations[
+                Animation[
+                    AnimationName[anim1]
+                    KeyFrames[
+                        KeyFrame[24, 1]
+                        KeyFrame[25, 2]
+                        KeyFrame[26, 3]
+			KeyFrame[27, 4]
+                    ]
+                ]
+            ]
+            FrameDescriptions[
+
+            ]
+        ]
+    ]
+]

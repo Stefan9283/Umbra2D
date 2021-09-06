@@ -9,11 +9,14 @@
 #include "Shader.h"
 #include "Gui.h"
 #include "Colliders.h"
+#include "Loader.h"
 
 Umbra2D::AssetLibrary* lib;
 
 int main() 
 {
+    Umbra2D::Loader loader("Settings.txt");
+
     Umbra2D::Window w;
     Umbra2D::Camera c(w);
 
@@ -41,6 +44,10 @@ int main()
     sphere.setCollider(new Umbra2D::Colliders::Circle(1));
     Umbra2D::Static line;
     line.setCollider(new Umbra2D::Colliders::Line(1, glm::vec2(1, 1)));
+
+    //
+    loader.parseInputFile();
+    //
 
     while (!w.shouldClose()) {
         w.startFrame();
