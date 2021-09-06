@@ -26,6 +26,7 @@ namespace Umbra2D {
 
         void setCollider(Umbra2D::Colliders::AbstractCollider* c);
         Entity();
+        ~Entity();
         virtual void draw(Shader* s) = 0;
         void gui();
     };

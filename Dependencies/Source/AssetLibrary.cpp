@@ -9,12 +9,12 @@ namespace Umbra2D {
     }
     void AssetLibrary::gui() {
         if (ImGui::TreeNode("AssetLibrary")) {
-            if (ImGui::TreeNode("Textures")) {
+            if (ImGui::TreeNode(("Textures (" + std::to_string(this->textures.size()) + ")").c_str())) {
                 for (auto t : this->textures)
                     t->gui();
                 ImGui::TreePop();
             }
-            if (ImGui::TreeNode("SpriteSheets")) {
+            if (ImGui::TreeNode(("SpriteSheets (" + std::to_string(this->spriteSheets.size()) + ")").c_str())) {
                 for (auto ss : this->spriteSheets)
                     ss->gui();
                 ImGui::TreePop();
@@ -25,7 +25,7 @@ namespace Umbra2D {
     unsigned int AssetLibrary::addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites) {
         unsigned int index = 0;
         for (auto ss : this->spriteSheets) {
-            if (ss->tex->path == path)
+            if (ss->tex->getPath() == path)
                 return index;
             
         }
@@ -35,7 +35,7 @@ namespace Umbra2D {
     unsigned int AssetLibrary::addTexture(std::string path) {
         unsigned int index = 0;
         for (auto tex : this->textures) {
-            if (tex->path == path)
+            if (tex->getPath() == path)
                 return index;
         }
         this->textures.push_back(new Umbra2D::Assets::Texture(path));

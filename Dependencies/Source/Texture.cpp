@@ -19,10 +19,12 @@ namespace Umbra2D::Assets {
                  "resolution: " + std::to_string(resolution.x) + "x" + std::to_string(resolution.y) + "\n").c_str());
         Umbra2D::Gui::showTexture(this);
     }
-    
-    void Texture::destroy() {
+    Texture::~Texture() {
         glDeleteTextures(1, (GLuint*)&this->id);
     }
+    int Texture::getID() { return id; }
+    std::string Texture::getPath() { return path; }
+    glm::ivec2 Texture::getResolution() { return resolution; }
     
     std::pair<int, glm::vec2> Texture::loadFromFile(std::string path) {
         if (!std::filesystem::exists(path)) {

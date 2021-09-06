@@ -12,6 +12,7 @@
 
 Umbra2D::AssetLibrary* lib;
 
+
 int main() 
 {
     Umbra2D::Window w;
@@ -59,7 +60,6 @@ int main()
         s.setMat4("proj", &proj);
 
 
-        /*
         if (ImGui::TreeNode("bg")) {
             bg.gui();
             Umbra2D::Gui::showTexture(&bgtex);
@@ -81,7 +81,7 @@ int main()
 
         s.setVec2("start1", glm::vec2(0));
         s.setVec2("end1", glm::vec2(1));
-        s.setTexture("texture1", bgtex.id, 0);
+        s.setTexture("texture1", bgtex.getID(), 0);
         bg.draw(&s);
 
         auto coords = ss.getSpriteCell(spriteIndex);
@@ -90,11 +90,8 @@ int main()
         
         s.setVec2("start1", start);
         s.setVec2("end1", end);
-        s.setTexture("texture1", ss.tex->id, 0);
+        s.setTexture("texture1", ss.tex->getID(), 0);
         character.draw(&s);
-        */
-
-
 
         if (w.wasKeyPressed(GLFW_KEY_ESCAPE))
             break;

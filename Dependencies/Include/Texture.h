@@ -13,17 +13,22 @@ namespace Umbra2D::Assets {
     };
 
     class Texture {
-     public:
+    private:
         int id;
-        std::string name;
         std::string path;
         glm::ivec2 resolution;
+    public:
+        std::string name;
 
-        // if the second field is ommited by default the name of the texture will be the same as the path
+        // if the second field is omitted by default the name of the texture will be the same as the path
         Texture(std::string path, std::string name = "");
+        ~Texture();
+
         void gui();
         static std::pair<int, glm::vec2> loadFromFile(std::string path);
-        void destroy();
+        int getID();
+        std::string getPath();
+        glm::ivec2 getResolution();
     };
 
     
