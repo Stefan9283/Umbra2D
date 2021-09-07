@@ -8,7 +8,7 @@ namespace Umbra2D {
     struct transform2D {
         glm::vec2 scale{1, 1}, translation{};
         glm::quat rotation = glm::quat(glm::vec3(0)); 
-        int layer = 1; // it can be any value in [1, 99]
+        int layer = 1; // it can be any value in [1, 999]
         glm::mat4 toMat4();
         void gui(long long unsigned int id);
         // rotates around the Z axis
@@ -27,21 +27,35 @@ namespace Umbra2D {
         void setCollider(Umbra2D::Colliders::AbstractCollider* c);
         Entity();
         ~Entity();
+
+        virtual void gui();
         virtual void draw(Shader* s) = 0;
-        void gui();
     };
     class Dynamic : public Entity {
         public:
-        Umbra2D::Assets::SpriteSheet* ss;
-        int animationPlaying;
-        double time;
+        Umbra2D::Assets::SpriteSheet* ss = nullptr;
+        int animationPlaying = -1;
+        unsigned int currentSprite = 0;
+        double time = 0;
+        bool loopAnimation = false;
+        float animationSpeed = 1;
 
+        void setSpriteSheet(SPRITE_SHEET* ss);
+        void setSpriteSheet(std::string pathToImage, glm::vec2 gridSize = glm::vec2(1),
+                        unsigned int numOfSprites = 1, std::string name = "");
+        void setAnimation(unsigned int animationID);
+
+        void gui();
         void draw(Shader* s) override;
     };
     class Static : public Entity {
         public:
-        Umbra2D::Assets::Texture* t;
-        void setTexture(std::string path);
+        Umbra2D::Assets::Texture* t = nullptr;
+
+        void setTexture(std::string path, std::string name = "");
+        void setTexture(TEXTURE* tex);
+
+        void gui();
         void draw(Shader* s) override;
     };
 }

@@ -39,8 +39,10 @@
 #define SPRITE_SHEET Umbra2D::Assets::SpriteSheet
 
 namespace Umbra2D {
-    class Loader;
     class AssetLibrary;
+
+    class Saver;
+    class Loader;
 
     namespace Assets {
         class Animation;

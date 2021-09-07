@@ -2,36 +2,55 @@
 #include "Gui.h"
 
 namespace Umbra2D::Assets {
+
+    int Animation::getBestFrameInterval(float time) {
+        int index = 0;
+        float timeUntilNow = 0;
+        for (auto const& frame : frames)
+            if (frame.second + timeUntilNow > time)
+                break;
+            else {
+                index++;
+                timeUntilNow += frame.second;
+            }
+
+        index = std::min(index, (int)frames.size() - 1);
+
+        return frames[index].first;
+    }
+    float Animation::getTotalDuration() {
+        float total = 0;
+        for (auto frame : frames)
+            total += frame.second;
+        return total;
+    }
+
+    // Texture
     Texture::Texture(std::string path, std::string name) {
         auto r = loadFromFile(path);
         this->id = r.first;
         this->resolution = r.second;
         this->path = path;
-        if (name.size())
+        if (!name.empty())
             this->name = name;
         else 
             this->name = path;
     }
-    void Texture::gui() {
-        ImGui::Text(
-                ("name: " + name + "\n" +
-                 "path: " + path + "\n" +
-                 "resolution: " + std::to_string(resolution.x) + "x" + std::to_string(resolution.y) + "\n").c_str());
-        Umbra2D::Gui::showTexture(this);
-    }
     Texture::~Texture() {
         glDeleteTextures(1, (GLuint*)&this->id);
     }
-    int Texture::getID() { return id; }
-    std::string Texture::getPath() { return path; }
-    glm::ivec2 Texture::getResolution() { return resolution; }
-    
+    void Texture::gui() {
+        ImGui::Text(
+                "name: %s\npath: %s\nresolution: %dx%d", name.c_str(), path.c_str(), resolution.x, resolution.y);
+        Umbra2D::Gui::showTexture(this);
+    }
+
     std::pair<int, glm::vec2> Texture::loadFromFile(std::string path) {
         if (!std::filesystem::exists(path)) {
             std::string current = std::filesystem::current_path().string();
             std::replace(current.begin(), current.end(), '\\', '/');
             std::cout << "File " << current << '/' << path << " doesn't exist\n";
-            return {-1, {}};
+            return {0, {}};
         }
         // load and create a texture
         // -------------------------
@@ -75,6 +94,12 @@ namespace Umbra2D::Assets {
         return {(int)texture, {width, height}};
     }
 
+    int Texture::getID() { return id; }
+    std::string Texture::getPath() { return path; }
+    glm::ivec2 Texture::getResolution() { return resolution; }
+    
+
+    // SpriteSheet
     SpriteSheet::SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
         this->gridSize = gridSize;
         this->numOfSprites = numOfSprites;
@@ -83,8 +108,7 @@ namespace Umbra2D::Assets {
     }
     void SpriteSheet::gui() {
         this->tex->gui();
-
-        for (auto anim : animations) {
+        for (const auto& anim : animations) {
             if (ImGui::TreeNode(anim.name.c_str())) {
                 for (auto sprite : anim.frames) {
                     auto corners = getSpriteCell(sprite.first);
@@ -97,18 +121,21 @@ namespace Umbra2D::Assets {
         }
 
     }
+
     void SpriteSheet::addSpriteDescription(std::string name, unsigned int index) {
         frameDescriptions[index] = name;
     }
     void SpriteSheet::addAnimation(Animation anim) {
         this->animations.push_back(anim);
+        animationsCount++;
     }
+
     std::pair<glm::vec2, glm::vec2> SpriteSheet::getSpriteCell(unsigned int index) {
         glm::vec2 spriteDimension = glm::vec2(1.) / (glm::vec2)gridSize;
 
         index = index %  numOfSprites;
 
-        glm::vec2 start = { (index % gridSize.x) * spriteDimension.x, 1 - (int)(index / gridSize.x + 1) * spriteDimension.y};
+        glm::vec2 start = { (index % gridSize.x) * spriteDimension.x, 1 - (index / gridSize.x + 1) * spriteDimension.y};
 
         return 
         {
@@ -120,11 +147,15 @@ namespace Umbra2D::Assets {
     std::vector<Animation> SpriteSheet::getAnimations() {
         return animations;
     }
+    Animation& SpriteSheet::getAnimation(unsigned int index) {
+        return animations[index];
+    }
+    unsigned int SpriteSheet::getAnimationsCount() { return animationsCount; }
+
 
     std::vector<std::string> SpriteSheet::getFrameDescriptions() {
         return frameDescriptions;
     }
-
     glm::vec3 SpriteSheet::getSize() {
         return glm::vec3(numOfSprites, gridSize);
     }

@@ -14,7 +14,9 @@ namespace Umbra2D {
         public:
         std::vector<Umbra2D::Assets::Texture*> textures;
         std::vector<Umbra2D::Assets::SpriteSheet*> spriteSheets;
+
         Quad* q;
+        TEXTURE* defaultTexture;
 
         void gui();
 

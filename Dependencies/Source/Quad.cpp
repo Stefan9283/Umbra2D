@@ -40,4 +40,10 @@ namespace Umbra2D {
         glDrawElements(GL_TRIANGLES, (GLsizei)6, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
     }
+    void Quad::drawN(unsigned int N) {
+        glBindVertexArray(VAO);
+        glDrawElementsInstanced(GL_TRIANGLES, (GLsizei)6, GL_UNSIGNED_INT, nullptr, N);
+        glBindVertexArray(0);
+    }
+
 }

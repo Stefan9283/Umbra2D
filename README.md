@@ -36,6 +36,9 @@ AssetLibrary {
 namespace Umbra2D {
     class AssetLibrary;
 
+    class Saver;
+    class Loader;
+
     namespace Assets {
         class Texture;    
         class SpriteSheet;

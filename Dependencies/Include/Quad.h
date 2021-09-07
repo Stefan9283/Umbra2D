@@ -16,6 +16,7 @@ namespace Umbra2D {
         Quad();
         // Draws the quad
         void draw();
+        void drawN(unsigned int N);
     };
 }
 

@@ -65,7 +65,7 @@ namespace Umbra2D::Colliders {
     void Line::draw() {
         colliderShader->setInt("shape", LINE);
         colliderShader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
-        float halfLen = glm::length(this->pos + this->length * this->direction) / 2.;
+        float halfLen = glm::length(this->pos + this->length * this->direction) / 2.f;
 
         // TODO SE
         //std::cout << (float)(1.5708 - atan2(direction.y,direction.x) - 3.1415 / 2.)

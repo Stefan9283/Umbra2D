@@ -8,8 +8,12 @@ namespace Umbra2D::Assets {
     class Animation {
         public:
         std::string name;
-        // (sprite index,    time until next sprite)
+        // (sprite index,    time until next sprite (ms))
         std::vector<std::pair<int, float>> frames;
+
+        // ((indices for the 2 sprites), bias term = value in [0, 1] that helps you tell which frame is the closest)
+        int getBestFrameInterval(float time);
+        float getTotalDuration();
     };
 
     class Texture {
@@ -38,7 +42,8 @@ namespace Umbra2D::Assets {
             unsigned int numOfSprites;
             std::vector<Animation> animations; 
             std::vector<std::string> frameDescriptions;
-        public:
+            unsigned int animationsCount = 0;
+    public:
         Texture* tex;
 
         SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
@@ -60,6 +65,9 @@ namespace Umbra2D::Assets {
         std::pair<glm::vec2, glm::vec2> getSpriteCell(unsigned int index);
 
         std::vector<Animation> getAnimations();
+        Animation& getAnimation(unsigned int index);
+        unsigned int getAnimationsCount();
+
         std::vector<std::string> getFrameDescriptions();
         glm::vec3 getSize();
     };

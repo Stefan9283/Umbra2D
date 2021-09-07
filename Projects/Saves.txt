@@ -12,9 +12,9 @@ AssetLibrary[
 					AnimationName[dash]
 					KeyFrames[
 						KeyFrame[24, 1]
-						KeyFrame[25, 2]
-						KeyFrame[26, 3]
-						KeyFrame[27, 4]
+						KeyFrame[25, 1]
+						KeyFrame[26, 1]
+						KeyFrame[27, 1]
 					]
 				]
 			]

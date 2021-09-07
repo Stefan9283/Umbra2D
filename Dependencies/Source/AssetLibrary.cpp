@@ -5,6 +5,7 @@
 
 namespace Umbra2D {
     AssetLibrary::AssetLibrary() {
+        defaultTexture = new TEXTURE("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
         q = new Quad();
     }
     AssetLibrary::~AssetLibrary() {
@@ -12,7 +13,10 @@ namespace Umbra2D {
             delete tex;
         for (auto spritesh : spriteSheets)
             delete spritesh;
+        delete q;
+        delete defaultTexture;
     }
+
     void AssetLibrary::gui() {
         if (ImGui::TreeNode("AssetLibrary")) {
             if (ImGui::TreeNode(("Textures (" + std::to_string(this->textures.size()) + ")").c_str())) {
@@ -28,6 +32,7 @@ namespace Umbra2D {
             ImGui::TreePop();
         }
     }
+
     unsigned int AssetLibrary::addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites, std::string name) {
         unsigned int index = 0;
         for (auto ss : this->spriteSheets) {
