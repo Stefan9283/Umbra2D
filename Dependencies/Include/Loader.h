@@ -13,10 +13,10 @@ namespace Umbra2D {
         struct TextureInfo {
             std::string name, path;
 
-            friend std::ostream& operator<<(std::ostream& os, const TextureInfo& textureInfo) {
+            /*friend std::ostream& operator<<(std::ostream& os, const TextureInfo& textureInfo) {
                 os << textureInfo.name << " " << textureInfo.path << "\n";
                 return os;
-            }
+            }*/
         };
 
         struct SpriteSheetInfo {
@@ -24,26 +24,26 @@ namespace Umbra2D {
             glm::ivec2 gridSize;
             TextureInfo textureInfo;
 
-            std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>> animations; // TODO SE: std::pair<std::string, std::vector<std::pair<int, float>>> -> Umbra2D::Animation
+            std::vector<ANIMATION> animations;
             std::vector<std::string> frameDescriptions;
 
-            friend std::ostream& operator<<(std::ostream& os, const SpriteSheetInfo& spriteSheetInfo) {
-                os << spriteSheetInfo.noOfSprites << " " << spriteSheetInfo.gridSize.x << " " << spriteSheetInfo.gridSize.y << "\n";
-                os << spriteSheetInfo.textureInfo;
+            /*friend std::ostream& operator<<(std::ostream& os, const SpriteSheetInfo& spriteSheetInfo) {
+                os << spriteSheetInfo.noOfSprites << " " << spriteSheetInfo.textureInfo << "\n";
+                os << spriteSheetInfo.gridSize.x << " " << spriteSheetInfo.gridSize.y << "\n";
 
-                for (auto& e : spriteSheetInfo.animations) {
-                    os << e.first << "\n";
+                for (ANIMATION animation : spriteSheetInfo.animations) {
+                    os << animation.name << "\n";
 
-                    for (auto& ee : e.second)
-                        os << ee.first << ", " << ee.second << "\n";
+                    for (std::pair<int, float>& keyFrame : animation.frames)
+                        os << keyFrame.first << ", " << keyFrame.second << "\n";
                 }
 
-                for (auto& e : spriteSheetInfo.frameDescriptions)
-                    os << e << " ";
+                for (std::string frameDescription : spriteSheetInfo.frameDescriptions)
+                    os << frameDescription << " ";
 
                 os << "\n";
                 return os;
-            }
+            }*/
         };
 
         void parseTexture(TextureInfo& textureInfo);
@@ -58,9 +58,9 @@ namespace Umbra2D {
 
         void parseKeyFrames(std::ifstream& fin, std::vector<std::pair<int, float>>& keyFrames);
 
-        void parseAnimation(std::ifstream& fin, std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>>& animations);
+        void parseAnimation(std::ifstream& fin, std::vector<ANIMATION>& animations);
 
-        void parseAnimations(std::ifstream& fin, std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>>& animations);
+        void parseAnimations(std::ifstream& fin, std::vector<ANIMATION>& animations);
 
         void parseFrameDescriptions(std::ifstream& fin, std::vector<std::string>& frameDescriptions);
 

@@ -58,5 +58,9 @@ namespace Umbra2D::Assets {
          *    the function will loop back and return [0]'s and [2]'s coords
          */
         std::pair<glm::vec2, glm::vec2> getSpriteCell(unsigned int index);
+
+        std::vector<Animation> getAnimations();
+        std::vector<std::string> getFrameDescriptions();
+        glm::vec3 getSize();
     };
 }

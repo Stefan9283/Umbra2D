@@ -1,4 +1,5 @@
 #include "Loader.h"
+#include "Texture.h"
 #include "AssetLibrary.h"
 
 extern Umbra2D::AssetLibrary* lib;
@@ -86,7 +87,7 @@ namespace Umbra2D {
                 break;
     }
     
-    void Loader::parseAnimation(std::ifstream& fin, std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>>& animations) {
+    void Loader::parseAnimation(std::ifstream& fin, std::vector<ANIMATION>& animations) {
         std::string name;
         std::vector<std::pair<int, float>> keyFrames;
     
@@ -101,7 +102,7 @@ namespace Umbra2D {
         animations.push_back({name, keyFrames});
     }
     
-    void Loader::parseAnimations(std::ifstream& fin, std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>>& animations) {
+    void Loader::parseAnimations(std::ifstream& fin, std::vector<ANIMATION>& animations) {
         while (fin.getline(buffer, MAX_LEN))
             if (strstr(buffer, "Animation"))
                 parseAnimation(fin, animations);
@@ -138,8 +139,8 @@ namespace Umbra2D {
         while (fin.getline(buffer, MAX_LEN)) {
             if (strstr(buffer, "Texture")) {
                 TextureInfo textureInfo;
-                parseTexture(textureInfo);
 
+                parseTexture(textureInfo);
                 lib->addTexture(textureInfo.path, textureInfo.name);
             } else
                 break;
@@ -150,13 +151,17 @@ namespace Umbra2D {
         while (fin.getline(buffer, MAX_LEN))
             if (strstr(buffer, "SpriteSheet")) {
                 SpriteSheetInfo spriteSheetInfo;
+                unsigned int index;
 
                 parseSpriteSheet(fin, spriteSheetInfo);
-                lib->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize, spriteSheetInfo.noOfSprites, spriteSheetInfo.textureInfo.name);
-                /* TODO SE
-                 * add animations and frame descriptions
-                 */
+                index = lib->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize,
+                                            spriteSheetInfo.noOfSprites, spriteSheetInfo.textureInfo.name);
 
+                for (int i = 0; i < spriteSheetInfo.frameDescriptions.size(); i++)
+                    lib->spriteSheets[index]->addSpriteDescription(spriteSheetInfo.frameDescriptions[i], i);
+
+                for (ANIMATION& animation : spriteSheetInfo.animations)
+                    lib->spriteSheets[index]->addAnimation(animation);
             } else if (strlen(buffer) > 0)
                 break;
     }

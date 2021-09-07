@@ -10,6 +10,7 @@
 #include "Gui.h"
 #include "Colliders.h"
 #include "Loader.h"
+#include "Saver.h"
 
 Umbra2D::AssetLibrary* lib;
 Umbra2D::Shader* colliderShader;
@@ -22,7 +23,10 @@ int main()
     Umbra2D::Shader s("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
 
     Umbra2D::Loader loader("Settings.txt");
+    Umbra2D::Saver saver("Saves.txt");
+
     loader.parseInputFile();
+    saver.saveSettings();
 
     Umbra2D::Camera c(&w);
 

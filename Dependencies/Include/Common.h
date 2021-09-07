@@ -34,11 +34,16 @@
 #include <vector>
 #include <unordered_map>
 
+#define ANIMATION Umbra2D::Assets::Animation
+#define TEXTURE Umbra2D::Assets::Texture
+#define SPRITE_SHEET Umbra2D::Assets::SpriteSheet
+
 namespace Umbra2D {
     class Loader;
     class AssetLibrary;
 
     namespace Assets {
+        class Animation;
         class Texture;    
         class SpriteSheet;
     }    
