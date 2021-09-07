@@ -19,8 +19,9 @@ namespace Umbra2D {
         void gui();
 
         AssetLibrary();
-        
-        unsigned int addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites);
-        unsigned int addTexture(std::string path);
+        ~AssetLibrary();
+
+        unsigned int addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
+        unsigned int addTexture(std::string path, std::string name = "");
     };
 }

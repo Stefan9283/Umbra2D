@@ -65,7 +65,7 @@ namespace Umbra2D {
 ### TODO
 
 * [ ] Framecap
-* [ ] Animation System (edit + getters)
+* [-] Animation System (edit + getters)
 * [ ] Save/Load Project System
 * [ ] Collision Detection (+ Object Picker)
 * [ ] Rigid Bodies

@@ -83,10 +83,26 @@ namespace Umbra2D::Assets {
     }
     void SpriteSheet::gui() {
         this->tex->gui();
+
+        for (auto anim : animations) {
+            if (ImGui::TreeNode(anim.name.c_str())) {
+                for (auto sprite : anim.frames) {
+                    auto corners = getSpriteCell(sprite.first);
+                    Umbra2D::Gui::showTexture(tex, corners.first, corners.second);
+                    ImGui::Text("FrameName: %s\nFrameID: %d\nTimeUntilNextFrame: %f\n",
+                            frameDescriptions[sprite.first].c_str(), sprite.first, sprite.second);
+                }
+                ImGui::TreePop();
+            }
+        }
+
     }
     void SpriteSheet::addSpriteDescription(std::string name, unsigned int index) {
         frameDescriptions[index] = name;
-    } // TODO
+    }
+    void SpriteSheet::addAnimation(Animation anim) {
+        this->animations.push_back(anim);
+    }
     std::pair<glm::vec2, glm::vec2> SpriteSheet::getSpriteCell(unsigned int index) {
         glm::vec2 spriteDimension = glm::vec2(1.) / (glm::vec2)gridSize;
 

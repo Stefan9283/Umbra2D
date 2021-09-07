@@ -45,6 +45,7 @@ namespace Umbra2D::Assets {
         void gui();
         
         void addSpriteDescription(std::string name, unsigned int index);
+        void addAnimation(Animation anim);
         /*
          *    Example of sprite cell indexing on a simple prite sheet        
          *    

@@ -12,18 +12,22 @@
 #include "Loader.h"
 
 Umbra2D::AssetLibrary* lib;
-
+Umbra2D::Shader* colliderShader;
 
 int main() 
 {
-    Umbra2D::Loader loader("Settings.txt");
-
     Umbra2D::Window w;
-    Umbra2D::Camera c(w);
 
+    colliderShader = new Umbra2D::Shader("Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
     Umbra2D::Shader s("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
-    
-    lib->addSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72);
+
+    Umbra2D::Loader loader("Settings.txt");
+    loader.parseInputFile();
+
+    Umbra2D::Camera c(&w);
+
+
+//    lib->addSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72);
 
     Umbra2D::Assets::SpriteSheet ss("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72);
     Umbra2D::Dynamic character;
@@ -38,17 +42,9 @@ int main()
     unsigned int spriteIndex = 0;
     glm::vec2 start{}, end{1, 1};
 
-
-    Umbra2D::Static rectangle;
-    rectangle.setCollider(new Umbra2D::Colliders::Rectangle(1, 1));
-    Umbra2D::Static sphere;
-    sphere.setCollider(new Umbra2D::Colliders::Circle(1));
-    Umbra2D::Static line;
-    line.setCollider(new Umbra2D::Colliders::Line(1, glm::vec2(1, 1)));
-
-    //
-    loader.parseInputFile();
-    //
+    auto* rectangle = new Umbra2D::Colliders::Rectangle(200, 100);
+    auto* circle = new Umbra2D::Colliders::Circle(200);
+    auto* line = new Umbra2D::Colliders::Line(1, glm::vec2(1, 1));
 
     while (!w.shouldClose()) {
         w.startFrame();
@@ -59,50 +55,77 @@ int main()
         // check out what this function does for more ImGui examples
         ImGui::ShowDemoWindow(); 
         
-        c.UpdateProjMatrix(w);
+        c.UpdateProjMatrix();
         glm::mat4 proj, view;
         proj = c.getProj();
         view = c.getView();
-        s.setMat4("view", &view);
-        s.setMat4("proj", &proj);
+
+//        s.setMat4("view", &view);
+//        s.setMat4("proj", &proj);
+//        if (ImGui::TreeNode("bg")) {
+//            bg.gui();
+//            Umbra2D::Gui::showTexture(&bgtex);
+//            ImGui::TreePop();
+//        }
+//        if (ImGui::TreeNode("character")) {
+//            character.gui();
+//            float st[]{start.x, start.y}, e[]{end.x, end.y};
+//            if (ImGui::SliderFloat2("Start", st, 0, 1)) {
+//                start = glm::vec2(st[0], st[1]);
+//            }
+//            if (ImGui::SliderFloat2("End", e, 0, 1)) {
+//                end = glm::vec2(e[0], e[1]);
+//            }
+//            ImGui::SliderInt("SpriteIndex", (int*)&spriteIndex, 0, 100);
+//            Umbra2D::Gui::showTexture(ss.tex);
+//            ImGui::TreePop();
+//        }
+//        s.setVec2("start1", glm::vec2(0));
+//        s.setVec2("end1", glm::vec2(1));
+//        s.setTexture("texture1", bgtex.getID(), 0);
+//        bg.draw(&s);
+//
+//        auto coords = ss.getSpriteCell(spriteIndex);
+//        start = coords.first;
+//        end = coords.second;
+//        s.setVec2("start1", start);
+//        s.setVec2("end1", end);
+//        s.setTexture("texture1", ss.tex->getID(), 0);
+//        character.draw(&s);
 
 
-        if (ImGui::TreeNode("bg")) {
-            bg.gui();
-            Umbra2D::Gui::showTexture(&bgtex);
+        colliderShader->setMat4("view", &view);
+        colliderShader->setMat4("proj", &proj);
+        colliderShader->setInt("depth", 0);
+
+        if (ImGui::TreeNode("colliders")) {
+            if (ImGui::TreeNode("line")) {
+                line->gui();
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("circle")) {
+                circle->gui();
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("rectangle")) {
+                rectangle->gui();
+                ImGui::TreePop();
+            }
             ImGui::TreePop();
         }
-        if (ImGui::TreeNode("character")) {
-            character.gui();
-            float st[]{start.x, start.y}, e[]{end.x, end.y};
-            if (ImGui::SliderFloat2("Start", st, 0, 1)) {
-                start = glm::vec2(st[0], st[1]);
-            }
-            if (ImGui::SliderFloat2("End", e, 0, 1)) {
-                end = glm::vec2(e[0], e[1]);
-            }
-            ImGui::SliderInt("SpriteIndex", (int*)&spriteIndex, 0, 100);
-            Umbra2D::Gui::showTexture(ss.tex);
-            ImGui::TreePop();
-        }
+        circle->draw();
+        line->draw();
+        rectangle->draw();
 
-        s.setVec2("start1", glm::vec2(0));
-        s.setVec2("end1", glm::vec2(1));
-        s.setTexture("texture1", bgtex.getID(), 0);
-        bg.draw(&s);
 
-        auto coords = ss.getSpriteCell(spriteIndex);
-        start = coords.first;
-        end = coords.second;
-        
-        s.setVec2("start1", start);
-        s.setVec2("end1", end);
-        s.setTexture("texture1", ss.tex->getID(), 0);
-        character.draw(&s);
+
+
+
+
+
 
         if (w.wasKeyPressed(GLFW_KEY_ESCAPE))
             break;
-        
         float unitsPerFrame = 5;
         if (w.wasKeyPressed(GLFW_KEY_D))
             c.MoveHorizontally(-unitsPerFrame);
@@ -112,11 +135,16 @@ int main()
             c.MoveVertically(unitsPerFrame);
         if (w.wasKeyPressed(GLFW_KEY_S))
             c.MoveVertically(-unitsPerFrame);
+        if (w.wasKeyPressed(GLFW_KEY_LEFT_CONTROL))
+            c.Zoom(0.01f);
+        if (w.wasKeyPressed(GLFW_KEY_LEFT_ALT))
+            c.Zoom(-0.01f);
         // code 
 
         w.endFrame();
     }
 
+    delete colliderShader;
     delete lib;
     
     return 0;

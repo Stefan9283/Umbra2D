@@ -5,7 +5,7 @@
 
 /*
  *   a simple unit length quad on which sprites could be rendered
-*/
+ */
 
 namespace Umbra2D {
     class Quad {
@@ -15,7 +15,7 @@ namespace Umbra2D {
         // creates a mesh for a unit length quad
         Quad();
         // Draws the quad
-        void Draw();
+        void draw();
     };
 }
 

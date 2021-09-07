@@ -7,8 +7,6 @@ out vec2 Tex2;
 
 uniform float depth;
 
-uniform vec2 posoffset;
-
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
@@ -19,8 +17,7 @@ uniform vec2 start2;
 uniform vec2 end2;
 
 void main() {
-    
     Tex1 = mix(start1, end1, tex); // (tex + start1) * (end1 - start1);
     Tex2 = (tex + start2) * (end2 - start2);
-    gl_Position = proj * view * model * vec4(pos.xy + posoffset, - (0.1 + depth), 1.);
+    gl_Position = proj * view * model * vec4(pos.xy, - (0.1 + depth), 1.);
 }

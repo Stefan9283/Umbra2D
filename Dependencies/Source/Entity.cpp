@@ -56,7 +56,7 @@ namespace Umbra2D {
         s->setMat4("model", &model);
         s->setInt("pixelateLevel", pixelateLevel);
         s->setFloat("depth", (const float)transform.layer);
-        lib->q->Draw();
+        lib->q->draw();
     }
 
     void Static::setTexture(std::string path) { // TODO
@@ -67,6 +67,6 @@ namespace Umbra2D {
         s->setMat4("model", &model);
         s->setInt("pixelateLevel", pixelateLevel);
         s->setFloat("depth", (const float)transform.layer);
-        lib->q->Draw();
+        lib->q->draw();
     }
 }

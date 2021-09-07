@@ -2,6 +2,8 @@
 
 #include "Common.h"
 
+constexpr auto MAX_LEN = 1024;
+
 namespace Umbra2D {
     class Loader {
     private:
@@ -22,7 +24,7 @@ namespace Umbra2D {
             glm::ivec2 gridSize;
             TextureInfo textureInfo;
 
-            std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>> animations;
+            std::vector<std::pair<std::string, std::vector<std::pair<int, float>>>> animations; // TODO SE: std::pair<std::string, std::vector<std::pair<int, float>>> -> Umbra2D::Animation
             std::vector<std::string> frameDescriptions;
 
             friend std::ostream& operator<<(std::ostream& os, const SpriteSheetInfo& spriteSheetInfo) {

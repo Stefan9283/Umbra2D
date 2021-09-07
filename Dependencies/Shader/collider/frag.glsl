@@ -1,19 +1,20 @@
 #version 330 core
 
-uniform vec4 color;
-
 uniform bool circle;
 uniform float radius;
+uniform vec4 color;
 
-out vec2 Tex;
-uniform vec2 posoffset;
+in vec2 Tex;
 
 void main() {
     if (circle) {
-        float l = length(posoffset - gl_FragPos);
-        if (l > radius)
-            gl_FragColor = vec4(0);    
-        else gl_FragColor = color; 
+        float l = length(vec2(0.5, 0.5) - Tex);
+        if (l > 0.5)
+            discard;
+        else if (l > 0.45)
+            gl_FragColor = vec4(vec3(0.3), 1) * color;
+        else
+            gl_FragColor = color;
     } else {
         gl_FragColor = color;
     }

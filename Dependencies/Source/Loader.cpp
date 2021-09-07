@@ -138,9 +138,9 @@ namespace Umbra2D {
         while (fin.getline(buffer, MAX_LEN)) {
             if (strstr(buffer, "Texture")) {
                 TextureInfo textureInfo;
-    
                 parseTexture(textureInfo);
-                lib->addTexture(textureInfo.path);
+
+                lib->addTexture(textureInfo.path, textureInfo.name);
             } else
                 break;
         }
@@ -150,9 +150,13 @@ namespace Umbra2D {
         while (fin.getline(buffer, MAX_LEN))
             if (strstr(buffer, "SpriteSheet")) {
                 SpriteSheetInfo spriteSheetInfo;
-    
+
                 parseSpriteSheet(fin, spriteSheetInfo);
-                lib->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize, spriteSheetInfo.noOfSprites);
+                lib->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize, spriteSheetInfo.noOfSprites, spriteSheetInfo.textureInfo.name);
+                /* TODO SE
+                 * add animations and frame descriptions
+                 */
+
             } else if (strlen(buffer) > 0)
                 break;
     }

@@ -35,7 +35,7 @@ namespace Umbra2D {
 
         glBindVertexArray(0);
     }
-    void Quad::Draw() {
+    void Quad::draw() {
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, (GLsizei)6, GL_UNSIGNED_INT, nullptr);
         glBindVertexArray(0);
