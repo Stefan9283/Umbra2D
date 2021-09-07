@@ -78,8 +78,8 @@ namespace Umbra2D::Assets {
     SpriteSheet::SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
         this->gridSize = gridSize;
         this->numOfSprites = numOfSprites;
-        tex = new Texture(pathToImage);
-        frameDescriptions.reserve(numOfSprites);
+        tex = new Texture(pathToImage, name);
+        frameDescriptions.resize(numOfSprites);
     }
     void SpriteSheet::gui() {
         this->tex->gui();
@@ -117,4 +117,15 @@ namespace Umbra2D::Assets {
         };
     }
 
+    std::vector<Animation> SpriteSheet::getAnimations() {
+        return animations;
+    }
+
+    std::vector<std::string> SpriteSheet::getFrameDescriptions() {
+        return frameDescriptions;
+    }
+
+    glm::vec3 SpriteSheet::getSize() {
+        return glm::vec3(numOfSprites, gridSize);
+    }
 }
