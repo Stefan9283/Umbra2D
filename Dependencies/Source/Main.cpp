@@ -122,23 +122,23 @@ int main()
 
 
 
-
-
-        if (w.wasKeyPressed(GLFW_KEY_ESCAPE))
-            break;
-        float unitsPerFrame = 5;
-        if (w.wasKeyPressed(GLFW_KEY_D))
-            c.MoveHorizontally(-unitsPerFrame);
-        if (w.wasKeyPressed(GLFW_KEY_A))
-            c.MoveHorizontally(unitsPerFrame);
-        if (w.wasKeyPressed(GLFW_KEY_W))
-            c.MoveVertically(unitsPerFrame);
-        if (w.wasKeyPressed(GLFW_KEY_S))
-            c.MoveVertically(-unitsPerFrame);
-        if (w.wasKeyPressed(GLFW_KEY_LEFT_CONTROL))
-            c.Zoom(0.01f);
-        if (w.wasKeyPressed(GLFW_KEY_LEFT_ALT))
-            c.Zoom(-0.01f);
+        if (!ImGui::IsWindowHovered()) {
+            if (w.wasKeyPressed(GLFW_KEY_ESCAPE))
+                break;
+            float unitsPerFrame = 5;
+            if (w.wasKeyPressed(GLFW_KEY_D))
+                c.MoveHorizontally(-unitsPerFrame);
+            if (w.wasKeyPressed(GLFW_KEY_A))
+                c.MoveHorizontally(unitsPerFrame);
+            if (w.wasKeyPressed(GLFW_KEY_W))
+                c.MoveVertically(unitsPerFrame);
+            if (w.wasKeyPressed(GLFW_KEY_S))
+                c.MoveVertically(-unitsPerFrame);
+            if (w.wasKeyPressed(GLFW_KEY_LEFT_CONTROL))
+                c.Zoom(0.01f);
+            if (w.wasKeyPressed(GLFW_KEY_LEFT_ALT))
+                c.Zoom(-0.01f);
+        }
         // code 
 
         w.endFrame();

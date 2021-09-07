@@ -7,6 +7,10 @@ long long unsigned int collidersCount = 0;
 extern Umbra2D::Shader* colliderShader;
 extern Umbra2D::AssetLibrary* lib;
 
+#define CIRCLE 0
+#define RECTANGLE 1
+#define LINE 2
+
 namespace Umbra2D::Colliders {
     bool Rectangle::checkCollision(Rectangle* c) {return false;}
     bool Rectangle::checkCollision(Circle* c) {return false;}
@@ -41,25 +45,25 @@ namespace Umbra2D::Colliders {
 
 
     void Rectangle::draw() {
+        colliderShader->setInt("shape", RECTANGLE);
+        colliderShader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         glm::mat4 model =
                 glm::translate(glm::mat4(1), glm::vec3(pos.x, pos.y, 0)) *
                 glm::scale(glm::mat4(1), glm::vec3(dimensions.x, dimensions.y, 1));
         colliderShader->setMat4("model", &model);
-        colliderShader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         lib->q->draw();
     }
     void Circle::draw() {
-        colliderShader->setBool("circle", true);
-        colliderShader->setFloat("radius", radius);
+        colliderShader->setInt("shape", CIRCLE);
         colliderShader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         glm::mat4 model =
                 glm::translate(glm::mat4(1), glm::vec3(pos.x, pos.y, 0)) *
                 glm::scale(glm::mat4(1), glm::vec3(radius, radius, 1));
         colliderShader->setMat4("model", &model);
         lib->q->draw();
-        colliderShader->setBool("circle", false);
     }
     void Line::draw() {
+        colliderShader->setInt("shape", LINE);
         colliderShader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         float halfLen = glm::length(this->pos + this->length * this->direction) / 2.;
 
@@ -93,7 +97,6 @@ namespace Umbra2D::Colliders {
         AbstractCollider::gui();
         ImGui::SliderFloat(("radius circle " + std::to_string(id)).c_str(), &radius, 0, 1000);
     }
-
     void Line::gui() {
         AbstractCollider::gui();
         float dir[]{direction.x, direction.y};
