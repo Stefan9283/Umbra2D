@@ -18,7 +18,7 @@
 Umbra2D::Engine* umbra;
 Umbra2D::Shader* colliderShader;
 
-int main() 
+int main()
 {
     umbra = new Umbra2D::Engine();
     umbra->loadProject();
@@ -80,8 +80,7 @@ int main()
         ImGui::DockSpace(ImGui::GetID("MainWindow"));
         {   // WRITE YOUR CODE INSIDE OF THESE BRACKETS
 
-
-
+            fe.showFileExplorer();
 
             // DRAG AND DROP
             {
@@ -135,8 +134,6 @@ int main()
 
             }
             // DRAG AND DROP END
-
-
 
 
             // THEME COLORS
@@ -280,6 +277,8 @@ int main()
     umbra->saveProject();
     delete umbra;
 
-    
+
+
+
     return 0;
-}
+}  

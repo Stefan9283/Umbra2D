@@ -7,18 +7,21 @@ option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_EXAMPLES OFF)
 option(GLFW_BUILD_TESTS OFF)
 
+option(ENABLE_EXTERNAL_LIBS ON)
+option(ENABLE_MPEG ON)
+
 add_subdirectory(Dependencies/Vendor/glfw)
 add_subdirectory(Dependencies/Vendor/glad)
 add_subdirectory(Dependencies/Vendor/ChaiScript)
 add_subdirectory(Dependencies/Vendor/freetype)
+add_subdirectory(Dependencies/Vendor/libsndfile)
 
-find_package( Threads )
 add_subdirectory(Dependencies/Vendor/portaudio)
 
 message(STATUS " ........... Setting fancy compilation flags ............")
 
 if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj /W3 /MDd /std:c++latest")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj /W4 /MDd /std:c++latest")
     add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
 	set (CMAKE_CXX_STANDARD 20)
 	set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/appicon.rc")
@@ -87,7 +90,9 @@ message(STATUS " .................. Linking everything ..................")
 target_link_libraries(
 	${PROJECT_NAME}
 		${GLFW_LIBRARIES} 
-		${GLAD_LIBRARIES} 
+		${GLAD_LIBRARIES}
+		sndfile
+		PortAudio
 		freetype
 		glfw)
 

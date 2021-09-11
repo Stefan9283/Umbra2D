@@ -4,7 +4,7 @@
 namespace Umbra2D::Assets {
 
     int Animation::getBestFrameInterval(float time) {
-        int index = 0;
+        size_t index = 0;
         float timeUntilNow = 0;
         for (auto const& frame : frames)
             if (frame.second + timeUntilNow > time)

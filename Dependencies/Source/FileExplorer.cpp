@@ -32,7 +32,7 @@ void Umbra2D::FileExplorer::getAllPaths(const std::string& path) {
 }
 
 std::string Umbra2D::FileExplorer::truncatePath(const std::string& path) {
-	for (int i = path.size(); i >= 0; i--)
+	for (size_t i = path.size(); i >= 0; i--)
 		if (path[i] == '/')
 			return std::string(path, i + 1);
 
@@ -42,7 +42,7 @@ std::string Umbra2D::FileExplorer::truncatePath(const std::string& path) {
 bool Umbra2D::FileExplorer::isATexture(const std::string& path) {
 	std::string extension;
 
-	for (int i = path.size(); i >= 0; i--)
+	for (size_t i = path.size(); i >= 0; i--)
 		if (path[i] == '.') {
 			extension = std::string(path, i + 1);
 			break;
