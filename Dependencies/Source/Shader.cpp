@@ -15,6 +15,9 @@ void Shader::setMat4(const std::string& name, const glm::mat4* mat, size_t how_m
     bind();
     glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), (GLsizei)how_many, GL_FALSE, (const GLfloat*)mat);
 }
+void Shader::setMat4(const std::string& name, const glm::mat4 mat) {
+    setMat4(name, &mat, 1);
+}
 void Shader::setVec2(const std::string& name, const glm::vec2 value) {
     bind();
     glUniform2f(glGetUniformLocation(id, name.c_str()), value.x, value.y);

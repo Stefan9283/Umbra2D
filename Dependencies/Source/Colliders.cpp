@@ -2,10 +2,11 @@
 #include "Shader.h"
 #include "AssetLibrary.h"
 #include "Quad.h"
+#include "Engine.h"
 
 long long unsigned int collidersCount = 0;
 extern Umbra2D::Shader* colliderShader;
-extern Umbra2D::AssetLibrary* lib;
+extern Umbra2D::Engine* umbra;
 
 #define CIRCLE 0
 #define RECTANGLE 1
@@ -51,7 +52,7 @@ namespace Umbra2D::Colliders {
                 glm::translate(glm::mat4(1), glm::vec3(pos.x, pos.y, 0)) *
                 glm::scale(glm::mat4(1), glm::vec3(dimensions.x, dimensions.y, 1));
         colliderShader->setMat4("model", &model);
-        lib->q->draw();
+        LIBRARY->q->draw();
     }
     void Circle::draw() {
         colliderShader->setInt("shape", CIRCLE);
@@ -60,7 +61,7 @@ namespace Umbra2D::Colliders {
                 glm::translate(glm::mat4(1), glm::vec3(pos.x, pos.y, 0)) *
                 glm::scale(glm::mat4(1), glm::vec3(radius, radius, 1));
         colliderShader->setMat4("model", &model);
-        lib->q->draw();
+        LIBRARY->q->draw();
     }
     void Line::draw() {
         colliderShader->setInt("shape", LINE);
@@ -77,7 +78,7 @@ namespace Umbra2D::Colliders {
                         glm::vec3(0, 0, 1)) *
                 glm::scale(glm::mat4(1), glm::vec3(thickness, halfLen, 1));
         colliderShader->setMat4("model", &model);
-        lib->q->draw();
+        LIBRARY->q->draw();
     }
 
     void AbstractCollider::gui() {

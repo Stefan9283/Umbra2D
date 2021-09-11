@@ -11,7 +11,7 @@ out vec2 Tex;
 
 void main() {
     Tex = tex;
-    gl_Position = proj * view * model[gl_InstanceID] * vec4(pos.xy, - (0.1 + depth[gl_InstanceID]), 1.);
+    gl_Position = proj * view * model[gl_InstanceID] * vec4(pos.xy, - 2 * (1 + depth[gl_InstanceID]), 1.);
 }
 
 

@@ -4,8 +4,9 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Quad.h"
+#include "Engine.h"
 
-extern Umbra2D::AssetLibrary* lib;
+extern Umbra2D::Engine* umbra;
 
 long long unsigned int entitiesCount = 0;
 
@@ -54,7 +55,7 @@ namespace Umbra2D {
         this->ss = ss;
     }
     void Dynamic::setSpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
-        ss = lib->spriteSheets[lib->addSpriteSheet(pathToImage, gridSize, numOfSprites, name)];
+        ss = LIBRARY->spriteSheets[LIBRARY->addSpriteSheet(pathToImage, gridSize, numOfSprites, name)];
     }
     void Dynamic::setAnimation(unsigned int animationID) {
         time = glfwGetTime();
@@ -86,11 +87,11 @@ namespace Umbra2D {
             } else {
                 s->setVec2("start", glm::vec2(0));
                 s->setVec2("end", glm::vec2(1));
-                s->setTexture("Texture", lib->defaultTexture->getID(), 0);
+                s->setTexture("Texture", LIBRARY->defaultTexture->getID(), 0);
             }
         } else {
             if (ss) {
-                float delta = glfwGetTime() - time;
+                float delta = (float)(glfwGetTime() - time);
                 delta *= animationSpeed;
                 ANIMATION anim = ss->getAnimation(animationPlaying);
                 auto closestIndex = anim.getBestFrameInterval(delta);
@@ -103,16 +104,16 @@ namespace Umbra2D {
             } else {
                 s->setVec2("start", glm::vec2(0));
                 s->setVec2("end", glm::vec2(1));
-                s->setTexture("Texture", lib->defaultTexture->getID(), 0);
+                s->setTexture("Texture", LIBRARY->defaultTexture->getID(), 0);
             }
         }
 
-        lib->q->draw();
+        LIBRARY->q->draw();
     }
 
 
     void Static::setTexture(std::string path, std::string name) {
-        t = lib->textures[lib->addTexture(path, name)];
+        t = LIBRARY->textures[LIBRARY->addTexture(path, name)];
     }
     void Static::setTexture(TEXTURE* tex) {
         this->t = tex;
@@ -132,9 +133,9 @@ namespace Umbra2D {
         if (t)
             s->setTexture("Texture", t->getID(), 0);
         else {
-            s->setTexture("Texture", lib->defaultTexture->getID(), 0);
+            s->setTexture("Texture", LIBRARY->defaultTexture->getID(), 0);
         }
 
-        lib->q->draw();
+        LIBRARY->q->draw();
     }
 }

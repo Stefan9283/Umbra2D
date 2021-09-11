@@ -10,9 +10,19 @@
 [submodule "Dependencies/Vendor/imgui"]
 	path = Dependencies/Vendor/imgui
 	url = https://github.com/ocornut/imgui
+	branch = docking
 [submodule "Dependencies/Vendor/stb"]
 	path = Dependencies/Vendor/stb
 	url = https://github.com/nothings/stb
 [submodule "Dependencies/Vendor/freetype"]
 	path = Dependencies/Vendor/freetype
 	url = https://github.com/freetype/freetype
+[submodule "Dependencies/Vendor/ChaiScript"]
+	path = Dependencies/Vendor/ChaiScript
+	url = https://github.com/ChaiScript/ChaiScript
+[submodule "Dependencies/Vendor/imgui-node-editor"]
+	path = Dependencies/Vendor/imgui-node-editor
+	url = https://github.com/thedmd/imgui-node-editor
+[submodule "Dependencies/Vendor/portaudio"]
+	path = Dependencies/Vendor/portaudio
+	url = https://github.com/PortAudio/portaudio

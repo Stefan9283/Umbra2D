@@ -10,6 +10,8 @@ void main() {
     vec2 coords = Tex;
     if (pixelateLevel != 0)
         coords = floor(Tex * pixelateLevel) / pixelateLevel;
-
-    gl_FragColor = texture(Texture, coords);
+    vec4 color = texture(Texture, coords);
+    if (color.a == 0)
+        discard;
+    gl_FragColor = color;
 }

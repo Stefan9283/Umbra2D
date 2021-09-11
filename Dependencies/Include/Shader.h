@@ -29,6 +29,7 @@ public:
 
     unsigned int getUniformID(const std::string& name);
     void setMat4(const std::string& name, const glm::mat4* mat, size_t how_many = 1);
+    void setMat4(const std::string& name, const glm::mat4 mat);
     void setVec4(const std::string& name, glm::vec4 vec);
     void setVec2(const std::string& name, const glm::vec2 value);
     void setVec3(const std::string& name, const glm::vec3 vec);

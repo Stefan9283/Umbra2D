@@ -1,8 +1,9 @@
 #include "Loader.h"
 #include "Texture.h"
 #include "AssetLibrary.h"
+#include "Engine.h"
 
-extern Umbra2D::AssetLibrary* lib;
+extern Umbra2D::Engine* umbra;
 
 namespace Umbra2D {
     void Loader::parseTexture(TextureInfo& textureInfo) {
@@ -141,7 +142,7 @@ namespace Umbra2D {
                 TextureInfo textureInfo;
 
                 parseTexture(textureInfo);
-                lib->addTexture(textureInfo.path, textureInfo.name);
+                LIBRARY->addTexture(textureInfo.path, textureInfo.name);
             } else
                 break;
         }
@@ -154,14 +155,14 @@ namespace Umbra2D {
                 unsigned int index;
 
                 parseSpriteSheet(fin, spriteSheetInfo);
-                index = lib->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize,
+                index = LIBRARY->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize,
                                             spriteSheetInfo.noOfSprites, spriteSheetInfo.textureInfo.name);
 
                 for (int i = 0; i < spriteSheetInfo.frameDescriptions.size(); i++)
-                    lib->spriteSheets[index]->addSpriteDescription(spriteSheetInfo.frameDescriptions[i], i);
+                    LIBRARY->spriteSheets[index]->addSpriteDescription(spriteSheetInfo.frameDescriptions[i], i);
 
                 for (ANIMATION& animation : spriteSheetInfo.animations)
-                    lib->spriteSheets[index]->addAnimation(animation);
+                    LIBRARY->spriteSheets[index]->addAnimation(animation);
             } else if (strlen(buffer) > 0)
                 break;
     }

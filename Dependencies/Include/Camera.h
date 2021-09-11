@@ -15,7 +15,7 @@ namespace Umbra2D {
         Umbra2D::Window* windowReference;
         glm::vec2 position{};
         glm::mat4 proj, view;
-        float nearZ = 0.01f, farZ = 100.f, scaleFactor = 1.f;
+        double nearZ = 0.f, farZ = 1001.f, scaleFactor = 1.f;
      public:
         Camera(Umbra2D::Window* window);
         

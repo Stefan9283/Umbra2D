@@ -1,8 +1,9 @@
 #include "Saver.h"
 #include "Texture.h"
 #include "AssetLibrary.h"
+#include "Engine.h"
 
-extern Umbra2D::AssetLibrary* lib;
+extern Umbra2D::Engine* umbra;
 
 void Umbra2D::Saver::saveTexture(std::ofstream& fout, TEXTURE* texture, int depth) {
 	for (int i = 0; i < depth; i++)
@@ -122,7 +123,7 @@ void Umbra2D::Saver::saveTextures(std::ofstream& fout, int depth) {
 
 	fout << "Textures[\n";
 
-	for (TEXTURE* texture : lib->textures)
+	for (TEXTURE* texture : LIBRARY->textures)
 		saveTexture(fout, texture, depth + 1);
 
 	for (int i = 0; i < depth; i++)
@@ -137,7 +138,7 @@ void Umbra2D::Saver::saveSpriteSheets(std::ofstream& fout, int depth) {
 
 	fout << "SpriteSheets[\n";
 
-	for (SPRITE_SHEET* spriteSheet : lib->spriteSheets)
+	for (SPRITE_SHEET* spriteSheet : LIBRARY->spriteSheets)
 		saveSpriteSheet(fout, spriteSheet, depth + 1);
 
 	for (int i = 0; i < depth; i++)

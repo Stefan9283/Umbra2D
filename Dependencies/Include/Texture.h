@@ -11,7 +11,7 @@ namespace Umbra2D::Assets {
         // (sprite index,    time until next sprite (ms))
         std::vector<std::pair<int, float>> frames;
 
-        // ((indices for the 2 sprites), bias term = value in [0, 1] that helps you tell which frame is the closest)
+        // returns the index of the closest left sprite
         int getBestFrameInterval(float time);
         float getTotalDuration();
     };
@@ -24,6 +24,7 @@ namespace Umbra2D::Assets {
     public:
         std::string name;
 
+        Texture(unsigned int id, glm::ivec2 resolution, std::string name);
         // if the second field is omitted by default the name of the texture will be the same as the path
         Texture(std::string path, std::string name = "");
         ~Texture();
@@ -47,6 +48,7 @@ namespace Umbra2D::Assets {
         Texture* tex;
 
         SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
+        ~SpriteSheet();
         void gui();
         
         void addSpriteDescription(std::string name, unsigned int index);

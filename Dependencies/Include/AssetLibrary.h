@@ -12,10 +12,12 @@
 namespace Umbra2D {
     class AssetLibrary {
         public:
-        std::vector<Umbra2D::Assets::Texture*> textures;
-        std::vector<Umbra2D::Assets::SpriteSheet*> spriteSheets;
+        std::vector<TEXTURE*> textures;
+        std::vector<SPRITE_SHEET*> spriteSheets;
 
-        Quad* q;
+        Umbra2D::Quad* q;
+        Umbra2D::DynamicQuad* dq;
+
         TEXTURE* defaultTexture;
 
         void gui();

@@ -14,7 +14,7 @@ namespace Umbra2D::Assets {
                 timeUntilNow += frame.second;
             }
 
-        index = std::min(index, (int)frames.size() - 1);
+        index = index ? frames.size() - 1 : index < frames.size() - 1;
 
         return frames[index].first;
     }
@@ -26,6 +26,12 @@ namespace Umbra2D::Assets {
     }
 
     // Texture
+    Texture::Texture(unsigned int id, glm::ivec2 resolution, std::string name) {
+        this->name = name;
+        this->id = id;
+        this->resolution = resolution;
+        this->path = "NONE";
+    }
     Texture::Texture(std::string path, std::string name) {
         auto r = loadFromFile(path);
         this->id = r.first;
@@ -36,9 +42,8 @@ namespace Umbra2D::Assets {
         else 
             this->name = path;
     }
-    Texture::~Texture() {
-        glDeleteTextures(1, (GLuint*)&this->id);
-    }
+    Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
+
     void Texture::gui() {
         ImGui::Text(
                 "name: %s\npath: %s\nresolution: %dx%d", name.c_str(), path.c_str(), resolution.x, resolution.y);
@@ -58,12 +63,15 @@ namespace Umbra2D::Assets {
         // ---------
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
-        // set the texture wrapping parameters
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
         // set texture filtering parameters
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        // set the texture wrapping parameters
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
         // load image, create texture and generate mipmaps
         int width, height, nrChannels;
         stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
@@ -106,6 +114,8 @@ namespace Umbra2D::Assets {
         tex = new Texture(pathToImage, name);
         frameDescriptions.resize(numOfSprites);
     }
+    SpriteSheet::~SpriteSheet() { delete tex; }
+
     void SpriteSheet::gui() {
         this->tex->gui();
         for (const auto& anim : animations) {

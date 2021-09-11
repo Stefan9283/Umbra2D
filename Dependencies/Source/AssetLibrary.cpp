@@ -7,6 +7,7 @@ namespace Umbra2D {
     AssetLibrary::AssetLibrary() {
         defaultTexture = new TEXTURE("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
         q = new Quad();
+        dq = new DynamicQuad();
     }
     AssetLibrary::~AssetLibrary() {
         for (auto* tex : textures)
@@ -14,6 +15,7 @@ namespace Umbra2D {
         for (auto spritesh : spriteSheets)
             delete spritesh;
         delete q;
+        delete dq;
         delete defaultTexture;
     }
 
@@ -39,7 +41,7 @@ namespace Umbra2D {
             if (ss->tex->getPath() == path)
                 return index;
         }
-        this->spriteSheets.push_back(new Umbra2D::Assets::SpriteSheet(path, gridSize, numSprites, name));
+        this->spriteSheets.push_back(new SPRITE_SHEET(path, gridSize, numSprites, name));
         return index;
     }
     unsigned int AssetLibrary::addTexture(std::string path, std::string name) {
@@ -48,7 +50,7 @@ namespace Umbra2D {
             if (tex->getPath() == path)
                 return index;
         }
-        this->textures.push_back(new Umbra2D::Assets::Texture(path, name));
+        this->textures.push_back(new TEXTURE(path, name));
         return index;
     }
 }

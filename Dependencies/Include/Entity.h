@@ -8,7 +8,7 @@ namespace Umbra2D {
     struct transform2D {
         glm::vec2 scale{1, 1}, translation{};
         glm::quat rotation = glm::quat(glm::vec3(0)); 
-        int layer = 1; // it can be any value in [1, 999]
+        int layer = 1; // it can be any value in [0, 1000]
         glm::mat4 toMat4();
         void gui(long long unsigned int id);
         // rotates around the Z axis
@@ -33,7 +33,7 @@ namespace Umbra2D {
     };
     class Dynamic : public Entity {
         public:
-        Umbra2D::Assets::SpriteSheet* ss = nullptr;
+        SPRITE_SHEET* ss = nullptr;
         int animationPlaying = -1;
         unsigned int currentSprite = 0;
         double time = 0;
@@ -50,7 +50,7 @@ namespace Umbra2D {
     };
     class Static : public Entity {
         public:
-        Umbra2D::Assets::Texture* t = nullptr;
+        TEXTURE* t = nullptr;
 
         void setTexture(std::string path, std::string name = "");
         void setTexture(TEXTURE* tex);

@@ -10,7 +10,7 @@ namespace Umbra2D {
     }
     void Camera::UpdateProjMatrix() {
         glm::vec<2, double> size = 0.5 * scaleFactor * windowReference->getSize();
-        proj = glm::ortho(- size.x, size.x, -size.y, size.y, 0.01, 999999.);
+        proj = glm::ortho(- size.x, size.x, -size.y, size.y, nearZ, farZ * 2);
     }
     void Camera::UpdateViewMatrix() {
         view = glm::translate(glm::mat4(1), glm::vec3(position.x, position.y, 0.f));
