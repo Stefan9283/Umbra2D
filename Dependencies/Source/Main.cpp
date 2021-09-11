@@ -11,6 +11,7 @@
 #include "Colliders.h"
 #include "Loader.h"
 #include "Saver.h"
+#include "FileExplorer.h"
 
 Umbra2D::AssetLibrary* lib;
 Umbra2D::Shader* colliderShader;
@@ -18,6 +19,8 @@ Umbra2D::Shader* colliderShader;
 int main() 
 {
     Umbra2D::Window w;
+
+    Umbra2D::FileExplorer fe;
 
     colliderShader = new Umbra2D::Shader("Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
     Umbra2D::Shader spriteShader("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
@@ -42,18 +45,19 @@ int main()
 
     auto* rectangle = new Umbra2D::Colliders::Rectangle(200, 100);
     auto* circle = new Umbra2D::Colliders::Circle(200);
-    auto* line = new Umbra2D::Colliders::Line(1, glm::vec2(1, 1));
+    auto* line = new Umbra2D::Colliders::Line(1, glm::vec2(-1, 0));
 
     while (!w.shouldClose()) {
         w.startFrame();
 
         // code 
-        lib->gui();
+        // lib->gui();
+        fe.showFileExplorer();
 
         // check out what this function does for more ImGui examples
-        ImGui::ShowDemoWindow(); 
+        // ImGui::ShowDemoWindow(); 
         
-        editorCamera.UpdateProjMatrix();
+        /*editorCamera.UpdateProjMatrix();
         glm::mat4 proj, view;
         proj = editorCamera.getProj();
         view = editorCamera.getView();
@@ -67,11 +71,11 @@ int main()
         if (ImGui::TreeNode("character")) {
             character.gui();
             ImGui::TreePop();
-        }
-        bg.draw(&spriteShader);
-        character.draw(&spriteShader);
+        }*/
+        // bg.draw(&spriteShader);
+        // character.draw(&spriteShader);
 
-        colliderShader->setMat4("view", &view);
+        /*colliderShader->setMat4("view", &view);
         colliderShader->setMat4("proj", &proj);
         colliderShader->setInt("depth", 999);
 
@@ -89,13 +93,13 @@ int main()
                 ImGui::TreePop();
             }
             ImGui::TreePop();
-        }
+        }*/
 //        circle->draw();
-//        line->draw();
+ //         line->draw();
 //        rectangle->draw();
 
 
-        if (!ImGui::IsWindowHovered()) {
+        /*if (!ImGui::IsWindowHovered()) {
             if (w.wasKeyPressed(GLFW_KEY_ESCAPE))
                 break;
             float unitsPerFrame = 5;
@@ -112,16 +116,16 @@ int main()
             if (w.wasKeyPressed(GLFW_KEY_LEFT_ALT))
                 editorCamera.Zoom(-0.01f);
         }
-        // code 
-
+        // code */
+        
         w.endFrame();
     }
 
-    Umbra2D::Saver saver("Projects/Saves.txt");
+    /*Umbra2D::Saver saver("Projects/Saves.txt");
     saver.saveSettings();
 
     delete colliderShader;
-    delete lib;
+    delete lib;*/
     
     return 0;
 }

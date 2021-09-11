@@ -33,10 +33,13 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 
 #define ANIMATION Umbra2D::Assets::Animation
 #define TEXTURE Umbra2D::Assets::Texture
 #define SPRITE_SHEET Umbra2D::Assets::SpriteSheet
+
+constexpr auto MAX_LEN = 1024;
 
 namespace Umbra2D {
     class AssetLibrary;
