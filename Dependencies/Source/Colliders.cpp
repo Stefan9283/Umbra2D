@@ -68,13 +68,10 @@ namespace Umbra2D::Colliders {
         colliderShader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         float halfLen = glm::length(this->pos + this->length * this->direction) / 2.f;
 
-        // TODO SE
-        //std::cout << (float)(1.5708 - atan2(direction.y,direction.x) - 3.1415 / 2.)
-        //   << " " << glm::acos(glm::dot(direction, glm::vec2(1, 0))) << "\n";
         glm::mat4 model =
                 glm::translate(glm::mat4(1), glm::vec3(pos.x, pos.y, 0)) *
                 glm::rotate(glm::mat4(1),
-                        (float)(atan2(direction.y,direction.x) - 1.5708), // same as atan2(1, 0)),
+                        (float)(atan2(direction.y, direction.x) - 3.1415 / 2.),
                         glm::vec3(0, 0, 1)) *
                 glm::scale(glm::mat4(1), glm::vec3(thickness, halfLen, 1));
         colliderShader->setMat4("model", &model);

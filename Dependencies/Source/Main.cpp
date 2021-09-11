@@ -13,6 +13,7 @@
 #include "Colliders.h"
 #include "Fonts.h"
 #include "FrameBuffer.h"
+#include "FileExplorer.h"
 
 Umbra2D::Engine* umbra;
 Umbra2D::Shader* colliderShader;
@@ -21,6 +22,8 @@ int main()
 {
     umbra = new Umbra2D::Engine();
     umbra->loadProject();
+
+    Umbra2D::FileExplorer fe;
 
     colliderShader = new Umbra2D::Shader("Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
     Umbra2D::Shader spriteShader("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
@@ -129,6 +132,7 @@ int main()
                     }
                 }
                 ImGui::End();
+
             }
             // DRAG AND DROP END
 
@@ -275,6 +279,7 @@ int main()
 
     umbra->saveProject();
     delete umbra;
+
     
     return 0;
 }

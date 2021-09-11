@@ -2,8 +2,6 @@
 
 #include "Common.h"
 
-constexpr auto MAX_LEN = 1024;
-
 namespace Umbra2D {
     class Loader {
     private:
@@ -12,11 +10,6 @@ namespace Umbra2D {
 
         struct TextureInfo {
             std::string name, path;
-
-            /*friend std::ostream& operator<<(std::ostream& os, const TextureInfo& textureInfo) {
-                os << textureInfo.name << " " << textureInfo.path << "\n";
-                return os;
-            }*/
         };
 
         struct SpriteSheetInfo {
@@ -26,24 +19,6 @@ namespace Umbra2D {
 
             std::vector<ANIMATION> animations;
             std::vector<std::string> frameDescriptions;
-
-            /*friend std::ostream& operator<<(std::ostream& os, const SpriteSheetInfo& spriteSheetInfo) {
-                os << spriteSheetInfo.noOfSprites << " " << spriteSheetInfo.textureInfo << "\n";
-                os << spriteSheetInfo.gridSize.x << " " << spriteSheetInfo.gridSize.y << "\n";
-
-                for (ANIMATION animation : spriteSheetInfo.animations) {
-                    os << animation.name << "\n";
-
-                    for (std::pair<int, float>& keyFrame : animation.frames)
-                        os << keyFrame.first << ", " << keyFrame.second << "\n";
-                }
-
-                for (std::string frameDescription : spriteSheetInfo.frameDescriptions)
-                    os << frameDescription << " ";
-
-                os << "\n";
-                return os;
-            }*/
         };
 
         void parseTexture(TextureInfo& textureInfo);

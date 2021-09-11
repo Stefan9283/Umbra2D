@@ -57,8 +57,7 @@
 #include <map>
 #include <unordered_map>
 #include <filesystem>
-
-#pragma endregion
+#include <unordered_set>
 
 #define ANIMATION Umbra2D::Assets::Animation
 #define TEXTURE Umbra2D::Assets::Texture
@@ -66,6 +65,8 @@
 
 #define WINDOW umbra->getWindow()
 #define LIBRARY umbra->getLibrary()
+
+constexpr auto MAX_LEN = 1024;
 
 namespace Umbra2D {
     class Engine;
