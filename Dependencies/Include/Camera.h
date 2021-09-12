@@ -15,10 +15,13 @@ namespace Umbra2D {
         Umbra2D::Window* windowReference;
         glm::vec2 position{};
         glm::mat4 proj, view;
-        double nearZ = 0.f, farZ = 1001.f, scaleFactor = 1.f;
+        float nearZ = 0.f, farZ = 1001.f, scaleFactor = 1.f;
      public:
         Camera(Umbra2D::Window* window);
-        
+
+        void gui();
+
+
         void UpdateProjMatrix();
         void UpdateViewMatrix();
         
@@ -28,5 +31,8 @@ namespace Umbra2D {
         void MoveVertically(float units);
         void MoveHorizontally(float units);
         void Zoom(float zoom);
+
+        // norm - normalized coords in the viewport space
+        glm::vec2 getWorldCoords(glm::vec2 norm);
     };
 } 

@@ -103,7 +103,7 @@ namespace Umbra2D {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    glm::vec<2, double> Window::getSize() {
+    glm::vec2 Window::getSize() {
         int w, h;
         glfwGetWindowSize(window, &w, &h);
         return {w, h};

@@ -55,6 +55,7 @@ int main()
     std::vector<int> numbers2{4, 5};
 
     Umbra2D::FrameBuffer frbuf(GL_RGBA, {1920, 1080});
+    frbuf.unbind();
 
     ImGui::GetIO().ConfigWindowsResizeFromEdges = true;
 
@@ -70,6 +71,7 @@ int main()
                     | ImGuiWindowFlags_NoResize
                     | ImGuiWindowFlags_NoTitleBar
                     | ImGuiWindowFlags_MenuBar
+                    | ImGuiWindowFlags_NoBackground
                     | ImGuiWindowFlags_NoBringToFrontOnFocus;
 
         const ImGuiViewport *viewport = ImGui::GetMainViewport();
@@ -161,12 +163,8 @@ int main()
 
 
 
-
-
             // check out what this function does for more ImGui examples
             ImGui::ShowDemoWindow();
-
-
 
 
             if(ImGui::Begin("Utils")) {
@@ -200,16 +198,17 @@ int main()
                     ImGui::TreePop();
                 }
                 ImGui::InputText("Rendered Text ", &renderedString);
+
+                editorCamera.gui();
             }
             ImGui::End();
-
 
 
             // ACTUAL RENDERING TO FRAMEBUFFER
             frbuf.bind();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            editorCamera.UpdateProjMatrix();
+//            editorCamera.UpdateProjMatrix();
             glm::mat4
                     proj = editorCamera.getProj(),
                     view = editorCamera.getView();
@@ -236,21 +235,56 @@ int main()
 
             frbuf.unbind();
 
-
             // DRAW GAME FRAMEBUFFER AS IMGUI TEXTURE
-            if (ImGui::Begin("Game")) {
-//                ImVec2 vMin = ImGui::GetWindowContentRegionMin();
-//                ImVec2 vMax = ImGui::GetWindowContentRegionMax();
+            if (ImGui::Begin("Game", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
                 ImVec2 last_tooltip_size = ImGui::GetWindowSize();
-                Umbra2D::Gui::showTexture(frbuf.getTexture(), glm::vec2(last_tooltip_size.x - 2, last_tooltip_size.y - 37));
+//                auto size = ImVec2(frbuf.getTexture()->getResolution().x, frbuf.getTexture()->getResolution().y);
+//                ImGui::SetCursorPos((ImGui::GetContentRegionAvail() - size) * 0.5f + ImGui::GetWindowSize() - ImGui::GetContentRegionAvail());
+
+                auto targetResolution = glm::vec2(last_tooltip_size.x, last_tooltip_size.y);
+                glm::vec2 resolution = frbuf.getTexture()->getResolution();
+
+                float ratio = resolution.x / resolution.y;
+
+                glm::vec2 mostICanDo;
+
+                mostICanDo.x = ratio * targetResolution.y;
+                mostICanDo.y = targetResolution.x / ratio;
+
+                glm::vec2 newResolution;
+
+                if (mostICanDo.x < targetResolution.x) {
+                    newResolution = glm::vec2(mostICanDo.x, targetResolution.y);
+                } else {
+                    newResolution = glm::vec2(targetResolution.x, mostICanDo.y);
+                }
+
+                ImVec2 pos = ImGui::GetCursorScreenPos();
+                Umbra2D::Gui::showTexture(frbuf.getTexture(), targetResolution);
+                ImVec2 pos2 = ImGui::GetCursorScreenPos();
+
+                if (ImGui::IsItemHovered()) {
+                    ImGui::BeginTooltip();
+                    ImGuiIO& io = ImGui::GetIO();
+                    auto posOnViewPort = glm::vec2(io.MousePos.x - pos.x, pos2.y - io.MousePos.y - ImGui::GetStyle().ItemSpacing.y);
+                    ImGui::Text("Coords %f, %f", posOnViewPort.x, posOnViewPort.y);
+                    ImGui::Text("Resolution %f, %f", newResolution.x, newResolution.y);
+
+                    auto normalizedCoords = (2.f * posOnViewPort - newResolution) / newResolution;
+
+                    ImGui::Text("Coords in [-1, 1] %f, %f", normalizedCoords.x, normalizedCoords.y);
+                    auto worldCoords = editorCamera.getWorldCoords(normalizedCoords);
+                    ImGui::Text("World Coordinates %f, %f", worldCoords.x, worldCoords.y);
+                    ImGui::EndTooltip();
+                }
             }
             ImGui::End();
-
 
             // CAMERA INPUTS VIA WINDOW INSTANCE
             if (WINDOW->wasKeyPressed(GLFW_KEY_ESCAPE))
                 break;
-            if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_RootAndChildWindows)) {
+//            if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_RootAndChildWindows))
+            {
                 float unitsPerFrame = 5;
                 if (WINDOW->wasKeyPressed(GLFW_KEY_D))
                     editorCamera.MoveHorizontally(-unitsPerFrame);

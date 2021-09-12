@@ -122,7 +122,7 @@ namespace Umbra2D::Assets {
             if (ImGui::TreeNode(anim.name.c_str())) {
                 for (auto sprite : anim.frames) {
                     auto corners = getSpriteCell(sprite.first);
-                    Umbra2D::Gui::showTexture(tex, corners.first, corners.second);
+                    Umbra2D::Gui::showTexture(tex, glm::vec2(100), corners.first, corners.second);
                     ImGui::Text("FrameName: %s\nFrameID: %d\nTimeUntilNextFrame: %f\n",
                             frameDescriptions[sprite.first].c_str(), sprite.first, sprite.second);
                 }

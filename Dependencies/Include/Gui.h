@@ -16,6 +16,7 @@
 namespace Umbra2D::Gui {
     void HelpMarker(const char* desc);
     // draw texture in ImGui context
+
     void showTexture(TEXTURE* texture, glm::vec2 targetResolution = glm::vec3(100), glm::vec2 start = glm::vec2(0), glm::vec2 end = glm::vec2(1));
 
     // TODO
