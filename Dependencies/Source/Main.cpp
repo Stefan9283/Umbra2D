@@ -164,7 +164,7 @@ int main()
 
 
             // check out what this function does for more ImGui examples
-            ImGui::ShowDemoWindow();
+            //ImGui::ShowDemoWindow();
 
 
 
@@ -239,13 +239,27 @@ int main()
 
             // DRAW GAME FRAMEBUFFER AS IMGUI TEXTURE
             if (ImGui::Begin("Game")) {
-//                ImVec2 vMin = ImGui::GetWindowContentRegionMin();
-//                ImVec2 vMax = ImGui::GetWindowContentRegionMax();
-                ImVec2 last_tooltip_size = ImGui::GetWindowSize();
-                Umbra2D::Gui::showTexture(frbuf.getTexture(), glm::vec2(last_tooltip_size.x - 2, last_tooltip_size.y - 37));
-            }
-            ImGui::End();
+                ImVec2 windowSize = ImGui::GetWindowSize();
+                glm::vec2 resolution = (glm::vec2)frbuf.getTexture()->getResolution();
 
+                float ratio = resolution.x / resolution.y;
+                glm::vec2 mostICanDo;
+
+                mostICanDo.x = ratio * windowSize.y;
+                mostICanDo.y = windowSize.x / ratio;
+
+                glm::vec2 newResolution;
+
+                if (mostICanDo.x < windowSize.x)
+                    newResolution = glm::vec2(mostICanDo.x, windowSize.y);
+                else
+                    newResolution = glm::vec2(windowSize.x, mostICanDo.y);
+
+                ImGui::SetCursorPos(ImVec2((windowSize.x - newResolution.x) / 2, (windowSize.y - newResolution.y) / 2));
+                Umbra2D::Gui::showTexture(frbuf.getTexture(), glm::vec2(windowSize.x, windowSize.y));
+            }
+
+            ImGui::End();
 
             // CAMERA INPUTS VIA WINDOW INSTANCE
             if (WINDOW->wasKeyPressed(GLFW_KEY_ESCAPE))
