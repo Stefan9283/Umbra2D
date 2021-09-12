@@ -110,13 +110,31 @@ void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& grid
 			for (const auto& pair : paths) {
 				ImGui::TableSetColumnIndex(i);
 
-				if (isATexture(pair.first))
+				if (isATexture(pair.first)) {
 					Umbra2D::Gui::showTexture(textures[truncatePath(pair.first)], fileSize);
-				else
-					Umbra2D::Gui::showTexture(icons[pair.second], fileSize);
+					ImGui::SameLine();
+					ImGui::Selectable(truncatePath(pair.first).c_str());
 
-				ImGui::SameLine();
-				ImGui::Text(truncatePath(pair.first).c_str());
+					// Drag and drop for textures
+					if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+						char buffer[MAX_LEN]{};
+
+						strcpy(buffer, pair.first.c_str());
+						ImGui::SetDragDropPayload("TEXTURE", &buffer, strlen(buffer) * sizeof(char));
+						ImGui::EndDragDropSource();
+					}
+
+					if (ImGui::BeginDragDropTarget()) {
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("TEXTURE"))
+							std::cout << (char*)payload->Data << "\n";
+
+						ImGui::EndDragDropTarget();
+					}
+				} else {
+					Umbra2D::Gui::showTexture(icons[pair.second], fileSize);
+					ImGui::SameLine();
+					ImGui::Text(truncatePath(pair.first).c_str());
+				}
 
 				if (i + 1 < gridSize)
 					i++;
@@ -151,10 +169,12 @@ Umbra2D::FileExplorer::~FileExplorer() {
 		delete it.second;
 }
 
-void Umbra2D::FileExplorer::showFileExplorer(const glm::vec2& size) {
+void Umbra2D::FileExplorer::showFileExplorer(const glm::vec2& windowSize, const glm::vec2& fileSize,
+										     const float& fontSize, const int& gridSize) {
 	ImGui::Begin("FileExplorer");
-	ImGui::SetWindowSize(ImVec2(size.x, size.y));
+	ImGui::SetWindowFontScale(fontSize);
+	ImGui::SetWindowSize(ImVec2(windowSize.x, windowSize.y));
 	showChoiceList();
-	showFiles({25, 25}, 3);
+	showFiles(fileSize, gridSize);
 	ImGui::End();
 }

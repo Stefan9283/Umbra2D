@@ -31,6 +31,9 @@ namespace Umbra2D {
 
 		~FileExplorer();
 
-		void showFileExplorer(const glm::vec2& size = {750, 500});
+		void showFileExplorer(const glm::vec2& windowSize = {750, 500},
+							  const glm::vec2& fileSize = {20, 20},
+							  const float& fontSize = 1,
+							  const int& gridSize = 3);
 	};
 }

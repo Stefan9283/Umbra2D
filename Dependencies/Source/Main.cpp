@@ -79,12 +79,10 @@ int main()
         ImGui::Begin("RootWindow", (bool*)use_work_area, rootFlags);
         ImGui::DockSpace(ImGui::GetID("MainWindow"));
         {   // WRITE YOUR CODE INSIDE OF THESE BRACKETS
-
-
-
+            fe.showFileExplorer();
 
             // DRAG AND DROP
-            {
+           /* {
                 if (ImGui::Begin("Drag-N-Drop 1")) {
                     if (ImGui::BeginDragDropTarget()) {
                         if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("NUMAR_MISTO")) {
@@ -133,14 +131,14 @@ int main()
                 }
                 ImGui::End();
 
-            }
+            }*/
             // DRAG AND DROP END
 
 
 
 
             // THEME COLORS
-            if(ImGui::Begin("Color")) {
+            /*if(ImGui::Begin("Color")) {
                 ImGuiStyle& style = ImGui::GetStyle();
 
                 static ImGuiColorEditFlags alpha_flags = 0;
@@ -161,19 +159,19 @@ int main()
                     ImGui::ColorEdit4((name + std::to_string(i)).c_str(), (float*)&style.Colors[i], ImGuiColorEditFlags_AlphaBar | alpha_flags);
                 }
             }
-            ImGui::End();
+            ImGui::End();*/
 
 
 
 
 
             // check out what this function does for more ImGui examples
-            ImGui::ShowDemoWindow();
+            // ImGui::ShowDemoWindow();
 
 
 
 
-            if(ImGui::Begin("Utils")) {
+            /*if(ImGui::Begin("Utils")) {
                 LIBRARY->gui();
 
                 // ENTITIES
@@ -205,7 +203,7 @@ int main()
                 }
                 ImGui::InputText("Rendered Text ", &renderedString);
             }
-            ImGui::End();
+            ImGui::End();*/
 
 
 
@@ -242,13 +240,13 @@ int main()
 
 
             // DRAW GAME FRAMEBUFFER AS IMGUI TEXTURE
-            if (ImGui::Begin("Game")) {
+            /*if (ImGui::Begin("Game")) {
 //                ImVec2 vMin = ImGui::GetWindowContentRegionMin();
 //                ImVec2 vMax = ImGui::GetWindowContentRegionMax();
                 ImVec2 last_tooltip_size = ImGui::GetWindowSize();
                 Umbra2D::Gui::showTexture(frbuf.getTexture(), glm::vec2(last_tooltip_size.x - 2, last_tooltip_size.y - 37));
             }
-            ImGui::End();
+            ImGui::End();*/
 
 
             // CAMERA INPUTS VIA WINDOW INSTANCE
