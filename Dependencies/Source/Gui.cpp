@@ -14,8 +14,7 @@ namespace Umbra2D::Gui {
         }
     }
 
-    void showTexture(TEXTURE* texture, glm::vec2 targetResolution, glm::vec2 start, glm::vec2 end) {
-
+ void showTexture(TEXTURE* texture, glm::vec2 targetResolution, glm::vec2 start, glm::vec2 end) {
         ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);   // No tint
         ImVec4 border_col = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
         auto my_tex_id = (ImTextureID)texture->getID();

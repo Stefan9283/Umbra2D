@@ -164,7 +164,7 @@ int main()
 
 
             // check out what this function does for more ImGui examples
-            ImGui::ShowDemoWindow();
+            //ImGui::ShowDemoWindow();
 
 
             if(ImGui::Begin("Utils")) {
@@ -237,11 +237,9 @@ int main()
 
             // DRAW GAME FRAMEBUFFER AS IMGUI TEXTURE
             if (ImGui::Begin("Game", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
-                ImVec2 last_tooltip_size = ImGui::GetWindowSize();
-//                auto size = ImVec2(frbuf.getTexture()->getResolution().x, frbuf.getTexture()->getResolution().y);
-//                ImGui::SetCursorPos((ImGui::GetContentRegionAvail() - size) * 0.5f + ImGui::GetWindowSize() - ImGui::GetContentRegionAvail());
+                ImVec2 windowSize = ImGui::GetWindowSize();
 
-                auto targetResolution = glm::vec2(last_tooltip_size.x, last_tooltip_size.y);
+                auto targetResolution = glm::vec2(windowSize.x, windowSize.y);
                 glm::vec2 resolution = frbuf.getTexture()->getResolution();
 
                 float ratio = resolution.x / resolution.y;
@@ -260,6 +258,7 @@ int main()
                 }
 
                 ImVec2 pos = ImGui::GetCursorScreenPos();
+                ImGui::SetCursorPos(ImVec2((windowSize.x - newResolution.x) / 2, (windowSize.y - newResolution.y) / 2));
                 Umbra2D::Gui::showTexture(frbuf.getTexture(), targetResolution);
                 ImVec2 pos2 = ImGui::GetCursorScreenPos();
 
