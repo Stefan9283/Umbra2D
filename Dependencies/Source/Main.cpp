@@ -79,7 +79,6 @@ int main()
         ImGui::Begin("RootWindow", (bool*)use_work_area, rootFlags);
         ImGui::DockSpace(ImGui::GetID("MainWindow"));
         {   // WRITE YOUR CODE INSIDE OF THESE BRACKETS
-
             fe.showFileExplorer();
 
             // DRAG AND DROP
