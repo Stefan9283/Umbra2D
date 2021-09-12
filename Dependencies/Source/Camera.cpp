@@ -41,6 +41,6 @@ namespace Umbra2D {
     }
     glm::vec2 Camera::getWorldCoords(glm::vec2 norm) {
         glm::vec2 size = 0.5f * scaleFactor * windowReference->getSize();
-        return - position + norm * size;
+        return position + norm * size;
     }
 }
