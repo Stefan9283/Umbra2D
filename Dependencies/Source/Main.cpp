@@ -164,7 +164,7 @@ int main()
 
 
             // check out what this function does for more ImGui examples
-            //ImGui::ShowDemoWindow();
+            ImGui::ShowDemoWindow();
 
 
             if(ImGui::Begin("Utils")) {

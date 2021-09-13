@@ -45,8 +45,9 @@ namespace Umbra2D::Assets {
     Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
 
     void Texture::gui() {
+        ImGui::InputText("name", &name);
         ImGui::Text(
-                "name: %s\npath: %s\nresolution: %dx%d", name.c_str(), path.c_str(), resolution.x, resolution.y);
+                "path: %s\nresolution: %dx%d", path.c_str(), resolution.x, resolution.y);
         Umbra2D::Gui::showTexture(this);
     }
 

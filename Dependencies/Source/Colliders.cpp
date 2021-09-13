@@ -79,17 +79,11 @@ namespace Umbra2D::Colliders {
     }
 
     void AbstractCollider::gui() {
-        float p[]{pos.x, pos.y};
-        if (ImGui::SliderFloat2(("position col " + std::to_string(id)).c_str(), p, -100000, 100000)) {
-            pos = glm::vec2(p[0], p[1]);
-        }
+        ImGui::SliderFloat2(("position col " + std::to_string(id)).c_str(), (float*)&pos, -100000, 100000);
     }
     void Rectangle::gui() {
         AbstractCollider::gui();
-        float dim[]{dimensions.x, dimensions.y};
-        if (ImGui::SliderFloat2(("height/width rectangle " + std::to_string(id)).c_str(), dim, 0, 10000)) {
-            dimensions = glm::vec2(dim[0], dim[1]);
-        }
+        ImGui::SliderFloat2(("height/width rectangle " + std::to_string(id)).c_str(), (float*)&dimensions, 0, 10000);
     }
     void Circle::gui() {
         AbstractCollider::gui();
@@ -97,12 +91,9 @@ namespace Umbra2D::Colliders {
     }
     void Line::gui() {
         AbstractCollider::gui();
-        float dir[]{direction.x, direction.y};
-        if (ImGui::SliderFloat2(("direction line " + std::to_string(id)).c_str(), dir, -1, 1)) {
-            direction = glm::normalize(glm::vec2(dir[0], dir[1]));
-        }
+        if (ImGui::SliderFloat2(("direction line " + std::to_string(id)).c_str(), (float*)&direction, -1, 1))
+            direction = glm::normalize(direction);
         ImGui::SliderFloat(("Thickness "+ std::to_string(id)).c_str(), &thickness, 1, 100);
-
         ImGui::SliderFloat(("length line " + std::to_string(id)).c_str(), &length, 0.f, 1000.f);
     }
 }
