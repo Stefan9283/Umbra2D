@@ -131,7 +131,7 @@ void Umbra2D::FileExplorer::showChoiceList() {
 
 void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& gridSize) {
 	if (paths.size()) {
-		int i = 0, no = 0;
+		int i = 0, id = 0;
 
 		std::sort(paths.begin(), paths.end(), [&](const auto& pair1, const auto& pair2) {
 			return truncatePath(pair1.second).compare(truncatePath(pair2.second)) < 0;
@@ -148,26 +148,19 @@ void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& grid
 					ImGui::SameLine();
 					ImGui::Selectable(truncatePath(pair.second).c_str());
 				} else if (pair.first == EmptyFolder || pair.first == Folder) {
-					ImVec4 black = ImVec4(0, 0, 0, 0);
-
-					ImGui::PushStyleColor(ImGuiCol_Button, black);
-					ImGui::PushID(no);
+					ImGui::PushID(id);
+					ImGui::PushStyleColor(ImGuiCol_Button, {0, 0, 0, 0});
 
 					if (ImGui::ImageButton((ImTextureID)icons[enumToString(pair.first)]->getID(),
-						ImVec2(fileSize.x, fileSize.y), ImVec2(0, 1), ImVec2(1, 0),
-						0, black, ImVec4(1.0f, 1.0f, 1.0f, 1.0f))) {
+										   {fileSize.x, fileSize.y}, {0, 1}, {1, 0}, 0, {0, 0, 0, 0}, {1, 1, 1, 1}))
 						buffer = pair.second;
-						ImGui::PopID();
-						ImGui::PopStyleColor();
-						ImGui::EndTable();
-						return;
-					}
+					else
+						id++;
 
-					no++;
-					ImGui::PopID();
 					ImGui::PopStyleColor();
-					ImGui::SameLine();
-					ImGui::PushStyleColor(ImGuiCol_Button, black);
+					ImGui::PopID();
+					ImGui::SameLine(0, 5);
+					ImGui::PushStyleColor(ImGuiCol_Button, {0, 0, 0, 0});
 
 					if (ImGui::Button(truncatePath(pair.second).c_str())) {
 						buffer = pair.second;
