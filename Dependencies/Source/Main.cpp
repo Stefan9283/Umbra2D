@@ -161,11 +161,8 @@ int main()
             }
             ImGui::End();*/
 
-
-
             // check out what this function does for more ImGui examples
             ImGui::ShowDemoWindow();
-
 
             /*if(ImGui::Begin("Utils")) {
                 LIBRARY->gui();

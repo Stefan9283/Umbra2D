@@ -17,11 +17,7 @@ std::string Umbra2D::FileExplorer::formatPath(const std::string& path) {
 }
 
 std::string Umbra2D::FileExplorer::truncatePath(const std::string& path) {
-	for (int i = path.size(); i >= 0; i--)
-		if (path[i] == '/')
-			return std::string(path, i + 1);
-
-	return std::string();
+	return std::string(path.substr(path.find_last_of('/') + 1));
 }
 
 void Umbra2D::FileExplorer::getAllPaths(const std::string& path) {
@@ -39,7 +35,7 @@ std::vector<std::string> Umbra2D::FileExplorer::getAllSubpaths(std::string path)
 
 	for (int i = 0; i < path.size(); i++)
 		if (path[i] == '/') {
-			if (subpaths.size())
+			if (!subpaths.empty())
 				subpaths.push_back(subpaths.back() + "/" + std::string(path.begin() + prev, path.begin() + i));
 			else
 				subpaths.push_back(std::string(path.begin() + prev, path.begin() + i));
@@ -130,7 +126,7 @@ void Umbra2D::FileExplorer::showChoiceList() {
 }
 
 void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& gridSize) {
-	if (paths.size()) {
+	if (!paths.empty()) {
 		int i = 0, id = 0;
 
 		std::sort(paths.begin(), paths.end(), [&](const auto& pair1, const auto& pair2) {
@@ -251,6 +247,26 @@ void Umbra2D::FileExplorer::showChoiceListAndFiles(const glm::vec2& fileSize, co
 	} else {
 		ImGui::SameLine();
 		ImGui::Text("Current directory");
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, {0, 0, 0, 0});
+
+		if (ImGui::BeginListBox("##possibleFiles", {size.x + 17, size.y * 10})) {
+			ImGui::PopStyleColor();
+
+			std::string basePath = buffer.substr(0, buffer.find_last_of('/'));
+			
+			if (std::filesystem::exists(basePath)) {
+				getAllPaths(basePath);
+
+				for (const auto& path : paths)
+					if ((path.first == EmptyFolder || path.first == Folder) && path.second.starts_with(buffer))
+						ImGui::Text(truncatePath(path.second).c_str());
+			}
+
+			ImGui::EndListBox();
+			return;
+		}
+
+		ImGui::PopStyleColor();
 	}
 }
 

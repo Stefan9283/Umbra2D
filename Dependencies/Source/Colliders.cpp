@@ -20,7 +20,7 @@ namespace Umbra2D::Colliders {
         glm::vec2 leftSideDownSide2 = c->pos - c->dimensions / 2.f;
 
         return (rightSideUpSide1.x >= leftSideDownSide2.x && leftSideDownSide1.x <= rightSideUpSide2.x) &&
-            (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
+               (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
     }
     bool Rectangle::checkCollision(Circle* c) {
         glm::vec2 rightSideUpSide1 = this->pos + this->dimensions / 2.f;
@@ -29,7 +29,7 @@ namespace Umbra2D::Colliders {
         glm::vec2 leftSideDownSide2 = c->pos - c->radius / 2.f;
 
         return (rightSideUpSide1.x >= leftSideDownSide2.x && leftSideDownSide1.x <= rightSideUpSide2.x) &&
-            (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
+               (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
     }
     bool Rectangle::checkCollision(Line* c) {return false;}
 
@@ -40,7 +40,7 @@ namespace Umbra2D::Colliders {
         glm::vec2 leftSideDownSide2 = c->pos - c->dimensions / 2.f;
 
         return (rightSideUpSide1.x >= leftSideDownSide2.x && leftSideDownSide1.x <= rightSideUpSide2.x) &&
-            (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
+               (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
     }
     bool Circle::checkCollision(Circle* c) {
         return this->radius + c->radius >= glm::length(this->pos - c->pos);
@@ -69,7 +69,6 @@ namespace Umbra2D::Colliders {
         this->direction = direction;
         this->pos = origin;
     }
-
 
     void Rectangle::draw() {
         colliderShader->setInt("shape", RECTANGLE);
