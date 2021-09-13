@@ -130,7 +130,6 @@ namespace Umbra2D::Assets {
                 ImGui::TreePop();
             }
         }
-
     }
 
     void SpriteSheet::addSpriteDescription(std::string name, unsigned int index) {

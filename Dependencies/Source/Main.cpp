@@ -84,7 +84,7 @@ int main()
             fe.showFileExplorer();
 
             // DRAG AND DROP
-            {
+            /*{
                 if (ImGui::Begin("Drag-N-Drop 1")) {
                     if (ImGui::BeginDragDropTarget()) {
                         if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("NUMAR_MISTO")) {
@@ -133,12 +133,12 @@ int main()
                 }
                 ImGui::End();
 
-            }
+            }*/
             // DRAG AND DROP END
 
 
             // THEME COLORS
-            if(ImGui::Begin("Color")) {
+            /*if(ImGui::Begin("Color")) {
                 ImGuiStyle& style = ImGui::GetStyle();
 
                 static ImGuiColorEditFlags alpha_flags = 0;
@@ -159,7 +159,7 @@ int main()
                     ImGui::ColorEdit4((name + std::to_string(i)).c_str(), (float*)&style.Colors[i], ImGuiColorEditFlags_AlphaBar | alpha_flags);
                 }
             }
-            ImGui::End();
+            ImGui::End();*/
 
 
 
@@ -167,7 +167,7 @@ int main()
             ImGui::ShowDemoWindow();
 
 
-            if(ImGui::Begin("Utils")) {
+            /*if(ImGui::Begin("Utils")) {
                 LIBRARY->gui();
 
                 // ENTITIES
@@ -201,7 +201,7 @@ int main()
 
                 editorCamera.gui();
             }
-            ImGui::End();
+            ImGui::End();*/
 
 
             // ACTUAL RENDERING TO FRAMEBUFFER
@@ -236,7 +236,7 @@ int main()
             frbuf.unbind();
 
             // DRAW GAME FRAMEBUFFER AS IMGUI TEXTURE
-            if (ImGui::Begin("Game", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
+            /*if (ImGui::Begin("Game", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
                 ImVec2 windowSize = ImGui::GetWindowSize();
 
                 auto targetResolution = glm::vec2(windowSize.x, windowSize.y);
@@ -277,7 +277,7 @@ int main()
                     ImGui::EndTooltip();
                 }
             }
-            ImGui::End();
+            ImGui::End();*/
 
             // CAMERA INPUTS VIA WINDOW INSTANCE
             if (WINDOW->wasKeyPressed(GLFW_KEY_ESCAPE))
