@@ -7,6 +7,8 @@ namespace Umbra2D {
 	private:
 		enum FileType{EmptyFolder, Folder, File, Texture, Audio, Script};
 
+		std::string buffer;
+
 		std::vector<std::string> currentDirectory;
 		std::vector<std::pair<FileType, std::string>> paths;
 
@@ -23,6 +25,8 @@ namespace Umbra2D {
 
 		void getAllPaths(const std::string& path);
 
+		std::vector<std::string> getAllSubpaths(std::string path);
+
 		std::string enumToString(FileType fileType);
 
 		FileType getFileType(const std::string& path);
@@ -32,6 +36,8 @@ namespace Umbra2D {
 		void showChoiceList();
 
 		void showFiles(const glm::vec2& fileSize, const int& gridSize);
+
+		void showChoiceListAndFiles(const glm::vec2& fileSize, const int& gridSize);
 
 	public:
 		FileExplorer(std::string path = ".");

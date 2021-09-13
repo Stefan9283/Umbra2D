@@ -31,6 +31,25 @@ void Umbra2D::FileExplorer::getAllPaths(const std::string& path) {
 		paths.push_back({getFileType(file.path().string()), formatPath(file.path().string())});
 }
 
+std::vector<std::string> Umbra2D::FileExplorer::getAllSubpaths(std::string path) {
+	std::vector<std::string> subpaths;
+	int prev = 0;
+
+	path += "/";
+
+	for (int i = 0; i < path.size(); i++)
+		if (path[i] == '/') {
+			if (subpaths.size())
+				subpaths.push_back(subpaths.back() + "/" + std::string(path.begin() + prev, path.begin() + i));
+			else
+				subpaths.push_back(std::string(path.begin() + prev, path.begin() + i));
+
+			prev = i + 1;
+		}
+
+	return subpaths;
+}
+
 std::string Umbra2D::FileExplorer::enumToString(FileType fileType) {
 	if (fileType == EmptyFolder)
 		return std::string("EmptyFolder.png");
@@ -90,42 +109,29 @@ void Umbra2D::FileExplorer::loadTextures() {
 }
 
 void Umbra2D::FileExplorer::showChoiceList() {
-	if (ImGui::BeginCombo("Current directory", currentDirectory.back().c_str())) {
-		if (ImGui::Selectable(".")) {
-			if (currentDirectory.size() > 1) {
-				while (currentDirectory.size() != 1)
-					currentDirectory.pop_back();
+	if (ImGui::BeginPopup("Files")) {
+		if (ImGui::Selectable("."))
+			if (currentDirectory.size() > 1)
+				buffer = currentDirectory[0];
 
-				getAllPaths(currentDirectory.back());
-				loadTextures();
-			}
-		}
-
-		if (ImGui::Selectable("<-")) {
-			if (currentDirectory.size() > 1) {
-				currentDirectory.pop_back();
-				getAllPaths(currentDirectory.back());
-				loadTextures();
-			}
-		}
+		if (ImGui::Selectable("<-"))
+			if (currentDirectory.size() > 1)
+				buffer = currentDirectory[currentDirectory.size() - 2];
 
 		for (const auto& pair : paths)
 			if (pair.first == Folder || pair.first == EmptyFolder)
 				if (ImGui::Selectable(truncatePath(pair.second).c_str())) {
-					currentDirectory.push_back(pair.second);
-
-					getAllPaths(currentDirectory.back());
-					loadTextures();
+					buffer = pair.second;
 					break;
 				}
 
-		ImGui::EndCombo();
+		ImGui::EndPopup();
 	}
 }
 
 void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& gridSize) {
 	if (paths.size()) {
-		int i = 0;
+		int i = 0, no = 0;
 
 		std::sort(paths.begin(), paths.end(), [&](const auto& pair1, const auto& pair2) {
 			return truncatePath(pair1.second).compare(truncatePath(pair2.second)) < 0;
@@ -141,6 +147,36 @@ void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& grid
 					Umbra2D::Gui::showTexture(textures[truncatePath(pair.second)], fileSize);
 					ImGui::SameLine();
 					ImGui::Selectable(truncatePath(pair.second).c_str());
+				} else if (pair.first == EmptyFolder || pair.first == Folder) {
+					ImVec4 black = ImVec4(0, 0, 0, 0);
+
+					ImGui::PushStyleColor(ImGuiCol_Button, black);
+					ImGui::PushID(no);
+
+					if (ImGui::ImageButton((ImTextureID)icons[enumToString(pair.first)]->getID(),
+						ImVec2(fileSize.x, fileSize.y), ImVec2(0, 1), ImVec2(1, 0),
+						0, black, ImVec4(1.0f, 1.0f, 1.0f, 1.0f))) {
+						buffer = pair.second;
+						ImGui::PopID();
+						ImGui::PopStyleColor();
+						ImGui::EndTable();
+						return;
+					}
+
+					no++;
+					ImGui::PopID();
+					ImGui::PopStyleColor();
+					ImGui::SameLine();
+					ImGui::PushStyleColor(ImGuiCol_Button, black);
+
+					if (ImGui::Button(truncatePath(pair.second).c_str())) {
+						buffer = pair.second;
+						ImGui::PopStyleColor();
+						ImGui::EndTable();
+						return;
+					}
+
+					ImGui::PopStyleColor();
 				} else {
 					Umbra2D::Gui::showTexture(icons[enumToString(pair.first)], fileSize);
 					ImGui::SameLine();
@@ -188,6 +224,43 @@ void Umbra2D::FileExplorer::showFiles(const glm::vec2& fileSize, const int& grid
 	}
 }
 
+void Umbra2D::FileExplorer::showChoiceListAndFiles(const glm::vec2& fileSize, const int& gridSize) {
+	ImGui::InputText("##input", &buffer);
+	ImGui::SameLine(0, 0);
+
+	ImVec2 pos = ImGui::GetItemRectMin();
+	ImVec2 size = ImGui::GetItemRectSize();
+
+	if (ImGui::ArrowButton("##combo", ImGuiDir_Down))
+		ImGui::OpenPopup("Files");
+
+	ImGui::SetNextWindowPos(ImVec2(pos.x, pos.y + size.y));
+	ImGui::SetNextWindowSize(ImVec2(size.x + 19, size.y * 10));
+
+	if (std::filesystem::exists(buffer)) {
+		bool wasChanged = buffer != currentDirectory.back();
+
+		currentDirectory.erase(currentDirectory.begin(), currentDirectory.end());
+		paths.erase(paths.begin(), paths.end());
+
+		for (const auto& subpath : getAllSubpaths(buffer))
+			currentDirectory.push_back(subpath);
+
+		getAllPaths(currentDirectory.back());
+		showChoiceList();
+		ImGui::SameLine();
+		ImGui::Text("Current directory");
+
+		if (wasChanged)
+			loadTextures();
+
+		showFiles(fileSize, gridSize);
+	} else {
+		ImGui::SameLine();
+		ImGui::Text("Current directory");
+	}
+}
+
 // Public members
 Umbra2D::FileExplorer::FileExplorer(std::string path) {
 	currentDirectory.push_back(path);
@@ -196,6 +269,7 @@ Umbra2D::FileExplorer::FileExplorer(std::string path) {
 	for (const auto& pair : paths)
 		icons[truncatePath(pair.second)] = new Umbra2D::Assets::Texture(pair.second, truncatePath(pair.second));
 
+	buffer = path;
 	getAllPaths(path);
 	loadTextures();
 }
@@ -210,10 +284,9 @@ Umbra2D::FileExplorer::~FileExplorer() {
 
 void Umbra2D::FileExplorer::showFileExplorer(const glm::vec2& windowSize, const glm::vec2& fileSize,
 										     const float& fontSize, const int& gridSize) {
-	ImGui::Begin("FileExplorer");
+	ImGui::Begin("File explorer");
 	ImGui::SetWindowFontScale(fontSize);
 	ImGui::SetWindowSize(ImVec2(windowSize.x, windowSize.y));
-	showChoiceList();
-	showFiles(fileSize, gridSize);
+	showChoiceListAndFiles(fileSize, gridSize);
 	ImGui::End();
 }
