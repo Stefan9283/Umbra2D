@@ -104,6 +104,17 @@ void Umbra2D::FileExplorer::loadTextures() {
 			textures[truncatePath(pair.second)] = new Umbra2D::Assets::Texture(pair.second, truncatePath(pair.second));
 }
 
+bool Umbra2D::FileExplorer::isValid(const std::string& path) {
+	if (!std::filesystem::exists(path))
+		return false;
+
+	for (int i = 0; i < (int)path.size() - 1; i++) 
+		if (path[i] == '.' && path[i] == path[i + 1])
+			return false;
+
+	return true;
+}
+
 void Umbra2D::FileExplorer::showChoiceList() {
 	if (ImGui::BeginPopup("Files")) {
 		if (ImGui::Selectable("."))
@@ -226,7 +237,7 @@ void Umbra2D::FileExplorer::showChoiceListAndFiles(const glm::vec2& fileSize, co
 	ImGui::SetNextWindowPos(ImVec2(pos.x, pos.y + size.y));
 	ImGui::SetNextWindowSize(ImVec2(size.x + 19, size.y * 10));
 
-	if (std::filesystem::exists(buffer)) {
+	if (isValid(buffer)) {
 		bool wasChanged = buffer != currentDirectory.back();
 
 		currentDirectory.erase(currentDirectory.begin(), currentDirectory.end());
@@ -254,7 +265,7 @@ void Umbra2D::FileExplorer::showChoiceListAndFiles(const glm::vec2& fileSize, co
 
 			std::string basePath = buffer.substr(0, buffer.find_last_of('/'));
 			
-			if (std::filesystem::exists(basePath)) {
+			if (isValid(basePath)) {
 				getAllPaths(basePath);
 
 				for (const auto& path : paths)

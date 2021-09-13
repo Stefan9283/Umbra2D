@@ -33,6 +33,8 @@ namespace Umbra2D {
 
 		void loadTextures();
 
+		bool isValid(const std::string& path);
+
 		void showChoiceList();
 
 		void showFiles(const glm::vec2& fileSize, const int& gridSize);
