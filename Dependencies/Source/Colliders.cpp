@@ -13,12 +13,38 @@ extern Umbra2D::Engine* umbra;
 #define LINE 2
 
 namespace Umbra2D::Colliders {
-    bool Rectangle::checkCollision(Rectangle* c) {return false;}
-    bool Rectangle::checkCollision(Circle* c) {return false;}
+    bool Rectangle::checkCollision(Rectangle* c) {
+        glm::vec2 rightSideUpSide1 = this->pos + this->dimensions / 2.f;
+        glm::vec2 rightSideUpSide2 = c->pos + c->dimensions / 2.f;
+        glm::vec2 leftSideDownSide1 = this->pos - this->dimensions / 2.f;
+        glm::vec2 leftSideDownSide2 = c->pos - c->dimensions / 2.f;
+
+        return (rightSideUpSide1.x >= leftSideDownSide2.x && leftSideDownSide1.x <= rightSideUpSide2.x) &&
+            (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
+    }
+    bool Rectangle::checkCollision(Circle* c) {
+        glm::vec2 rightSideUpSide1 = this->pos + this->dimensions / 2.f;
+        glm::vec2 rightSideUpSide2 = c->pos + c->radius / 2.f;
+        glm::vec2 leftSideDownSide1 = this->pos - this->dimensions / 2.f;
+        glm::vec2 leftSideDownSide2 = c->pos - c->radius / 2.f;
+
+        return (rightSideUpSide1.x >= leftSideDownSide2.x && leftSideDownSide1.x <= rightSideUpSide2.x) &&
+            (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
+    }
     bool Rectangle::checkCollision(Line* c) {return false;}
 
-    bool Circle::checkCollision(Rectangle* c) {return false;}
-    bool Circle::checkCollision(Circle* c) {return false;}
+    bool Circle::checkCollision(Rectangle* c) {
+        glm::vec2 rightSideUpSide1 = this->pos + this->radius / 2.f;
+        glm::vec2 rightSideUpSide2 = c->pos + c->dimensions / 2.f;
+        glm::vec2 leftSideDownSide1 = this->pos - this->radius / 2.f;
+        glm::vec2 leftSideDownSide2 = c->pos - c->dimensions / 2.f;
+
+        return (rightSideUpSide1.x >= leftSideDownSide2.x && leftSideDownSide1.x <= rightSideUpSide2.x) &&
+            (rightSideUpSide1.y >= leftSideDownSide2.y && leftSideDownSide1.y <= rightSideUpSide2.y);
+    }
+    bool Circle::checkCollision(Circle* c) {
+        return this->radius + c->radius >= glm::length(this->pos - c->pos);
+    }
     bool Circle::checkCollision(Line* c) {return false;}
 
     bool Line::checkCollision(Rectangle* c) {return false;}
