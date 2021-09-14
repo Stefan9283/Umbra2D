@@ -167,6 +167,7 @@ namespace Umbra2D::Gui {
                             ImGui::Text(truncatePath(pair.second).c_str());
                             max = ImGui::GetItemRectMax();
                             pos = ImGui::GetMousePos();
+                            max.x = windowMin.x + ImGui::GetWindowSize().x / gridSize * (i + 1);
 
                             if (pos.x >= min.x && pos.x <= max.x && pos.y >= min.y && pos.y <= max.y) {
                                 ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, ImGui::GetColorU32(ImGui::GetStyle().Colors[ImGuiCol_Button]));
@@ -307,6 +308,14 @@ namespace Umbra2D::Gui {
         ImGui::Begin("File explorer");
         ImGui::SetWindowFontScale(fontSize);
         ImGui::SetWindowSize(ImVec2(windowSize.x, windowSize.y));
+
+        windowMin = ImGui::GetItemRectMin();
+        windowMax = ImGui::GetItemRectMax();
+
+        if (ImGui::IsMouseClicked(1))
+            if (currentDirectory.size() > 1)
+                buffer = currentDirectory[currentDirectory.size() - 2];
+
         showChoiceListAndFiles(fileSize, gridSize);
         ImGui::End();
     }

@@ -86,9 +86,9 @@ int main() {
             fe.showFileExplorer();
 
             // check out what this function does for more ImGui examples
-            ImGui::ShowDemoWindow();
+            // ImGui::ShowDemoWindow();
 
-            if(ImGui::Begin("Utils")) {
+            //if(ImGui::Begin("Utils")) {
 //                LIBRARY->gui();
 //
 //                // ENTITIES
@@ -121,8 +121,8 @@ int main() {
 //                ImGui::InputText("Rendered Text ", &renderedString);
 //
 //                editorCamera.gui();
-            }
-            ImGui::End();
+            //}
+            //ImGui::End();
 
 
             // ACTUAL RENDERING TO FRAMEBUFFER
@@ -157,7 +157,7 @@ int main() {
             frbuf.unbind();
 
             // DRAW GAME FRAMEBUFFER AS IMGUI TEXTURE
-            if (ImGui::Begin("Game", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
+            /*if (ImGui::Begin("Game", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
                 ImVec2 windowSize = ImGui::GetWindowSize();
 
                 auto targetResolution = glm::vec2(windowSize.x, windowSize.y);
@@ -198,7 +198,7 @@ int main() {
                     ImGui::EndTooltip();
                 }
             }
-            ImGui::End();
+            ImGui::End();*/
 
             // CAMERA INPUTS VIA WINDOW INSTANCE
             if (WINDOW->wasKeyPressed(GLFW_KEY_ESCAPE))
