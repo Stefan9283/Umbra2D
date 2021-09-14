@@ -2,7 +2,7 @@
 
 #include "Common.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Gui {
 	class FileExplorer {
 	private:
 		enum FileType{EmptyFolder, Folder, File, Texture, Audio, Script};

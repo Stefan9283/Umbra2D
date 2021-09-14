@@ -1,8 +1,8 @@
 
-#include "FrameBuffer.h"
+#include "Graphics/FrameBuffer.h"
 #include "Window.h"
 #include "Texture.h"
-#include "Engine.h"
+#include "Engines/Engine.h"
 
 extern Umbra2D::Engine* umbra;
 

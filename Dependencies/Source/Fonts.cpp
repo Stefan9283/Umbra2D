@@ -1,8 +1,8 @@
 #include "Fonts.h"
-#include "Shader.h"
+#include "Graphics/Shader.h"
 #include "AssetLibrary.h"
-#include "Quad.h"
-#include "Engine.h"
+#include "Graphics/Quad.h"
+#include "Engines/Engine.h"
 
 extern Umbra2D::Engine* umbra;
 

@@ -1,7 +1,7 @@
 #include "AssetLibrary.h"
 #include "Entity.h"
 #include "Texture.h"
-#include "Quad.h"
+#include "Graphics/Quad.h"
 
 namespace Umbra2D {
     AssetLibrary::AssetLibrary() {

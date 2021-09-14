@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "Gui.h"
+#include "Gui/Gui.h"
 
 namespace Umbra2D::Assets {
 

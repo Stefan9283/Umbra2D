@@ -1,4 +1,4 @@
-#include "Gui.h"
+#include "Gui/Gui.h"
 #include "Texture.h"
 
 namespace Umbra2D::Gui {

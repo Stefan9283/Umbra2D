@@ -83,7 +83,6 @@ namespace Umbra2D {
     class Saver;
     class Loader;
 
-    class FileExplorer;
 
     namespace Assets {
         class Animation;
@@ -91,7 +90,6 @@ namespace Umbra2D {
         class SpriteSheet;
     }
 
-    class Camera;
     class Window;
 
     class Shader;
@@ -100,20 +98,13 @@ namespace Umbra2D {
     class Quad;         // for entities rendering
     class DynamicQuad; // for font rendering
 
+    namespace Gui {
+        class FileExplorer;
+    }
+
     namespace Text {
        struct Character;
         class Font;
-    }
-
-    namespace Gui {
-        class DragAndDropPayload;
-    }
-
-    namespace Colliders {
-        class AbstractCollider;
-        class Rectangle;
-        class Circle;
-        class Line;
     }
 
     // TODO
@@ -123,18 +114,35 @@ namespace Umbra2D {
         class TopDownEngine;
     }
 
-    // TODO
-    namespace GameObjects {
-        class Player;
-        class NPC;
-        class Prop;
-        class Bullet;
-
-        class Quest;
-        class SubQuest;
-    }
-
     class Entity;
-    class Static;
-    class Dynamic;
+
+    namespace Components {
+        class Component;
+
+        class Camera;
+
+        namespace Colliders {
+            class AbstractCollider;
+            class Rectangle;
+            class Circle;
+            class Line;
+        }
+
+        namespace Renderables {
+            class Renderable;
+            class Static;
+            class Dynamic;
+        };
+
+        // TODO
+        namespace GameObjects {
+            class Player;
+            class NPC;
+            class Prop;
+            class Bullet;
+
+            class Quest;
+            class SubQuest;
+        }
+    }
 }

@@ -1,8 +1,8 @@
-#include "Colliders.h"
-#include "Shader.h"
+#include "Components/Colliders.h"
+#include "Graphics/Shader.h"
 #include "AssetLibrary.h"
-#include "Quad.h"
-#include "Engine.h"
+#include "Graphics/Quad.h"
+#include "Engines/Engine.h"
 
 long long unsigned int collidersCount = 0;
 extern Umbra2D::Shader* colliderShader;
@@ -12,7 +12,7 @@ extern Umbra2D::Engine* umbra;
 #define RECTANGLE 1
 #define LINE 2
 
-namespace Umbra2D::Colliders {
+namespace Umbra2D::Components::Colliders {
     bool Rectangle::checkCollision(Rectangle* c) {
         glm::vec2 rightSideUpSide1 = this->pos + this->dimensions / 2.f;
         glm::vec2 rightSideUpSide2 = c->pos + c->dimensions / 2.f;

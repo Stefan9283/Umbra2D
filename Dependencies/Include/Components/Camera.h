@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common.h"
-
+#include "Component.h"
 /*
  * A simple camera object. 
  * It provides the projection and view matrices for the shading part 
@@ -9,8 +9,8 @@
  *
  * Can be moved in any direction using the MoveDIRECTION() funcs
 */
-namespace Umbra2D {
-    class Camera {
+namespace Umbra2D::Components {
+    class Camera : public Component {
      private:
         Umbra2D::Window* windowReference;
         glm::vec2 position{};

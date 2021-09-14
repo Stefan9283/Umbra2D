@@ -1,8 +1,8 @@
 
-#include "Camera.h"
+#include "Components/Camera.h"
 #include "Window.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Components {
     Camera::Camera(Umbra2D::Window* window) {
         windowReference = window;
         UpdateProjMatrix();
