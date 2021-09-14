@@ -6,12 +6,13 @@ namespace Umbra2D {
     class Entity {
      private:
      public:
-        long long unsigned int id;
-        Entity();
+        entt::entity id;
+        entt::registry *reg;
+        Entity(entt::registry* reg);
         ~Entity();
 
-        template<typename T>
-        void addComponent(Components::Component* c);
+        template<typename T, typename... Args>
+        void addComponent(Args... args);
 
         template<typename T>
         bool hasComponent();
