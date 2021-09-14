@@ -8,6 +8,7 @@ namespace Umbra2D::Gui {
 		enum FileType{EmptyFolder, Folder, File, Texture, Audio, Script};
 
 		std::string buffer;
+		ImVec2 windowMin, windowMax;
 
 		std::vector<std::string> currentDirectory;
 		std::vector<std::pair<FileType, std::string>> paths;

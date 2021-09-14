@@ -139,7 +139,7 @@ namespace Umbra2D::Gui {
 
     void FileExplorer::showFiles(const glm::vec2 &fileSize, const int &gridSize) {
         if (!paths.empty()) {
-            int i = 0, id = 0;
+            int i = 0;
 
             std::sort(paths.begin(), paths.end(), [&](const auto &pair1, const auto &pair2) {
                 return truncatePath(pair1.second).compare(truncatePath(pair2.second)) < 0;
@@ -156,28 +156,28 @@ namespace Umbra2D::Gui {
                         ImGui::SameLine();
                         ImGui::Selectable(truncatePath(pair.second).c_str());
                     } else if (pair.first == EmptyFolder || pair.first == Folder) {
-                        ImGui::PushID(id);
-                        ImGui::PushStyleColor(ImGuiCol_Button, {0, 0, 0, 0});
+                        if (ImGui::BeginTable("##folderCell", 1)) {
+                            ImVec2 min, max, pos;
 
-                        if (ImGui::ImageButton((ImTextureID) icons[enumToString(pair.first)]->getID(),
-                                               {fileSize.x, fileSize.y}, {0, 1}, {1, 0}, 0, {0, 0, 0, 0}, {1, 1, 1, 1}))
-                            buffer = pair.second;
-                        else
-                            id++;
+                            ImGui::TableNextRow();
+                            ImGui::TableSetColumnIndex(0);
+                            Umbra2D::Gui::showTexture(icons[enumToString(pair.first)], fileSize);
+                            min = ImGui::GetItemRectMin();
+                            ImGui::SameLine();
+                            ImGui::Text(truncatePath(pair.second).c_str());
+                            max = ImGui::GetItemRectMax();
+                            pos = ImGui::GetMousePos();
+                            max.x = windowMin.x + ImGui::GetWindowSize().x / gridSize * (i + 1);
 
-                        ImGui::PopStyleColor();
-                        ImGui::PopID();
-                        ImGui::SameLine(0, 5);
-                        ImGui::PushStyleColor(ImGuiCol_Button, {0, 0, 0, 0});
+                            if (pos.x >= min.x && pos.x <= max.x && pos.y >= min.y && pos.y <= max.y) {
+                                ImGui::TableSetBgColor(ImGuiTableBgTarget_CellBg, ImGui::GetColorU32(ImGui::GetStyle().Colors[ImGuiCol_Button]));
 
-                        if (ImGui::Button(truncatePath(pair.second).c_str())) {
-                            buffer = pair.second;
-                            ImGui::PopStyleColor();
+                                if (ImGui::IsMouseDoubleClicked(0))
+                                    buffer = pair.second;
+                            }
+
                             ImGui::EndTable();
-                            return;
                         }
-
-                        ImGui::PopStyleColor();
                     } else {
                         Umbra2D::Gui::showTexture(icons[enumToString(pair.first)], fileSize);
                         ImGui::SameLine();
@@ -308,8 +308,15 @@ namespace Umbra2D::Gui {
         ImGui::Begin("File explorer");
         ImGui::SetWindowFontScale(fontSize);
         ImGui::SetWindowSize(ImVec2(windowSize.x, windowSize.y));
+
+        windowMin = ImGui::GetItemRectMin();
+        windowMax = ImGui::GetItemRectMax();
+
+        if (ImGui::IsMouseClicked(1))
+            if (currentDirectory.size() > 1)
+                buffer = currentDirectory[currentDirectory.size() - 2];
+
         showChoiceListAndFiles(fileSize, gridSize);
         ImGui::End();
     }
-
 }
