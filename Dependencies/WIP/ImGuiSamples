@@ -1,0 +1,79 @@
+//    std::vector<int> numbers{1, 2, 3};
+//    std::vector<int> numbers2{4, 5};
+//            // DRAG AND DROP
+//            /*{
+//                if (ImGui::Begin("Drag-N-Drop 1")) {
+//                    if (ImGui::BeginDragDropTarget()) {
+//                        if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("NUMAR_MISTO")) {
+//                            int payload_n = *(const int *) payload->Data;
+//                            std::cout << payload_n << "\n";
+//                            numbers2.push_back(payload_n);
+//                        }
+//                        ImGui::EndDragDropTarget();
+//                    }
+//                    for (auto n : numbers2) {
+//                        ImGui::Button(std::to_string(n).c_str());
+//                        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+//                            // Set payload to carry the index of our item (could be anything)
+//                            ImGui::SetDragDropPayload("NUMAR_MISTO", &n, sizeof(int));
+//                            ImGui::EndDragDropSource();
+//                        }
+//                        if (ImGui::BeginDragDropTarget()) {
+//                            if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("NUMAR_MISTO")) {
+//                                int payload_n = *(const int *) payload->Data;
+//                                std::cout << payload_n << "\n";
+//                                numbers2.push_back(payload_n);
+//                            }
+//                            ImGui::EndDragDropTarget();
+//                        }
+//                    }
+//                }
+//                ImGui::End();
+//
+//                if (ImGui::Begin("Drag-N-Drop 2")) {
+//                    for (auto n : numbers) {
+//                        ImGui::Button(std::to_string(n).c_str());
+//                        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+//                            // Set payload to carry the index of our item (could be anything)
+//                            ImGui::SetDragDropPayload("NUMAR_MISTO", &n, sizeof(int));
+//                            ImGui::EndDragDropSource();
+//                        }
+//                        if (ImGui::BeginDragDropTarget()) {
+//                            if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("NUMAR_MISTO")) {
+//                                int payload_n = *(const int *) payload->Data;
+//                                std::cout << payload_n << "\n";
+//                                numbers.push_back(payload_n);
+//                            }
+//                            ImGui::EndDragDropTarget();
+//                        }
+//                    }
+//                }
+//                ImGui::End();
+//
+//            }*/
+//            // DRAG AND DROP END
+//
+//
+//            // THEME COLORS
+//            /*if(ImGui::Begin("Color")) {
+//                ImGuiStyle& style = ImGui::GetStyle();
+//
+//                static ImGuiColorEditFlags alpha_flags = 0;
+//                if (ImGui::RadioButton("Opaque", alpha_flags == ImGuiColorEditFlags_None))             { alpha_flags = ImGuiColorEditFlags_None; } ImGui::SameLine();
+//                if (ImGui::RadioButton("Alpha",  alpha_flags == ImGuiColorEditFlags_AlphaPreview))     { alpha_flags = ImGuiColorEditFlags_AlphaPreview; } ImGui::SameLine();
+//                if (ImGui::RadioButton("Both",   alpha_flags == ImGuiColorEditFlags_AlphaPreviewHalf)) { alpha_flags = ImGuiColorEditFlags_AlphaPreviewHalf; } ImGui::SameLine();
+//
+//                Umbra2D::Gui::HelpMarker(
+//                        "In the color list:\n"
+//                        "Left-click on color square to open color picker,\n"
+//                        "Right-click to open edit options menu.");
+//
+//                static ImGuiTextFilter filter;
+//                filter.Draw("Filter colors", ImGui::GetFontSize() * 16);
+//
+//                for (int i = 0; i < ImGuiCol_COUNT; i++) {
+//                    const char* name = ImGui::GetStyleColorName(i);
+//                    ImGui::ColorEdit4((name + std::to_string(i)).c_str(), (float*)&style.Colors[i], ImGuiColorEditFlags_AlphaBar | alpha_flags);
+//                }
+//            }
+//            ImGui::End();*/

@@ -15,21 +15,17 @@ namespace Umbra2D {
         id = entitiesCount;
         entitiesCount++;
     }
-    void Entity::gui() {
-//        ImGui::SliderInt(std::string("Pixelation Level ").append(std::to_string(id)).c_str(), (int*)&pixelateLevel, 0, 1000);
-//        ImGui::Checkbox(std::string("Draw ").append(std::to_string(id)).c_str(), &render);
-//        transform.gui(id);
-    }
-//    void Entity::setCollider(Colliders::AbstractCollider* c) {
-//        delete this->collider;
-//        this->collider = c;
-//    }
-//    Entity::~Entity() {
-//        delete this->collider;
-//    }
+    template<typename T>
     void Entity::addComponent(Components::Component *c) {
-        this->components.emplace_back(c);
     }
 
+    template<typename T>
+    bool Entity::hasComponent() {
+        return false;
+    }
 
+    template<typename T>
+    T *Entity::getComponent() {
+        return nullptr;
+    }
 }

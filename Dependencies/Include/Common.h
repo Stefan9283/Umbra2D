@@ -59,6 +59,8 @@
 // images loader
 #include <stb_image.h>
 
+// ECS lib
+#include <entt/entt.hpp>
 
 // ttf fonts loader
 #include <ft2build.h>
@@ -82,7 +84,6 @@ namespace Umbra2D {
 
     class Saver;
     class Loader;
-
 
     namespace Assets {
         class Animation;
@@ -114,6 +115,7 @@ namespace Umbra2D {
         class TopDownEngine;
     }
 
+
     class Entity;
 
     namespace Components {
@@ -133,16 +135,5 @@ namespace Umbra2D {
             class Static;
             class Dynamic;
         };
-
-        // TODO
-        namespace GameObjects {
-            class Player;
-            class NPC;
-            class Prop;
-            class Bullet;
-
-            class Quest;
-            class SubQuest;
-        }
     }
 }

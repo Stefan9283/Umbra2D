@@ -15,8 +15,8 @@ add_subdirectory(Dependencies/Vendor/glad)
 add_subdirectory(Dependencies/Vendor/ChaiScript)
 add_subdirectory(Dependencies/Vendor/freetype)
 add_subdirectory(Dependencies/Vendor/libsndfile)
-
 add_subdirectory(Dependencies/Vendor/portaudio)
+add_subdirectory(Dependencies/Vendor/entt)
 
 message(STATUS " ........... Setting fancy compilation flags ............")
 
@@ -71,6 +71,7 @@ include_directories(
 		Dependencies/Vendor/freetype/include
 		Dependencies/Vendor/ChaiScript/include
 		Dependencies/Vendor/portaudio/include
+		Dependencies/Vendor/entt/single_include
 )
 
 add_definitions(-DGLFW_INCLUDE_NONE -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
@@ -94,6 +95,7 @@ target_link_libraries(
 		sndfile
 		PortAudio
 		freetype
+		EnTT
 		glfw)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
