@@ -12,12 +12,22 @@ namespace Umbra2D {
         ~Entity();
 
         template<typename T, typename... Args>
-        void addComponent(Args... args);
-
+        void addComponent(Args... args) {
+            reg->emplace<T>(id, args);
+        }
         template<typename T>
-        bool hasComponent();
-
+        void addComponent() {
+            reg->emplace<T>(id);
+        }
         template<typename T>
-        T* getComponent();
+        bool hasComponent() {
+            return reg->all_of<T>(id);
+        }
+        template<typename T>
+        T* getComponent() {
+            return &reg->get<T>(id);
+//            return nullptr;
+        }
     };
 }
+

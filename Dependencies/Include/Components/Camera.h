@@ -15,6 +15,7 @@ namespace Umbra2D::Components {
         Umbra2D::Window* windowReference;
         glm::vec2 position{};
         glm::mat4 proj, view;
+        float aspectRatio = 16/9.f;
         float nearZ = 0.f, farZ = 1001.f, scaleFactor = 1.f;
      public:
         Camera(Umbra2D::Window* window);
