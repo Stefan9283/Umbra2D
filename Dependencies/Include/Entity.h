@@ -5,15 +5,17 @@
 namespace Umbra2D {
     class Entity {
      private:
-     public:
-        entt::entity id;
         entt::registry *reg;
+        entt::entity id;
+     public:
         Entity(entt::registry* reg);
         ~Entity();
 
+        uint32_t getID();
+
         template<typename T, typename... Args>
         void addComponent(Args... args) {
-            reg->emplace<T>(id, args);
+            reg->emplace<T>(id, std::forward<Args>(args)...);
         }
         template<typename T>
         void addComponent() {
@@ -26,8 +28,9 @@ namespace Umbra2D {
         template<typename T>
         T* getComponent() {
             return &reg->get<T>(id);
-//            return nullptr;
         }
+
+        void gui();
     };
 }
 

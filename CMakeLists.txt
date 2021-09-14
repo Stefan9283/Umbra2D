@@ -7,18 +7,19 @@ option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_EXAMPLES OFF)
 option(GLFW_BUILD_TESTS OFF)
 
-option(ENABLE_EXTERNAL_LIBS ON)
-option(ENABLE_MPEG ON)
-
 add_subdirectory(Dependencies/Vendor/glfw)
 add_subdirectory(Dependencies/Vendor/glad)
 add_subdirectory(Dependencies/Vendor/ChaiScript)
 add_subdirectory(Dependencies/Vendor/freetype)
+
+option(ENABLE_EXTERNAL_LIBS ON)
+option(ENABLE_MPEG ON)
+
 add_subdirectory(Dependencies/Vendor/libsndfile)
 add_subdirectory(Dependencies/Vendor/portaudio)
 add_subdirectory(Dependencies/Vendor/entt)
 
-message(STATUS " ........... Setting fancy compilation flags ............")
+message(STATUS " .............. Setting fancy compilation flags ...............")
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj /W4 /MDd /std:c++latest")
@@ -34,7 +35,7 @@ else()
 	endif()
 endif()
 
-message(STATUS " .......... Grabbing external libs source code ..........")
+message(STATUS " ............. Grabbing external libs source code .............")
 
 file(GLOB VENDORS_SOURCES 
 		Dependencies/Vendor/glad/src/glad.c
@@ -44,7 +45,7 @@ file(GLOB VENDORS_SOURCES
 		Dependencies/Vendor/imgui/misc/cpp/*.cpp
 		Dependencies/Vendor/imgui-node-editor/*.cpp)
 
-message(STATUS " ............ Grabbing all your source code .............")
+message(STATUS " ............... Grabbing all your source code ................")
 
 file(GLOB_RECURSE PROJECT_SOURCES Dependencies/Source/*.cpp Dependencies/Source/*.c)
 file(GLOB_RECURSE PROJECT_HEADERS Dependencies/Include/*.h Dependencies/Include/*.hpp)
@@ -57,7 +58,7 @@ source_group(TREE
 		${PROJECT_HEADERS}
 		${PROJECT_SHADERS})
 
-message(STATUS " .............. Setting the include paths ...............")
+message(STATUS " ................. Setting the include paths ..................")
 
 include_directories(
 		Dependencies/Include
@@ -86,7 +87,7 @@ add_executable(
 			${PROJECT_SHADERS}
 			${APP_ICON_RESOURCE_WINDOWS})
 
-message(STATUS " .................. Linking everything ..................")
+message(STATUS " ..................... Linking everything .....................")
 
 target_link_libraries(
 	${PROJECT_NAME}
@@ -104,4 +105,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 # message(STATUS " $$$$$$$$$$$$$$$$ Cash Money! Everything seems in order $$$$$$$$$$$$$$$$$ " )
-message(STATUS " ?????? Everything seems in order... Is this really happening? ??????" )
+message(STATUS " ??? Everything seems in order... Is this really happening? ???" )

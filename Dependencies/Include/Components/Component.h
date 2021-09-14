@@ -5,8 +5,11 @@
 
 namespace Umbra2D::Components {
     class Component {
-        Entity *parentEntity;
+        Entity *parentEntity = nullptr;
+    public:
         void setParent(Entity* e);
+        Entity* getParent();
+        virtual void gui()  = 0;
     };
 }
 

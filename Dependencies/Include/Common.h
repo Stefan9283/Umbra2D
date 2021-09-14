@@ -75,12 +75,16 @@
 #define WINDOW umbra->getWindow()
 #define LIBRARY umbra->getLibrary()
 
+#define COLLIDER Umbra2D::Components::Colliders::AbstractCollider
 #define RECTANGLE Umbra2D::Components::Colliders::Rectangle
 #define CIRCLE Umbra2D::Components::Colliders::Circle
 #define LINE Umbra2D::Components::Colliders::Line
 
+#define RENDERABLE Umbra2D::Components::Renderables::Renderable
 #define STATIC Umbra2D::Components::Renderables::Static
 #define DYNAMIC Umbra2D::Components::Renderables::Dynamic
+
+#define COMPONENT Umbra2D::Components::Component
 
 constexpr auto MAX_LEN = 1024;
 

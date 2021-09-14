@@ -42,12 +42,14 @@ int main() {
     entt::registry reg;
 
     auto character = new Umbra2D::Entity(&reg);
-//    character->addComponent<Umbra2D::Components::Renderables::Dynamic>();
+    character->addComponent<DYNAMIC>();
+//    character->addComponent<CIRCLE>(6);
+
+    std::cout << character->getComponent<CIRCLE>()->radius << "\n";
 
     if (!character->hasComponent<DYNAMIC>())
         std::cout << "Null\n";
 
-    return 0;
     character->getComponent<Umbra2D::Components::Renderables::Dynamic>()
             ->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png");
 
@@ -85,44 +87,7 @@ int main() {
             fe.showFileExplorer();
 
             // check out what this function does for more ImGui examples
-            // ImGui::ShowDemoWindow();
-
-            //if(ImGui::Begin("Utils")) {
-//                LIBRARY->gui();
-//
-//                // ENTITIES
-//                if (ImGui::TreeNode("bg")) {
-//                    bg.gui();
-//                    ImGui::TreePop();
-//                }
-//                if (ImGui::TreeNode("character")) {
-//                    character.gui();
-//                    ImGui::TreePop();
-//                }
-//
-//                // COLLIDERS
-//                if (ImGui::TreeNode("colliders")) {
-//                    if (ImGui::TreeNode("line")) {
-//                        line->gui();
-//                        ImGui::TreePop();
-//                    }
-//                    if (ImGui::TreeNode("circle")) {
-//                        circle->gui();
-//                        ImGui::TreePop();
-//                    }
-//                    if (ImGui::TreeNode("rectangle")) {
-//                        rectangle->gui();
-//                        ImGui::TreePop();
-//                    }
-//                    ImGui::SliderInt("colliders depth", &colliderDepth, 0, 1000);
-//                    ImGui::TreePop();
-//                }
-//                ImGui::InputText("Rendered Text ", &renderedString);
-//
-//                editorCamera.gui();
-            //}
-            //ImGui::End();
-
+            ImGui::ShowDemoWindow();
 
             // ACTUAL RENDERING TO FRAMEBUFFER
             frbuf.bind();
