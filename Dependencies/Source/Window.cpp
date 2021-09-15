@@ -87,8 +87,27 @@ namespace Umbra2D {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        static bool use_work_area = true;
+        ImGuiWindowFlags rootFlags =
+                ImGuiWindowFlags_NoMove
+                | ImGuiWindowFlags_NoCollapse
+                | ImGuiWindowFlags_NoDocking
+                | ImGuiWindowFlags_NoResize
+                | ImGuiWindowFlags_NoTitleBar
+                | ImGuiWindowFlags_MenuBar
+                | ImGuiWindowFlags_NoBackground
+                | ImGuiWindowFlags_NoBringToFrontOnFocus;
+
+        const ImGuiViewport *viewport = ImGui::GetMainViewport();
+        ImGui::SetNextWindowPos(use_work_area ? viewport->WorkPos : viewport->Pos);
+        ImGui::SetNextWindowSize(use_work_area ? viewport->WorkSize : viewport->Size);
+
+        ImGui::Begin("RootWindow", (bool*)use_work_area, rootFlags);
+        ImGui::DockSpace(ImGui::GetID("MainWindow"));
     }
     void Window::endFrame() {
+        ImGui::End();
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

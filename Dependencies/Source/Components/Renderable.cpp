@@ -2,6 +2,7 @@
 #include "Engines/Engine.h"
 #include "AssetLibrary.h"
 #include "Texture.h"
+#include "Entity.h"
 
 extern Umbra2D::Engine* umbra;
 
@@ -13,11 +14,11 @@ namespace Umbra2D::Components::Renderables {
         ss = LIBRARY->spriteSheets[LIBRARY->addSpriteSheet(pathToImage, gridSize, numOfSprites, name)];
     }
     void Dynamic::setAnimation(unsigned int animationID) {
-//        time = glfwGetTime();
-//        animationPlaying = animationID;
+        time = glfwGetTime();
+        animationPlaying = animationID;
     }
     void Dynamic::gui() {
-//        Entity::gui();
+        ImGui::Text("%d", this->getParent()->getID());
 //        ImGui::SliderInt(("Current Sprite " + std::to_string(id)).c_str(), (int*)&currentSprite, 0, (int)ss->getSize().x - 1);
 //        ImGui::SliderFloat(("Animation Speed " + std::to_string(id)).c_str(), &animationSpeed, 0.f, 100.f);
 //        if (ImGui::SliderInt(("Playing Animation " + std::to_string(id)).c_str() , &animationPlaying, -1, ss->getAnimationsCount() - 1))

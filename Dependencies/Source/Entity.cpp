@@ -1,31 +1,24 @@
 #include "Entity.h"
-#include "AssetLibrary.h"
-#include "Components/Colliders.h"
-#include "Graphics/Shader.h"
-#include "Texture.h"
-#include "Graphics/Quad.h"
 #include "Engines/Engine.h"
+#include "Components/Component.h"
 
 extern Umbra2D::Engine* umbra;
 
-long long unsigned int entitiesCount = 0;
-
 namespace Umbra2D {
-    Entity::Entity() {
-        id = entitiesCount;
-        entitiesCount++;
+    Entity::Entity(entt::registry* reg) {
+        this->reg = reg;
+        this->id = reg->create();
     }
-    template<typename T>
-    void Entity::addComponent(Components::Component *c) {
+    uint32_t Entity::getID() {
+        return (uint32_t)id;
+    }
+    void Entity::gui() { // TODO
+//        if (hasComponent<CIRCLE>())
+//            std::cout << "YESSSS\n";
+//        else std::cout << "NO\n";
     }
 
-    template<typename T>
-    bool Entity::hasComponent() {
-        return false;
-    }
-
-    template<typename T>
-    T *Entity::getComponent() {
-        return nullptr;
+    Entity::~Entity() {
+        reg->destroy(id);
     }
 }
