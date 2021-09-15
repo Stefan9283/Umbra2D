@@ -14,8 +14,7 @@ namespace Umbra2D {
             Scene();
             Entity* addEntity();
 
-            template<typename T>
-            entt::view<T> getComponents();
+            void gui();
         };
 }
 

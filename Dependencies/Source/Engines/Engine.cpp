@@ -8,6 +8,7 @@
 #include "Graphics/Shader.h"
 #include "Gui/FileExplorer.h"
 #include "Scene.h"
+#include "Components/Renderable.h"
 
 namespace Umbra2D {
     Umbra2DEngine::Umbra2DEngine() {
@@ -47,22 +48,39 @@ namespace Umbra2D {
         loadProject();
         Umbra2D::Gui::FileExplorer fe;
         Umbra2D::Gui::Editor edit(w);
-        Umbra2D::Renderer r;
+
+        Umbra2D::Renderer renderer;
 
         Umbra2D::Shader spriteShader("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
         Umbra2D::Shader textShader("Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
+
+        auto e = scene->addEntity();
+        e->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
 
         while (!w->shouldClose()) {
             if (w->wasKeyPressed(GLFW_KEY_ESCAPE))
                 break;
             w->startFrame();
-            theme->gui();
+
             fe.showFileExplorer();
-            edit.startRender();
-            r.onUpdate(scene, &spriteShader);
-            edit.stopRender();
             edit.gui();
+
             ImGui::ShowDemoWindow();
+
+            theme->gui();
+            scene->gui();
+
+            edit.startRender();
+
+
+            spriteShader.setMat4("proj", edit.getProj());
+            spriteShader.setMat4("view", edit.getView());
+
+            // add here your render passes
+            renderer.onUpdate(scene, &spriteShader);
+
+
+            edit.stopRender();
 
             w->endFrame();
         }

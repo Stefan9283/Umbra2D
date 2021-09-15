@@ -13,4 +13,11 @@ namespace Umbra2D {
         entities.emplace_back(e);
         return e;
     }
+
+    void Scene::gui() {
+        if (ImGui::Begin("Scene"))
+            for (auto e : entities)
+                e->gui();
+        ImGui::End();
+    }
 }
