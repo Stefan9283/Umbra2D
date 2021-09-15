@@ -53,27 +53,3 @@
 //            }*/
 //            // DRAG AND DROP END
 //
-//
-//            // THEME COLORS
-//            /*if(ImGui::Begin("Color")) {
-//                ImGuiStyle& style = ImGui::GetStyle();
-//
-//                static ImGuiColorEditFlags alpha_flags = 0;
-//                if (ImGui::RadioButton("Opaque", alpha_flags == ImGuiColorEditFlags_None))             { alpha_flags = ImGuiColorEditFlags_None; } ImGui::SameLine();
-//                if (ImGui::RadioButton("Alpha",  alpha_flags == ImGuiColorEditFlags_AlphaPreview))     { alpha_flags = ImGuiColorEditFlags_AlphaPreview; } ImGui::SameLine();
-//                if (ImGui::RadioButton("Both",   alpha_flags == ImGuiColorEditFlags_AlphaPreviewHalf)) { alpha_flags = ImGuiColorEditFlags_AlphaPreviewHalf; } ImGui::SameLine();
-//
-//                Umbra2D::Gui::HelpMarker(
-//                        "In the color list:\n"
-//                        "Left-click on color square to open color picker,\n"
-//                        "Right-click to open edit options menu.");
-//
-//                static ImGuiTextFilter filter;
-//                filter.Draw("Filter colors", ImGui::GetFontSize() * 16);
-//
-//                for (int i = 0; i < ImGuiCol_COUNT; i++) {
-//                    const char* name = ImGui::GetStyleColorName(i);
-//                    ImGui::ColorEdit4((name + std::to_string(i)).c_str(), (float*)&style.Colors[i], ImGuiColorEditFlags_AlphaBar | alpha_flags);
-//                }
-//            }
-//            ImGui::End();*/

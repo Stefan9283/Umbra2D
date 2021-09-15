@@ -1,20 +1,27 @@
 #ifndef UMBRA2D_ENGINE_H
 #define UMBRA2D_ENGINE_H
 
+#include <Gui/ImGuiTheme.h>
 #include "Common.h"
 
 namespace Umbra2D {
-    class Engine {
+    class Umbra2DEngine {
     private:
         Umbra2D::Window* w = nullptr;
         Umbra2D::AssetLibrary* lib = nullptr;
+        Umbra2D::Scene *scene;
+        Umbra2D::Gui::ImGuiTheme* theme;
     public:
-        Engine();
-        ~Engine();
+        Shader* colliderShader {}; // TODO ????
+
+        Umbra2DEngine();
+        ~Umbra2DEngine();
         Umbra2D::AssetLibrary* getLibrary();
         Umbra2D::Window* getWindow();
         void loadProject();
         void saveProject();
+        void run();
+        glm::vec4 getThemeColor();
     };
 }
 

@@ -1,5 +1,5 @@
 #include "Scene.h"
-
+#include "Entity.h"
 
 namespace Umbra2D {
         Scene::Scene() {
@@ -7,4 +7,10 @@ namespace Umbra2D {
 //            registry.emplace<Umbra2D::Components::Colliders::Circle>(entity, 5);
 //            registry.get<Umbra2D::Components::Colliders::Circle>(entity);
         }
+
+    Entity* Scene::addEntity() {
+        auto* e = new Entity("", &registry);
+        entities.emplace_back(e);
+        return e;
+    }
 }

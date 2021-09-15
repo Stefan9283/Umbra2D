@@ -193,10 +193,10 @@ namespace Umbra2D::Gui {
                         std::string type = pair.first == Texture ? "TEXTURE_PATH" : (pair.first == Audio ? "AUDIO_PATH" : "SCRIPT_PATH");
 
                         if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-                            char buffer[MAX_LEN]{};
+                            char path_buffer[MAX_LEN]{};
 
-                            strcpy(buffer, pair.second.c_str());
-                            ImGui::SetDragDropPayload(type.c_str(), &buffer, strlen(buffer) * sizeof(char));
+                            strcpy(path_buffer, pair.second.c_str());
+                            ImGui::SetDragDropPayload(type.c_str(), &path_buffer, strlen(path_buffer) * sizeof(char));
                             ImGui::EndDragDropSource();
                         }
                     }

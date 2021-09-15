@@ -4,7 +4,7 @@
 #include "Component.h"
 
 namespace Umbra2D::Components::Colliders {
-    class AbstractCollider : public Umbra2D::Components::Component {
+    class AbstractCollider : public COMPONENT {
         public:
         long long unsigned int id;
         glm::vec2 pos;

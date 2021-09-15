@@ -3,10 +3,11 @@
 #include "AssetLibrary.h"
 #include "Graphics/Quad.h"
 #include "Engines/Engine.h"
+#include "Entity.h"
 
 long long unsigned int collidersCount = 0;
-extern Umbra2D::Shader* colliderShader;
-extern Umbra2D::Engine* umbra;
+extern Umbra2D::Umbra2DEngine* umbra;
+#define colliderShader umbra->colliderShader
 
 #define CIRCLE_SHAPE 0
 #define RECTANGLE_SHAPE 1
@@ -108,14 +109,17 @@ namespace Umbra2D::Components::Colliders {
         ImGui::SliderFloat2(("position col " + std::to_string(id)).c_str(), (float*)&pos, -100000, 100000);
     }
     void Rectangle::gui() {
+        ImGui::Text("Rectangle %d", this->getParent()->getID());
         AbstractCollider::gui();
         ImGui::SliderFloat2(("height/width rectangle " + std::to_string(id)).c_str(), (float*)&dimensions, 0, 10000);
     }
     void Circle::gui() {
+        ImGui::Text("Circle %d", this->getParent()->getID());
         AbstractCollider::gui();
         ImGui::SliderFloat(("radius circle " + std::to_string(id)).c_str(), &radius, 0, 1000);
     }
     void Line::gui() {
+        ImGui::Text("Line %d", this->getParent()->getID());
         AbstractCollider::gui();
         if (ImGui::SliderFloat2(("direction line " + std::to_string(id)).c_str(), (float*)&direction, -1, 1))
             direction = glm::normalize(direction);

@@ -68,12 +68,19 @@
 
 #pragma endregion
 
+
+//#define NO_IMGUI
+
 #define ANIMATION Umbra2D::Assets::Animation
 #define TEXTURE Umbra2D::Assets::Texture
 #define SPRITE_SHEET Umbra2D::Assets::SpriteSheet
 
 #define WINDOW umbra->getWindow()
 #define LIBRARY umbra->getLibrary()
+
+#define COMPONENT Umbra2D::Components::Component
+
+#define CAMERA Umbra2D::Components::Camera
 
 #define COLLIDER Umbra2D::Components::Colliders::AbstractCollider
 #define RECTANGLE Umbra2D::Components::Colliders::Rectangle
@@ -84,12 +91,15 @@
 #define STATIC Umbra2D::Components::Renderables::Static
 #define DYNAMIC Umbra2D::Components::Renderables::Dynamic
 
-#define COMPONENT Umbra2D::Components::Component
+#define TRANSFORM Umbra2D::Components::Transform
+
 
 constexpr auto MAX_LEN = 1024;
 
 namespace Umbra2D {
-    class Engine;
+
+    class Umbra2DEngine;
+
 
     class AssetLibrary;
 
@@ -103,6 +113,7 @@ namespace Umbra2D {
     }
 
     class Window;
+    class Scene;
 
     class Shader;
     class FrameBuffer;
@@ -112,6 +123,7 @@ namespace Umbra2D {
 
     namespace Gui {
         class FileExplorer;
+        class ImGuiTheme;
     }
 
     namespace Text {
@@ -120,10 +132,16 @@ namespace Umbra2D {
     }
 
     // TODO
+    class Renderer;
+
     namespace Physics {
-        class AbstractEngine;
-        class PlatformerEngine;
-        class TopDownEngine;
+        class RigidBody;
+
+        namespace System {
+            class AbstractEngine;
+            class PlatformerEngine;
+            class TopDownEngine;
+        }
     }
 
 
@@ -133,6 +151,8 @@ namespace Umbra2D {
         class Component;
 
         class Camera;
+
+        class Transform;
 
         namespace Colliders {
             class AbstractCollider;
@@ -145,7 +165,7 @@ namespace Umbra2D {
             class Renderable;
             class Static;
             class Dynamic;
-        };
+        }
     }
 }
 

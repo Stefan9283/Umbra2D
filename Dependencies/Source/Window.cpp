@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "AssetLibrary.h"
 
-extern Umbra2D::Engine* umbra;
+extern Umbra2D::Umbra2DEngine* umbra;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -56,28 +56,11 @@ namespace Umbra2D {
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init( "#version 330");
 
-        auto style = ImGui::GetStyle();
-        auto defaultColor = glm::vec4(style.Colors[7].x, style.Colors[7].y, style.Colors[7].z, style.Colors[7].w);
-        auto desiredColor = glm::vec4(0.5, 0.1, 0.0, 1.);
-
-        std::vector<unsigned int> changeAccentsAtTheseIndices{7, 15, 18, 21, 24, 27, 30, 33, 36, 49};
-
-        for (auto i : changeAccentsAtTheseIndices) {
-            for (int j = 0; j < 3; j++) {
-                auto color = glm::vec4(style.Colors[i + j].x, style.Colors[i + j].y, style.Colors[i + j].z, style.Colors[i + j].w);
-                auto newColor = (color / defaultColor) * desiredColor;
-                ImGui::GetStyle().Colors[i + j] = ImVec4(newColor.x, newColor.y, newColor.z, newColor.w);
-            }
-        }
-
-        ImGui::GetStyle().Colors[11] = ImVec4(0, 0, 0, 1);
-
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glClearColor(0, 0, 0, 1.f);
     }
     Window::~Window() {
-        // glfwTerminate();
+         glfwTerminate();
     }
     bool Window::shouldClose() {
         return glfwWindowShouldClose(window);
@@ -86,6 +69,7 @@ namespace Umbra2D {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+        glClearColor(0, 0, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         static bool use_work_area = true;

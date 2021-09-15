@@ -3,7 +3,7 @@
 #include "AssetLibrary.h"
 #include "Engines/Engine.h"
 
-extern Umbra2D::Engine* umbra;
+extern Umbra2D::Umbra2DEngine* umbra;
 
 void Umbra2D::Saver::saveTexture(std::ofstream& fout, TEXTURE* texture, int depth) {
 	for (int i = 0; i < depth; i++)

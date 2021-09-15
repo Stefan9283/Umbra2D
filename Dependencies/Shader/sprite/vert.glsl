@@ -4,8 +4,6 @@ layout(location = 1) in vec2 tex;
 
 out vec2 Tex;
 
-uniform float depth;
-
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
@@ -15,5 +13,5 @@ uniform vec2 end;
 
 void main() {
     Tex = mix(start, end, tex);
-    gl_Position = proj * view * model * vec4(pos.xy, - 2 * (1 + depth), 1.);
+    gl_Position = proj * view * model * vec4(pos.xy, -2, 1.);
 }

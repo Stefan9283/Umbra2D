@@ -1,0 +1,25 @@
+   Umbra2D::Scene scene;
+    auto character = scene.addEntity();
+    character->addComponent<CIRCLE>(6);
+
+    character->addComponent<DYNAMIC>()
+            ->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png");
+
+    auto background = scene.addEntity();
+    background->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
+
+    auto rectangle = scene.addEntity();
+    rectangle->addComponent<RECTANGLE>(200, 100);
+
+    auto circle = scene.addEntity();
+    circle->addComponent<CIRCLE>(200);
+
+    auto line = scene.addEntity();
+    line->addComponent<LINE>(100, glm::vec2(1, 1));
+
+    Umbra2D::Text::Font f("Dependencies/Assets/Fonts/Minecraft.ttf");
+
+    std::string renderedString = "Bruh";
+
+    auto camera = scene.addEntity();
+    camera->addComponent<CAMERA>(WINDOW);

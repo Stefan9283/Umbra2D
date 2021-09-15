@@ -4,7 +4,7 @@
 #include "Graphics/Quad.h"
 #include "Engines/Engine.h"
 
-extern Umbra2D::Engine* umbra;
+extern Umbra2D::Umbra2DEngine* umbra;
 
 namespace Umbra2D::Text {
     Font::Font(std::string path) {

@@ -3,7 +3,7 @@
 #include "AssetLibrary.h"
 #include "Engines/Engine.h"
 
-extern Umbra2D::Engine* umbra;
+extern Umbra2D::Umbra2DEngine* umbra;
 
 namespace Umbra2D {
     void Loader::parseTexture(TextureInfo& textureInfo) {
