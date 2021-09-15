@@ -85,6 +85,8 @@ namespace Umbra2D {
 
     class FileExplorer;
 
+    class AudioPlayer;
+
     namespace Assets {
         class Animation;
         class Texture;

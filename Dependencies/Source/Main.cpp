@@ -1,6 +1,8 @@
 // Umbra2D headers
 #define STB_IMAGE_IMPLEMENTATION
 
+#include <cstdio>
+
 #include <Engine.h>
 #include "Common.h"
 #include "AssetLibrary.h"
@@ -14,12 +16,90 @@
 #include "Fonts.h"
 #include "FrameBuffer.h"
 #include "FileExplorer.h"
+#include "AudioPlayer.h"
 
-Umbra2D::Engine* umbra;
-Umbra2D::Shader* colliderShader;
+Umbra2D::Engine *umbra;
+Umbra2D::Shader *colliderShader;
 
-int main()
+int main() {
+    auto audioPlayer = new Umbra2D::AudioPlayer();
+
+    audioPlayer->listOutputDevices();
+    if(audioPlayer->canPlayAudio())
+        printf("DA\n");
+    audioPlayer->addAudio(R"(C:\Users\soulv\Documents\GitHub\Umbra2D\Dependencies\Source\test.wav)", "k");
+    audioPlayer->playAudio("k", 6);
+    delete audioPlayer;
+}
+
+/*int main()
 {
+    PaStream* stream;
+    PaError error;
+    myWav current_wav;
+
+    current_wav.wav = sf_open("C:\\Users\\soulv\\Documents\\GitHub\\Umbra2D\\Dependencies\\Source\\test.wav", SFM_READ, &current_wav.info);
+    if (sf_error(current_wav.wav) != SF_ERR_NO_ERROR)
+    {
+        fprintf(stderr, "%s\n", sf_strerror(current_wav.wav));
+        fprintf(stderr, "File: %s\n", "test.wav");
+        return 1;
+    }
+
+    error = Pa_Initialize();
+    if (error != paNoError)
+    {
+        fprintf(stderr, "Problem initializing\n");
+        return 1;
+    }
+
+    error = Pa_OpenDefaultStream(&stream
+        , 0
+        , current_wav.info.channels
+        , paFloat32
+        , current_wav.info.samplerate
+        , FRAMES_PER_BUFFER
+        , callback
+        , &current_wav);
+    if (error != paNoError)
+    {
+        fprintf(stderr, "Problem opening Default Stream\n");
+        return 1;
+    }
+
+    error = Pa_StartStream(stream);
+    if (error != paNoError)
+    {
+        fprintf(stderr, "Problem opening starting Stream\n");
+        return 1;
+    }
+
+    while (Pa_IsStreamActive(stream))
+    {
+        Pa_Sleep(100);
+    }
+
+    error = Pa_StopStream(stream);
+    if (error != paNoError)
+    {
+        fprintf(stderr, "Problem closing stream\n");
+        return 1;
+    }
+
+    error = Pa_Terminate();
+    if (error != paNoError)
+    {
+        fprintf(stderr, "Problem terminating\n");
+        return 1;
+    }
+
+    sf_close(current_wav.wav);
+
+    return 0;
+}*/
+
+/*int main()
+{   
     umbra = new Umbra2D::Engine();
     umbra->loadProject();
 
@@ -277,8 +357,5 @@ int main()
     umbra->saveProject();
     delete umbra;
 
-
-
-
     return 0;
-}  
+} */
