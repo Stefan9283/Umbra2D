@@ -261,7 +261,7 @@ namespace Umbra2D::Gui {
             ImGui::Text("Current directory");
             ImGui::PushStyleColor(ImGuiCol_FrameBg, {0, 0, 0, 0});
 
-            if (ImGui::BeginListBox("##possibleFiles", {size.x + 17, size.y * 10})) {
+            if (ImGui::BeginListBox("##possibleFiles", {size.x + 19, size.y * 10})) {
                 ImGui::PopStyleColor();
 
                 std::string basePath = buffer.substr(0, buffer.find_last_of('/'));
@@ -271,7 +271,10 @@ namespace Umbra2D::Gui {
 
                     for (const auto &path : paths)
                         if ((path.first == EmptyFolder || path.first == Folder) && path.second.starts_with(buffer))
-                            ImGui::Text(truncatePath(path.second).c_str());
+                            if (ImGui::Selectable(truncatePath(path.second).c_str())) {
+                                buffer = path.second;
+                                break;
+                            }
                 }
 
                 ImGui::EndListBox();
@@ -304,7 +307,7 @@ namespace Umbra2D::Gui {
     }
 
     void FileExplorer::showFileExplorer(const glm::vec2 &windowSize, const glm::vec2 &fileSize,
-                                                 const float &fontSize, const int &gridSize) {
+                                        const float &fontSize, const int &gridSize) {
         ImGui::Begin("File explorer");
         ImGui::SetWindowFontScale(fontSize);
         ImGui::SetWindowSize(ImVec2(windowSize.x, windowSize.y));
