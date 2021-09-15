@@ -1,6 +1,6 @@
 # Umbra2D
 
-### Save File Structure:
+## Save File Structure:
 
 ```
 AssetLibrary {
@@ -30,25 +30,43 @@ AssetLibrary {
 ```
 
 
-### Umbra2D namespace
+## Umbra2D namespace
 
-```
+```C++
 namespace Umbra2D {
+    class Engine;
+
     class AssetLibrary;
 
     class Saver;
     class Loader;
 
+    class FileExplorer;
+
     namespace Assets {
-        class Texture;    
+        class Animation;
+        class Texture;
         class SpriteSheet;
-    }    
+    }
 
     class Camera;
     class Window;
-    class Shader;
-    class Quad;
 
+    class Shader;
+    class FrameBuffer;
+
+    class Quad;
+    class DynamicQuad;
+
+    namespace Text {
+       struct Character;
+        class Font;
+    }
+
+    namespace Gui {
+    }
+
+    // TODO
     namespace Colliders {
         class AbstractCollider;
         class Rectangle;
@@ -56,25 +74,52 @@ namespace Umbra2D {
         class Line;
     }
 
-    // entity types
+    // TODO
+    namespace Physics {
+        class AbstractEngine;
+        class PlatformerEngine;
+        class TopDownEngine;
+    }
+
+    // TODO
+    namespace GameObjects {
+        class Player;
+        class NPC;
+        class Prop;
+        class Bullet;
+
+        class Quest;
+        class SubQuest;
+    }
+
+    // TODO
     class Entity;
     class Static;
     class Dynamic;
 }
 ```
 
-
-
-### TODO
-
-* [ ] Framecap
-* [-] Animation System (edit + getters)
-* [ ] Save/Load Project System
+## TODOs
+#### Physics
 * [ ] Collision Detection (+ Object Picker)
 * [ ] Rigid Bodies
-* [ ] Instanced Renderer with Viewport Culling
-* [ ] Custom Font Rendering
+* [ ] Platformer Physics Engine
+* [ ] TopDown RPG-Style Physics Engine
+#### Graphics
+* [x] Animation System (edit + getters)
+* [x] Custom Font Rendering
+* [ ] Instanced Renderer 
+* [ ] Viewport Culling
+* [ ] Post-Processing
+#### Tools
+* [x] Save/Load Project System
 * [ ] GUI Editor
-* [ ] Game Objects (goal, player, enemy, prop)
 * [ ] Game Graph
+#### Game 
+* [ ] Game Structure
+* [ ] Rework on entities (component based)
+* [ ] Game Objects (goal, player, enemy, prop)
+#### Sound
 * [ ] Sound Player
+#### Misc
+* [ ] Framecap

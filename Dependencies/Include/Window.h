@@ -26,6 +26,6 @@ namespace Umbra2D {
             bool wasKeyPressed(int key);
             bool wasKeyReleased(int key);
 
-            glm::vec<2, double> getSize();
+            glm::vec2 getSize();
     };
 }

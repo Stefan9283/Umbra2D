@@ -45,8 +45,9 @@ namespace Umbra2D::Assets {
     Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
 
     void Texture::gui() {
+        ImGui::InputText("name", &name);
         ImGui::Text(
-                "name: %s\npath: %s\nresolution: %dx%d", name.c_str(), path.c_str(), resolution.x, resolution.y);
+                "path: %s\nresolution: %dx%d", path.c_str(), resolution.x, resolution.y);
         Umbra2D::Gui::showTexture(this);
     }
 
@@ -122,14 +123,13 @@ namespace Umbra2D::Assets {
             if (ImGui::TreeNode(anim.name.c_str())) {
                 for (auto sprite : anim.frames) {
                     auto corners = getSpriteCell(sprite.first);
-                    Umbra2D::Gui::showTexture(tex, corners.first, corners.second);
+                    Umbra2D::Gui::showTexture(tex, glm::vec2(100), corners.first, corners.second);
                     ImGui::Text("FrameName: %s\nFrameID: %d\nTimeUntilNextFrame: %f\n",
                             frameDescriptions[sprite.first].c_str(), sprite.first, sprite.second);
                 }
                 ImGui::TreePop();
             }
         }
-
     }
 
     void SpriteSheet::addSpriteDescription(std::string name, unsigned int index) {
