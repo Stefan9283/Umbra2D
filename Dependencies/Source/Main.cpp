@@ -21,16 +21,6 @@
 Umbra2D::Engine *umbra;
 Umbra2D::Shader *colliderShader;
 
-int main() {
-    auto audioPlayer = new Umbra2D::AudioPlayer();
-
-    audioPlayer->listOutputDevices();
-    if(audioPlayer->canPlayAudio())
-        printf("DA\n");
-    audioPlayer->addAudio(R"(C:\Users\soulv\Documents\GitHub\Umbra2D\Dependencies\Source\test.wav)", "k");
-    audioPlayer->playAudio("k", 6);
-    delete audioPlayer;
-}
 
 /*int main()
 {
@@ -98,7 +88,7 @@ int main() {
     return 0;
 }*/
 
-/*int main()
+int main()
 {   
     umbra = new Umbra2D::Engine();
     umbra->loadProject();
@@ -138,6 +128,8 @@ int main() {
 
     ImGui::GetIO().ConfigWindowsResizeFromEdges = true;
 
+    auto audioPlayer = new Umbra2D::AudioPlayer();
+
     int colliderDepth = 0;
     while (!WINDOW->shouldClose()) {
         WINDOW->startFrame();
@@ -161,7 +153,7 @@ int main() {
         {   // WRITE YOUR CODE INSIDE OF THESE BRACKETS
 
             fe.showFileExplorer();
-
+/*
             // DRAG AND DROP
             {
                 if (ImGui::Begin("Drag-N-Drop 1")) {
@@ -239,15 +231,19 @@ int main() {
                 }
             }
             ImGui::End();
-
-
-
-
+*/
+            if (ImGui::Begin("Plang"))
+                if (ImGui::Button("Play")) {
+                    audioPlayer->listOutputDevices();
+                    if(audioPlayer->canPlayAudio())
+                        printf("DA\n");
+                    audioPlayer->addAudio(R"(Dependencies\Source\test.wav)", "k");
+                    audioPlayer->playAudio("k", 5);
+                }
+            ImGui::End();
 
             // check out what this function does for more ImGui examples
             ImGui::ShowDemoWindow();
-
-
 
 
             if(ImGui::Begin("Utils")) {
@@ -353,9 +349,9 @@ int main() {
         WINDOW->endFrame();
     }
     delete colliderShader;
-
+    delete audioPlayer;
     umbra->saveProject();
     delete umbra;
 
     return 0;
-} */
+}
