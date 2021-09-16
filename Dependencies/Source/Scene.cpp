@@ -9,7 +9,7 @@ namespace Umbra2D {
         }
 
     Entity* Scene::addEntity() {
-        auto* e = new Entity("", &registry);
+        auto* e = new Entity("", this);
         entities.emplace_back(e);
         return e;
     }

@@ -14,6 +14,7 @@ namespace Umbra2D::Components {
         glm::quat rotation = glm::quat(glm::vec3(0));
         glm::vec2 scale{1, 1};
     public:
+        Transform() = default;
         glm::mat4 toMat4();
         void gui() override;
     };

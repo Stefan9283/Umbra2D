@@ -22,13 +22,21 @@ namespace Umbra2D::Components::Renderables {
     }
     void Dynamic::gui() {
         std::string parentID = std::to_string(this->getParent()->getID());
-        ImGui::Text("Dynamic %s", parentID.c_str());
-        ImGui::SliderInt(("Current Sprite " + parentID).c_str(), (int*)&currentSprite, 0, (int)ss->getSize().x - 1);
-        ImGui::SliderFloat(("Animation Speed " + parentID).c_str(), &animationSpeed, 0.f, 100.f);
-        if (ImGui::SliderInt(("Playing Animation " + parentID).c_str() , &animationPlaying, -1, ss->getAnimationsCount() - 1))
-            setAnimation(animationPlaying);
-        ImGui::Checkbox(("Loop Animation " + parentID).c_str(), &loopAnimation);
-        ss->gui();
+        if (ImGui::TreeNode(("Dynamic " + parentID).c_str())) {
+            ImGui::Text("Dynamic %s", parentID.c_str());
+            if (ss) {
+                ImGui::SliderInt(("Current Sprite " + parentID).c_str(), (int *) &currentSprite, 0, (int) ss->getSize().x - 1);
+                if (ImGui::SliderInt(("Playing Animation " + parentID).c_str(), &animationPlaying, -1, ss->getAnimationsCount() - 1))
+                    setAnimation(animationPlaying);
+                ss->gui();
+            } else {
+                // TODO add target for texture path and call to addSpriteSheet
+                ImGui::Text("No Sprite Sheet has been set");
+            }
+            ImGui::SliderFloat(("Animation Speed " + parentID).c_str(), &animationSpeed, 0.f, 100.f);
+            ImGui::Checkbox(("Loop Animation " + parentID).c_str(), &loopAnimation);
+            ImGui::TreePop();
+        }
     }
     void Dynamic::draw(Shader* s) {
         if (!render) return;
@@ -36,7 +44,6 @@ namespace Umbra2D::Components::Renderables {
         s->setMat4("model", &model);
 //        s->setInt("pixelateLevel", pixelateLevel);
 //        s->setFloat("depth", (const float)transform.layer);
-
         if (animationPlaying == -1) {
             if (ss) {
                 auto coords = ss->getSpriteCell(currentSprite);
@@ -77,8 +84,10 @@ namespace Umbra2D::Components::Renderables {
         this->t = tex;
     }
     void Static::gui() {
-        ImGui::Text("Static %d", this->getParent()->getID());
-        t->gui();
+        if (ImGui::TreeNode(("Static " + std::to_string(getParent()->getID())).c_str())) {
+            t->gui();
+            ImGui::TreePop();
+        }
     }
     void Static::draw(Shader* s) {
         if (!render) return;

@@ -6,10 +6,9 @@
 namespace Umbra2D::Components::Colliders {
     class AbstractCollider : public COMPONENT {
         public:
-        long long unsigned int id;
-        glm::vec2 pos;
+        glm::vec2 pos; // TODO rename to offset
 
-        AbstractCollider();
+        AbstractCollider() = default;
         virtual ~AbstractCollider() = default;
 
         virtual bool checkCollision(Components::Colliders::Rectangle* c) = 0;
@@ -17,14 +16,14 @@ namespace Umbra2D::Components::Colliders {
         virtual bool checkCollision(Components::Colliders::Line* c) = 0;
 
         virtual void draw() = 0;
-        virtual void gui() = 0;
+        void gui() override;
     };
-    
+    // axis aligned rectangle
     class Rectangle : public AbstractCollider {
         public:
         glm::vec2 dimensions;
 
-        Rectangle(float height, float length, glm::vec2 center = {});
+        Rectangle(float height = 1, float length = 1, glm::vec2 center = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;
@@ -38,7 +37,7 @@ namespace Umbra2D::Components::Colliders {
         public:
         float radius;
 
-        Circle(float radius, glm::vec2 center = {});
+        Circle(float radius = 1, glm::vec2 center = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;
@@ -54,7 +53,7 @@ namespace Umbra2D::Components::Colliders {
         float thickness = 5;
         glm::vec2 direction;
 
-        Line(float length, glm::vec2 direction, glm::vec2 origin = {});
+        Line(float length = 1, glm::vec2 direction = glm::vec2(0, 1), glm::vec2 origin = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;

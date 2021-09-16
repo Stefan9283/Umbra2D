@@ -44,14 +44,14 @@ namespace Umbra2D::Gui {
                 ImGui::BeginTooltip();
                 ImGuiIO& io = ImGui::GetIO();
                 auto posOnViewPort = glm::vec2(io.MousePos.x - pos.x, pos2.y - io.MousePos.y - ImGui::GetStyle().ItemSpacing.y);
-                ImGui::Text("Coords %f, %f", posOnViewPort.x, posOnViewPort.y);
-                ImGui::Text("Resolution %f, %f", newResolution.x, newResolution.y);
+//                ImGui::Text("Coords %f, %f", posOnViewPort.x, posOnViewPort.y);
+//                ImGui::Text("Resolution %f, %f", newResolution.x, newResolution.y);
 
                 auto normalizedCoords = (2.f * posOnViewPort - newResolution) / newResolution;
 
-                ImGui::Text("Coords in [-1, 1] %f, %f", normalizedCoords.x, normalizedCoords.y);
+//                ImGui::Text("Coords in [-1, 1] %f, %f", normalizedCoords.x, normalizedCoords.y);
                 auto worldCoords = cam->getWorldCoords(normalizedCoords);
-                ImGui::Text("World Coordinates %f, %f", worldCoords.x, worldCoords.y);
+                ImGui::Text("World Coords %f, %f", worldCoords.x, worldCoords.y);
                 ImGui::EndTooltip();
             }
         }

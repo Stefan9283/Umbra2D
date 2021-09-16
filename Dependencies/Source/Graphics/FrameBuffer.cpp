@@ -35,7 +35,7 @@ namespace Umbra2D {
 
         texture = new TEXTURE(textureID, resolution, "framebuffer");
     }
-    FrameBuffer::~FrameBuffer() { /* TODO */
+    FrameBuffer::~FrameBuffer() {
         delete texture;
         glDeleteRenderbuffers(1, &rbo);
         glDeleteFramebuffers(1, &fbo);

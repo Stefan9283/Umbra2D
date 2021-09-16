@@ -5,7 +5,6 @@
 #include "Engines/Engine.h"
 #include "Entity.h"
 
-long long unsigned int collidersCount = 0;
 extern Umbra2D::Umbra2DEngine* umbra;
 #define colliderShader umbra->colliderShader
 
@@ -52,11 +51,6 @@ namespace Umbra2D::Components::Colliders {
     bool Line::checkCollision(Rectangle* c) {return false;}
     bool Line::checkCollision(Circle* c) {return false;}
     bool Line::checkCollision(Line* c) {return false;}
-
-    AbstractCollider::AbstractCollider() {
-        id = collidersCount;
-        collidersCount++;
-    }
 
     Rectangle::Rectangle(float height, float length, glm::vec2 center) : AbstractCollider() {
         this->dimensions = {length, height};
@@ -106,24 +100,34 @@ namespace Umbra2D::Components::Colliders {
     }
 
     void AbstractCollider::gui() {
-        ImGui::SliderFloat2(("position col " + std::to_string(id)).c_str(), (float*)&pos, -100000, 100000);
+        std::string id = std::to_string(getParent()->getID());
+        ImGui::SliderFloat2(("position col " + id).c_str(), (float*)&pos, -100000, 100000);
     }
     void Rectangle::gui() {
-        ImGui::Text("Rectangle %d", this->getParent()->getID());
-        AbstractCollider::gui();
-        ImGui::SliderFloat2(("height/width rectangle " + std::to_string(id)).c_str(), (float*)&dimensions, 0, 10000);
+        std::string id = std::to_string(getParent()->getID());
+        if (ImGui::TreeNode(("Rectangle " + id).c_str())) {
+            AbstractCollider::gui();
+            ImGui::SliderFloat2(("height/width rectangle " + id).c_str(), (float *) &dimensions, 0, 10000);
+            ImGui::TreePop();
+        }
     }
     void Circle::gui() {
-        ImGui::Text("Circle %d", this->getParent()->getID());
-        AbstractCollider::gui();
-        ImGui::SliderFloat(("radius circle " + std::to_string(id)).c_str(), &radius, 0, 1000);
+        std::string id = std::to_string(getParent()->getID());
+        if (ImGui::TreeNode(("Circle " + id).c_str())) {
+            AbstractCollider::gui();
+            ImGui::SliderFloat(("radius circle " + id).c_str(), &radius, 0, 1000);
+            ImGui::TreePop();
+        }
     }
     void Line::gui() {
-        ImGui::Text("Line %d", this->getParent()->getID());
-        AbstractCollider::gui();
-        if (ImGui::SliderFloat2(("direction line " + std::to_string(id)).c_str(), (float*)&direction, -1, 1))
-            direction = glm::normalize(direction);
-        ImGui::SliderFloat(("Thickness "+ std::to_string(id)).c_str(), &thickness, 1, 100);
-        ImGui::SliderFloat(("length line " + std::to_string(id)).c_str(), &length, 0.f, 1000.f);
+        std::string id = std::to_string(getParent()->getID());
+        if (ImGui::TreeNode(("Line " + id).c_str())) {
+            AbstractCollider::gui();
+            if (ImGui::SliderFloat2(("direction line " + id).c_str(), (float *) &direction, -1, 1))
+                direction = glm::normalize(direction);
+            ImGui::SliderFloat(("Thickness " + id).c_str(), &thickness, 1, 100);
+            ImGui::SliderFloat(("length line " + id).c_str(), &length, 0.f, 1000.f);
+            ImGui::TreePop();
+        }
     }
 }

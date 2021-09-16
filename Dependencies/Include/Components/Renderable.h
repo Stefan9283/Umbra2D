@@ -27,7 +27,6 @@ namespace Umbra2D::Components::Renderables {
         bool loopAnimation = false;
         float animationSpeed = 1;
     public:
-
         void setSpriteSheet(SPRITE_SHEET* ss);
         void setSpriteSheet(std::string pathToImage, glm::vec2 gridSize = glm::vec2(1),
                         unsigned int numOfSprites = 1, std::string name = "");
