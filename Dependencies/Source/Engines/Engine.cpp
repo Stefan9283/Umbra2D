@@ -62,13 +62,13 @@ namespace Umbra2D {
                 break;
             w->startFrame();
 
-            fe.showFileExplorer();
-            edit.gui();
+            fe.gui();
+            //edit.gui();
 
-            ImGui::ShowDemoWindow();
+            //ImGui::ShowDemoWindow();
 
-            theme->gui();
-            scene->gui();
+            //theme->gui();
+            //scene->gui();
 
             edit.startRender();
 

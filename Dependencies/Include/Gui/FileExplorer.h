@@ -8,7 +8,6 @@ namespace Umbra2D::Gui {
 		enum FileType{EmptyFolder, Folder, File, Texture, Audio, Script};
 
 		std::string buffer;
-		ImVec2 windowMin, windowMax;
 
 		std::vector<std::string> currentDirectory;
 		std::vector<std::pair<FileType, std::string>> paths;
@@ -43,13 +42,14 @@ namespace Umbra2D::Gui {
 		void showChoiceListAndFiles(const glm::vec2& fileSize, const int& gridSize);
 
 	public:
+		glm::vec2 fileSize = {20, 20};
+		float fontSize = 1;
+		int gridSize = 3;
+
 		FileExplorer(std::string path = ".");
 
 		~FileExplorer();
 
-		void showFileExplorer(const glm::vec2& windowSize = {750, 500},
-							  const glm::vec2& fileSize = {20, 20},
-							  const float& fontSize = 1,
-							  const int& gridSize = 3);
+		void gui();
 	};
 }
