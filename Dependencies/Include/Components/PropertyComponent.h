@@ -16,6 +16,8 @@ namespace Umbra2D::Components {
     public:
         Transform() = default;
         glm::mat4 toMat4();
+        glm::vec2 getPos();
+        float getLayer();
         void gui() override;
     };
 }

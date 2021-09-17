@@ -84,6 +84,7 @@
 
 #define COLLIDER Umbra2D::Components::Colliders::AbstractCollider
 #define RECTANGLE Umbra2D::Components::Colliders::Rectangle
+#define AARECTANGLE Umbra2D::Components::Colliders::AARectangle
 #define CIRCLE Umbra2D::Components::Colliders::Circle
 #define LINE Umbra2D::Components::Colliders::Line
 
@@ -157,6 +158,7 @@ namespace Umbra2D {
         namespace Colliders {
             class AbstractCollider;
             class Rectangle;
+            class AARectangle;
             class Circle;
             class Line;
         }

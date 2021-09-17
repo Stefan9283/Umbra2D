@@ -1,13 +1,15 @@
-#include <Gui/Editor.h>
-#include <Engines/Renderer.h>
-#include "Engines/Engine.h"
 #include "AssetLibrary.h"
 #include "Window.h"
-#include "IO/Loader.h"
-#include "IO/Saver.h"
-#include "Graphics/Shader.h"
-#include "Gui/FileExplorer.h"
 #include "Scene.h"
+#include "Entity.h"
+#include "Engines/Engine.h"
+#include "Engines/Renderer.h"
+#include "IO/Saver.h"
+#include "IO/Loader.h"
+#include "Graphics/Shader.h"
+#include "Gui/Editor.h"
+#include "Gui/FileExplorer.h"
+#include "Components/Camera.h"
 #include "Components/Renderable.h"
 
 namespace Umbra2D {
@@ -54,8 +56,12 @@ namespace Umbra2D {
         Umbra2D::Shader spriteShader("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
         Umbra2D::Shader textShader("Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
 
-        auto e = scene->addEntity();
-        e->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
+        auto bg = scene->addEntity("background");
+        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
+
+        auto camera = scene->addEntity("camera");
+
+//        camera->addComponent<CAMERA>(w);
 
         while (!w->shouldClose()) {
             if (w->wasKeyPressed(GLFW_KEY_ESCAPE))
@@ -69,16 +75,15 @@ namespace Umbra2D {
 
             theme->gui();
             scene->gui();
+            lib->gui();
 
             edit.startRender();
-
 
             spriteShader.setMat4("proj", edit.getProj());
             spriteShader.setMat4("view", edit.getView());
 
             // add here your render passes
             renderer.onUpdate(scene, &spriteShader);
-
 
             edit.stopRender();
 
@@ -88,7 +93,5 @@ namespace Umbra2D {
         saveProject();
     }
 
-    glm::vec4 Umbra2DEngine::getThemeColor() {
-        return theme->getColor();
-    }
+    glm::vec4 Umbra2DEngine::getThemeColor() { return theme->getColor(); }
 }

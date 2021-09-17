@@ -1,4 +1,6 @@
 #include "AssetLibrary.h"
+
+#include <utility>
 #include "Entity.h"
 #include "Texture.h"
 #include "Graphics/Quad.h"
@@ -20,7 +22,7 @@ namespace Umbra2D {
     }
 
     void AssetLibrary::gui() {
-        if (ImGui::TreeNode("AssetLibrary")) {
+        if (ImGui::Begin("Asset Library")) {
             if (ImGui::TreeNode(("Textures (" + std::to_string(this->textures.size()) + ")").c_str())) {
                 for (auto t : this->textures)
                     t->gui();
@@ -31,26 +33,29 @@ namespace Umbra2D {
                     ss->gui();
                 ImGui::TreePop();
             }
-            ImGui::TreePop();
         }
+        ImGui::End();
     }
 
-    unsigned int AssetLibrary::addSpriteSheet(std::string path, glm::vec2 gridSize, unsigned int numSprites, std::string name) {
+    unsigned int AssetLibrary::addSpriteSheet(const std::string& path, glm::vec2 gridSize, unsigned int numSprites, std::string name) {
         unsigned int index = 0;
         for (auto ss : this->spriteSheets) {
+            // TODO keep in mind that ./REL_PATH and REL_PATH are one and the same
             if (ss->tex->getPath() == path)
                 return index;
+            index++;
         }
-        this->spriteSheets.push_back(new SPRITE_SHEET(path, gridSize, numSprites, name));
+        this->spriteSheets.push_back(new SPRITE_SHEET(path, gridSize, numSprites, std::move(name)));
         return index;
     }
-    unsigned int AssetLibrary::addTexture(std::string path, std::string name) {
+    unsigned int AssetLibrary::addTexture(const std::string& path, std::string name) {
         unsigned int index = 0;
         for (auto tex : this->textures) {
             if (tex->getPath() == path)
                 return index;
+            index++;
         }
-        this->textures.push_back(new TEXTURE(path, name));
+        this->textures.push_back(new TEXTURE(path, std::move(name)));
         return index;
     }
 }

@@ -9,7 +9,7 @@ namespace Umbra2D::Components {
     public:
         void setParent(Entity* e);
         Entity* getParent();
-        virtual void gui() {};
+        virtual void gui() = 0;
     };
 }
 

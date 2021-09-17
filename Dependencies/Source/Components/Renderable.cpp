@@ -1,4 +1,6 @@
 #include "Components/Renderable.h"
+
+#include <utility>
 #include "Components/PropertyComponent.h"
 #include "Engines/Engine.h"
 #include "Graphics/Shader.h"
@@ -10,13 +12,13 @@
 extern Umbra2D::Umbra2DEngine* umbra;
 
 namespace Umbra2D::Components::Renderables {
-    void Dynamic::setSpriteSheet(SPRITE_SHEET* ss) {
-        this->ss = ss;
+    void Dynamic::setSpriteSheet(SPRITE_SHEET* spriteSheet) {
+        this->ss = spriteSheet;
     }
-    void Dynamic::setSpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
-        ss = LIBRARY->spriteSheets[LIBRARY->addSpriteSheet(pathToImage, gridSize, numOfSprites, name)];
+    void Dynamic::setSpriteSheet(const std::string& pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
+        ss = LIBRARY->spriteSheets[LIBRARY->addSpriteSheet(pathToImage, gridSize, numOfSprites, std::move(name))];
     }
-    void Dynamic::setAnimation(unsigned int animationID) {
+    void Dynamic::setAnimation(int animationID) {
         time = glfwGetTime();
         animationPlaying = animationID;
     }
@@ -24,15 +26,27 @@ namespace Umbra2D::Components::Renderables {
         std::string parentID = std::to_string(this->getParent()->getID());
         if (ImGui::TreeNode(("Dynamic " + parentID).c_str())) {
             ImGui::Text("Dynamic %s", parentID.c_str());
+
+
+            std::string texName;
             if (ss) {
+                texName = ss->tex->name;
                 ImGui::SliderInt(("Current Sprite " + parentID).c_str(), (int *) &currentSprite, 0, (int) ss->getSize().x - 1);
                 if (ImGui::SliderInt(("Playing Animation " + parentID).c_str(), &animationPlaying, -1, ss->getAnimationsCount() - 1))
                     setAnimation(animationPlaying);
                 ss->gui();
             } else {
-                // TODO add target for texture path and call to addSpriteSheet
-                ImGui::Text("No Sprite Sheet has been set");
+                texName = "No Sprite Sheet has been set";
             }
+
+            ImGui::Text("%s", texName.c_str());
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("TEXTURE_PATH")) {
+                    setSpriteSheet(std::string((char*)payload->Data));
+                }
+                ImGui::EndDragDropTarget();
+            }
+
             ImGui::SliderFloat(("Animation Speed " + parentID).c_str(), &animationSpeed, 0.f, 100.f);
             ImGui::Checkbox(("Loop Animation " + parentID).c_str(), &loopAnimation);
             ImGui::TreePop();
@@ -77,15 +91,31 @@ namespace Umbra2D::Components::Renderables {
         LIBRARY->q->draw();
     }
 
-    void Static::setTexture(std::string path, std::string name) {
-        t = LIBRARY->textures[LIBRARY->addTexture(path, name)];
+    void Static::setTexture(const std::string& path, std::string name) {
+        t = LIBRARY->textures[LIBRARY->addTexture(path, std::move(name))];
     }
     void Static::setTexture(TEXTURE* tex) {
         this->t = tex;
     }
     void Static::gui() {
         if (ImGui::TreeNode(("Static " + std::to_string(getParent()->getID())).c_str())) {
-            t->gui();
+
+            std::string texName;
+            if (t) {
+                texName = t->name;
+            } else {
+                texName = "No Texture has been set";
+            }
+
+            ImGui::Text("%s", texName.c_str());
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("TEXTURE_PATH")) {
+                    setTexture(std::string((char*)payload->Data));
+                }
+                ImGui::EndDragDropTarget();
+            }
+
+            if (t) t->gui();
             ImGui::TreePop();
         }
     }
@@ -97,9 +127,10 @@ namespace Umbra2D::Components::Renderables {
 //        s->setFloat("depth", (const float)transform.layer);
         s->setVec2("start", glm::vec2(0));
         s->setVec2("end", glm::vec2(1));
-        if (t)
+
+        if (t) {
             s->setTexture("Texture", t->getID(), 0);
-        else {
+        } else {
             s->setTexture("Texture", LIBRARY->defaultTexture->getID(), 0);
         }
 

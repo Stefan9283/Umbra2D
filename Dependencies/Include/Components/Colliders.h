@@ -18,9 +18,9 @@ namespace Umbra2D::Components::Colliders {
         virtual void draw() = 0;
         void gui() override;
     };
-    // axis aligned rectangle
+    // TODO
     class Rectangle : public AbstractCollider {
-        public:
+    public:
         glm::vec2 dimensions;
 
         Rectangle(float height = 1, float length = 1, glm::vec2 center = {});
@@ -32,7 +32,20 @@ namespace Umbra2D::Components::Colliders {
         void draw() override;
         void gui() override;
     };
-    
+    // axis aligned rectangle
+    class AARectangle : public AbstractCollider {
+    public:
+        glm::vec2 dimensions;
+
+        AARectangle(float height = 1, float length = 1, glm::vec2 center = {});
+
+        bool checkCollision(Components::Colliders::Rectangle* c) override;
+        bool checkCollision(Components::Colliders::Circle* c) override;
+        bool checkCollision(Components::Colliders::Line* c) override;
+
+        void draw() override;
+        void gui() override;
+    };
     class Circle : public AbstractCollider {
         public:
         float radius;

@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Gui/Gui.h"
 
+
 // Private members
 namespace Umbra2D::Gui {
     std::string FileExplorer::formatPath(const std::string &path) {
@@ -76,7 +77,7 @@ namespace Umbra2D::Gui {
 
         std::string extension;
 
-        for (int i = path.size(); i >= 0; i--)
+        for (size_t i = path.size(); i >= 0; i--)
             if (path[i] == '.') {
                 extension = std::string(path, i + 1);
                 break;
@@ -194,9 +195,8 @@ namespace Umbra2D::Gui {
 
                         if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
                             char path_buffer[MAX_LEN]{};
-
-                            strcpy(path_buffer, pair.second.c_str());
-                            ImGui::SetDragDropPayload(type.c_str(), &path_buffer, strlen(path_buffer) * sizeof(char));
+                            strcpy(path_buffer, pair.second.c_str() + 2);
+                            ImGui::SetDragDropPayload(type.c_str(), &path_buffer, strlen(path_buffer) * sizeof(char) + 1);
                             ImGui::EndDragDropSource();
                         }
                     }

@@ -29,7 +29,7 @@ namespace Umbra2D {
                 ImGui::SameLine();
                 addingComponentTo = getID();
                 int selected = -1;
-                const char* items[] = { "Circle", "Rectangle", "Line", "Dynamic", "Static", "Transform" };
+                const char* items[] = { "Circle", "AARectangle", "Line", "Dynamic", "Static", "Transform" };
                 ImGui::Combo("Components", &selected, items, IM_ARRAYSIZE(items));
                 if (selected != -1) {
                     switch (selected) {
@@ -37,7 +37,7 @@ namespace Umbra2D {
                             addComponent<CIRCLE>();
                             break;
                         case 1:
-                            addComponent<RECTANGLE>();
+                            addComponent<AARECTANGLE>();
                             break;
                         case 2:
                             addComponent<LINE>();
@@ -52,14 +52,13 @@ namespace Umbra2D {
                             addComponent<TRANSFORM>();
                             break;
                         case 6:
-                            // TODO add
+                            // TODO add scripts
 //                            addComponent<SCRIPT>();
                             break;
                     }
                     addingComponentTo = -1;
                 }
             }
-
 
             if (hasComponent<STATIC>())
                 getComponent<STATIC>()->gui();
@@ -85,16 +84,26 @@ namespace Umbra2D {
 
     template<typename T>
     T *Entity::addComponent() {
-        T& comp = scene->registry.emplace<T>(id);
-        ((COMPONENT*)&comp)->setParent(this);
-        return &comp;
+        if (!hasComponent<T>()) {
+            T &comp = scene->registry.emplace<T>(id);
+            ((COMPONENT *) &comp)->setParent(this);
+            return &comp;
+        } else {
+            // TODO log to some console
+            return getComponent<T>();
+        }
     }
 
     template<typename T, typename... Args>
     T *Entity::addComponent(Args... args) {
-        auto& comp = scene->registry.emplace<T>(id, std::forward<Args>(args)...);
-        ((COMPONENT*)&comp)->setParent(this);
-        return &comp;
+        if (!hasComponent<T>()) {
+            auto &comp = scene->registry.emplace<T>(id, std::forward<Args>(args)...);
+            ((COMPONENT *) &comp)->setParent(this);
+            return &comp;
+        } else {
+            // TODO log to some console
+            return getComponent<T>();
+        }
     }
 
     template<typename T>
