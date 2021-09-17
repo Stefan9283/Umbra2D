@@ -13,5 +13,5 @@ uniform vec2 end;
 
 void main() {
     Tex = mix(start, end, tex);
-    gl_Position = proj * view * model * vec4(pos.xy, -2, 1.);
+    gl_Position = proj * view * model * vec4(pos.xy, 0, 1.);
 }

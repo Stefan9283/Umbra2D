@@ -39,10 +39,25 @@ namespace Umbra2D::Gui {
             ImGui::SetCursorPos(ImVec2((windowSize.x - newResolution.x) / 2, (windowSize.y - newResolution.y) / 2));
             Umbra2D::Gui::showTexture(frbuf->getTexture(), targetResolution);
             ImVec2 pos2 = ImGui::GetCursorScreenPos();
-
             if (ImGui::IsItemHovered()) {
                 ImGui::BeginTooltip();
                 ImGuiIO& io = ImGui::GetIO();
+                if (ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+                    auto delta = ImGui::GetMouseDragDelta(0, 6.0f);
+                    std::cout << delta.x << " " << delta.y << "\n";
+
+                    auto dragInViewPortOld = glm::vec2(io.MousePos.x - pos.x - delta.x, pos2.y - io.MousePos.y + delta.y - ImGui::GetStyle().ItemSpacing.y);
+                    auto dragInViewPortNew = glm::vec2(io.MousePos.x - pos.x, pos2.y - io.MousePos.y - ImGui::GetStyle().ItemSpacing.y);
+
+                    auto normalizedDragOld = (2.f * dragInViewPortOld - newResolution) / newResolution;
+                    auto normalizedDragNew = (2.f * dragInViewPortNew - newResolution) / newResolution;
+
+                    auto CoordsInWorldOld = cam->getWorldCoords(normalizedDragOld);
+                    auto CoordsInWorldNew = cam->getWorldCoords(normalizedDragNew);
+
+                    auto deltaDist = CoordsInWorldNew - CoordsInWorldOld;
+                    std::cout << glm::to_string(deltaDist) << "\n";
+                }
                 auto posOnViewPort = glm::vec2(io.MousePos.x - pos.x, pos2.y - io.MousePos.y - ImGui::GetStyle().ItemSpacing.y);
 //                ImGui::Text("Coords %f, %f", posOnViewPort.x, posOnViewPort.y);
 //                ImGui::Text("Resolution %f, %f", newResolution.x, newResolution.y);

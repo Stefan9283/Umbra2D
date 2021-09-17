@@ -124,8 +124,11 @@ namespace Umbra2D::Assets {
                 for (auto sprite : anim.frames) {
                     auto corners = getSpriteCell(sprite.first);
                     Umbra2D::Gui::showTexture(tex, glm::vec2(100), corners.first, corners.second);
-                    ImGui::Text("FrameName: %s\nFrameID: %d\nTimeUntilNextFrame: %f\n",
-                            frameDescriptions[sprite.first].c_str(), sprite.first, sprite.second);
+                    ImGui::PushID(sprite.first);
+                    ImGui::InputText("FrameName", &frameDescriptions[sprite.first]);
+                    ImGui::Text("FrameID: %d\n", sprite.first);
+                    ImGui::InputFloat("TimeUntilNextFrame: ", &sprite.second);
+                    ImGui::PopID();
                 }
                 ImGui::TreePop();
             }

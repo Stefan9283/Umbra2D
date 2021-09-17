@@ -12,7 +12,7 @@ namespace Umbra2D {
             entt::registry registry;
 
             Scene();
-            Entity* addEntity();
+            Entity* addEntity(std::string name = "");
 
             void gui();
         };

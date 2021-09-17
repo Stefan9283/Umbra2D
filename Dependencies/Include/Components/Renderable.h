@@ -13,7 +13,7 @@ namespace Umbra2D::Components::Renderables {
     private:
         TEXTURE* t = nullptr;
     public:
-        void setTexture(std::string path, std::string name = "");
+        void setTexture(const std::string& path, std::string name = "");
         void setTexture(TEXTURE* tex);
         void gui() override;
         void draw(Shader* s);
@@ -27,10 +27,10 @@ namespace Umbra2D::Components::Renderables {
         bool loopAnimation = false;
         float animationSpeed = 1;
     public:
-        void setSpriteSheet(SPRITE_SHEET* ss);
-        void setSpriteSheet(std::string pathToImage, glm::vec2 gridSize = glm::vec2(1),
+        void setSpriteSheet(SPRITE_SHEET* spriteSheet);
+        void setSpriteSheet(const std::string& pathToImage, glm::vec2 gridSize = glm::vec2(1),
                         unsigned int numOfSprites = 1, std::string name = "");
-        void setAnimation(unsigned int animationID);
+        void setAnimation(int animationID);
         void gui() override;
         void draw(Shader* s);
     };

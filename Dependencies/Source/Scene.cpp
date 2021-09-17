@@ -8,8 +8,8 @@ namespace Umbra2D {
 //            registry.get<Umbra2D::Components::Colliders::Circle>(entity);
         }
 
-    Entity* Scene::addEntity() {
-        auto* e = new Entity("", this);
+    Entity* Scene::addEntity(std::string name) {
+        auto* e = new Entity(name, this);
         entities.emplace_back(e);
         return e;
     }
