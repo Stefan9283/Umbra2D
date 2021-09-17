@@ -8,7 +8,7 @@ using std::endl;
 using std::cout;
 using std::cerr;
 
-int main(int argc, char ** argv)
+/*int main(int argc, char** argv)
 {
         try {
                 AudioPlayer player;
@@ -64,4 +64,4 @@ int main(int argc, char ** argv)
         }
 
         return 0;
-}
+}*/

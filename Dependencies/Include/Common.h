@@ -37,6 +37,9 @@
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/string_cast.hpp>
 
+// for projection
+#include <glm/gtx/closest_point.hpp>
+
 // scripting with C++ binding
 #include <chaiscript/chaiscript.hpp>
 
