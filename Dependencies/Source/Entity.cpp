@@ -2,7 +2,6 @@
 
 #include <utility>
 #include "Engines/Engine.h"
-#include "Components/Component.h"
 #include "Components/Colliders.h"
 #include "Components/Renderable.h"
 #include "Components/PropertyComponent.h"
@@ -23,8 +22,8 @@ namespace Umbra2D {
         return static_cast<std::uint32_t>(id);
     }
     void Entity::gui() {
-        if (ImGui::TreeNode((label + " " + std::to_string(getID())).c_str())) {
-            // TODO add the option to add a new empty component
+        ImGui::PushID(getID());
+        if (ImGui::TreeNode(label.c_str())) {
             if (ImGui::Button("+") || addingComponentTo == (int)getID()) {
                 ImGui::SameLine();
                 addingComponentTo = getID();
@@ -71,49 +70,18 @@ namespace Umbra2D {
                 getComponent<CIRCLE>()->gui();
             if (hasComponent<RECTANGLE>())
                 getComponent<RECTANGLE>()->gui();
+            if (hasComponent<AARECTANGLE>())
+                getComponent<AARECTANGLE>()->gui();
 
             if (hasComponent<TRANSFORM>())
                 getComponent<TRANSFORM>()->gui();
 
             ImGui::TreePop();
         }
+        ImGui::PopID();
     }
     Entity::~Entity() {
         scene->registry.destroy(id);
-    }
-
-    template<typename T>
-    T *Entity::addComponent() {
-        if (!hasComponent<T>()) {
-            T &comp = scene->registry.emplace<T>(id);
-            ((COMPONENT *) &comp)->setParent(this);
-            return &comp;
-        } else {
-            // TODO log to some console
-            return getComponent<T>();
-        }
-    }
-
-    template<typename T, typename... Args>
-    T *Entity::addComponent(Args... args) {
-        if (!hasComponent<T>()) {
-            auto &comp = scene->registry.emplace<T>(id, std::forward<Args>(args)...);
-            ((COMPONENT *) &comp)->setParent(this);
-            return &comp;
-        } else {
-            // TODO log to some console
-            return getComponent<T>();
-        }
-    }
-
-    template<typename T>
-    bool Entity::hasComponent() {
-        return scene->registry.all_of<T>(id);
-    }
-
-    template<typename T>
-    T *Entity::getComponent() {
-        return &scene->registry.get<T>(id);
     }
 }
 

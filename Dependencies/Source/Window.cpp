@@ -38,6 +38,7 @@ namespace Umbra2D {
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
+        ImNodes::CreateContext();
         ImGuiIO& io = ImGui::GetIO(); (void)io;
 
         ImGui::StyleColorsDark();
@@ -60,7 +61,9 @@ namespace Umbra2D {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
     Window::~Window() {
-         glfwTerminate();
+        ImNodes::DestroyContext();
+        ImGui::DestroyContext();
+        glfwTerminate();
     }
     bool Window::shouldClose() {
         return glfwWindowShouldClose(window);

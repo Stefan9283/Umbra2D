@@ -56,7 +56,8 @@ namespace Umbra2D::Gui {
                     auto CoordsInWorldNew = cam->getWorldCoords(normalizedDragNew);
 
                     auto deltaDist = CoordsInWorldNew - CoordsInWorldOld;
-                    std::cout << glm::to_string(deltaDist) << "\n";
+                    // TODO use this distance to drag objects using the mouse or for editor camera movement
+//                    std::cout << glm::to_string(deltaDist) << "\n";
                 }
                 auto posOnViewPort = glm::vec2(io.MousePos.x - pos.x, pos2.y - io.MousePos.y - ImGui::GetStyle().ItemSpacing.y);
 //                ImGui::Text("Coords %f, %f", posOnViewPort.x, posOnViewPort.y);

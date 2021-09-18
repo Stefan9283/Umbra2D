@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "Components/Component.h"
+#include "Scene.h"
 
 namespace Umbra2D {
     class Entity {
@@ -16,10 +17,28 @@ namespace Umbra2D {
         uint32_t getID();
 
         template<typename T, typename... Args>
-        T* addComponent(Args... args);
+        T* addComponent(Args... args) {
+            if (!hasComponent<T>()) {
+                auto &comp = scene->registry.emplace<T>(id, std::forward<Args>(args)...);
+                ((COMPONENT *) &comp)->setParent(this);
+                return &comp;
+            } else {
+                // TODO log to some console
+                return getComponent<T>();
+            }
+        }
 
         template<typename T>
-        T* addComponent();
+        T* addComponent() {
+            if (!hasComponent<T>()) {
+                T &comp = scene->registry.emplace<T>(id);
+                ((COMPONENT *) &comp)->setParent(this);
+                return &comp;
+            } else {
+                // TODO log to some console
+                return getComponent<T>();
+            }
+        }
 
 //        template<typename T, typename S>
 //        S* addComponent(S* comp) {
@@ -30,7 +49,9 @@ namespace Umbra2D {
 
 
         template<typename T>
-        bool hasComponent();
+        bool hasComponent() {
+            return scene->registry.all_of<T>(id);
+        }
 //        template<typename T>
 //        bool hasPointerComponent() {
 //            return scene->registry.all_of<T*>(id);
@@ -39,7 +60,9 @@ namespace Umbra2D {
 
 
         template<typename T>
-        T* getComponent();
+        T* getComponent() {
+            return &scene->registry.get<T>(id);
+        }
 //        template<typename T>
 //        T* getPointerComponent() {
 //            return scene->registry.get<T*>(id);

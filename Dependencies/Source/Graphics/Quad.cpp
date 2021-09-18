@@ -3,10 +3,10 @@
 namespace Umbra2D {
     Quad::Quad() {
         std::vector<Vertex> vertices{
-                { glm::vec2(-0.5, -0.5) * 100.f, glm::vec2(0, 0) },
-                { glm::vec2(-0.5,  0.5) * 100.f, glm::vec2(0, 1) },
-                { glm::vec2( 0.5, -0.5) * 100.f, glm::vec2(1, 0) },
-                { glm::vec2( 0.5,  0.5) * 100.f, glm::vec2(1, 1) },
+                { glm::vec2(-0.5, -0.5), glm::vec2(0, 0) },
+                { glm::vec2(-0.5,  0.5), glm::vec2(0, 1) },
+                { glm::vec2( 0.5, -0.5), glm::vec2(1, 0) },
+                { glm::vec2( 0.5,  0.5), glm::vec2(1, 1) },
         };
         std::vector<uint32_t> indices{0, 1, 2, 2, 1, 3};
 

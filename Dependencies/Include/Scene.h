@@ -2,7 +2,6 @@
 #define UMBRA2D_SCENE_H
 
 #include "Common.h"
-#include "Entity.h"
 
 namespace Umbra2D {
         class Scene {

@@ -32,3 +32,6 @@
 [submodule "Dependencies/Vendor/entt"]
 	path = Dependencies/Vendor/entt
 	url = https://github.com/skypjack/entt
+[submodule "Dependencies/Vendor/imnodes"]
+	path = Dependencies/Vendor/imnodes
+	url = https://github.com/Nelarius/imnodes

@@ -36,6 +36,8 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/string_cast.hpp>
+// for projection i.e. glm::closestPointOnLine()
+#include <glm/gtx/closest_point.hpp>
 
 // scripting with C++ binding
 #include <chaiscript/chaiscript.hpp>
@@ -54,7 +56,7 @@
 #include <misc/cpp/imgui_stdlib.h>
 
 // ImGui Node API
-#include <imgui_node_editor.h>
+#include <imnodes.h>
 
 // images loader
 #include <stb_image.h>

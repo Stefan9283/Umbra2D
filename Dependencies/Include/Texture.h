@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include "Common.h"
 
@@ -47,7 +47,7 @@ namespace Umbra2D::Assets {
     public:
         Texture* tex;
 
-        SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
+        SpriteSheet(std::string pathToImage, glm::vec2 gridSize = {1, 1}, unsigned int numSprites = 1, std::string name = "");
         ~SpriteSheet();
         void gui();
         

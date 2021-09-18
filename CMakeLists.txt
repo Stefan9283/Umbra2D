@@ -43,7 +43,7 @@ file(GLOB VENDORS_SOURCES
 		Dependencies/Vendor/imgui/backends/imgui_impl_glfw.cpp 
 		Dependencies/Vendor/imgui/*.cpp
 		Dependencies/Vendor/imgui/misc/cpp/*.cpp
-		Dependencies/Vendor/imgui-node-editor/*.cpp)
+		Dependencies/Vendor/imnodes/imnodes.cpp)
 
 message(STATUS " ............... Grabbing all your source code ................")
 
@@ -66,7 +66,7 @@ include_directories(
 		Dependencies/Vendor/stb
 		Dependencies/Vendor/imgui
 		Dependencies/Vendor/imgui/backends
-		Dependencies/Vendor/imgui-node-editor
+		Dependencies/Vendor/imnodes
 		Dependencies/Vendor/glfw/include
 		Dependencies/Vendor/glad/include
 		Dependencies/Vendor/freetype/include

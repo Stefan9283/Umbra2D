@@ -6,16 +6,19 @@
 namespace Umbra2D::Components::Colliders {
     class AbstractCollider : public COMPONENT {
         public:
-        glm::vec2 pos; // TODO rename to offset
+        glm::vec2 offset;
 
         AbstractCollider() = default;
         virtual ~AbstractCollider() = default;
 
+        glm::vec2 getPosition();
+
         virtual bool checkCollision(Components::Colliders::Rectangle* c) = 0;
+        virtual bool checkCollision(Components::Colliders::AARectangle* c) = 0;
         virtual bool checkCollision(Components::Colliders::Circle* c) = 0;
         virtual bool checkCollision(Components::Colliders::Line* c) = 0;
 
-        virtual void draw() = 0;
+        virtual void draw(Shader* s) = 0;
         void gui() override;
     };
     // TODO
@@ -26,10 +29,11 @@ namespace Umbra2D::Components::Colliders {
         Rectangle(float height = 1, float length = 1, glm::vec2 center = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
+        bool checkCollision(Components::Colliders::AARectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw() override;
+        void draw(Shader* s) override;
         void gui() override;
     };
     // axis aligned rectangle
@@ -40,10 +44,11 @@ namespace Umbra2D::Components::Colliders {
         AARectangle(float height = 1, float length = 1, glm::vec2 center = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
+        bool checkCollision(Components::Colliders::AARectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw() override;
+        void draw(Shader* s) override;
         void gui() override;
     };
     class Circle : public AbstractCollider {
@@ -53,10 +58,11 @@ namespace Umbra2D::Components::Colliders {
         Circle(float radius = 1, glm::vec2 center = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
+        bool checkCollision(Components::Colliders::AARectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw() override;
+        void draw(Shader* s) override;
         void gui() override;
     };
     
@@ -69,10 +75,11 @@ namespace Umbra2D::Components::Colliders {
         Line(float length = 1, glm::vec2 direction = glm::vec2(0, 1), glm::vec2 origin = {});
 
         bool checkCollision(Components::Colliders::Rectangle* c) override;
+        bool checkCollision(Components::Colliders::AARectangle* c) override;
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw() override;
+        void draw(Shader* s) override;
         void gui() override;
     };
 }
