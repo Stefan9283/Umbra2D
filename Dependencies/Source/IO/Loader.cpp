@@ -5,7 +5,7 @@
 
 extern Umbra2D::Umbra2DEngine* umbra;
 
-namespace Umbra2D {
+namespace Umbra2D::IO {
     void Loader::parseTexture(TextureInfo& textureInfo) {
         int i = 0, j;
     

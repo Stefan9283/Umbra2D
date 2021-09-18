@@ -52,7 +52,7 @@ namespace Umbra2D::Components::Renderables {
             ImGui::TreePop();
         }
     }
-    void Dynamic::draw(Shader* s) {
+    void Dynamic::draw(Umbra2D::Graphics::Shader* s) {
         if (!render) return;
         glm::mat4 model = getParent()->hasComponent<TRANSFORM>() ? getParent()->getComponent<TRANSFORM>()->toMat4() : glm::mat4(1);
         s->setMat4("model", &model);
@@ -119,7 +119,7 @@ namespace Umbra2D::Components::Renderables {
             ImGui::TreePop();
         }
     }
-    void Static::draw(Shader* s) {
+    void Static::draw(Umbra2D::Graphics::Shader* s) {
         if (!render) return;
         glm::mat4 model = getParent()->hasComponent<TRANSFORM>() ? getParent()->getComponent<TRANSFORM>()->toMat4() : glm::mat4(1);
         s->setMat4("model", &model);

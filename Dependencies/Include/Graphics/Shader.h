@@ -18,14 +18,17 @@ struct ShaderProgramSource
 };
 
 
-namespace Umbra2D {
+namespace Umbra2D::Graphics {
 class Shader
 {
 	unsigned int id;
+    std::string pathv, pathf;
 public:
 
     void bind();
     void unbind();
+
+    std::pair<std::string, std::string> getPaths();
 
     unsigned int getUniformID(const std::string& name);
     void setMat4(const std::string& name, const glm::mat4* mat, size_t how_many = 1);

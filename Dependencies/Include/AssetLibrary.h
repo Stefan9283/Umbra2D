@@ -7,6 +7,7 @@
  *  - all the simple textures used for rendering
  *    static objects
  *  - sprite sheets for dynamic objects
+ *  - shaders used in various render passes
  *  - a unit quad used for rendering any in-game object
  */
 namespace Umbra2D {
@@ -14,9 +15,10 @@ namespace Umbra2D {
         public:
         std::vector<TEXTURE*> textures;
         std::vector<SPRITE_SHEET*> spriteSheets;
+        std::vector<Umbra2D::Graphics::Shader*> shaders;
 
-        Umbra2D::Quad* q;
-        Umbra2D::DynamicQuad* dq;
+        Umbra2D::Graphics::Quad* q;
+        Umbra2D::Graphics::DynamicQuad* dq;
 
         TEXTURE* defaultTexture;
 
@@ -27,5 +29,6 @@ namespace Umbra2D {
 
         unsigned int addSpriteSheet(const std::string& path, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
         unsigned int addTexture(const std::string& path, std::string name = "");
+        unsigned int addShader(const std::string& pathv, const std::string& pathf);
     };
 }

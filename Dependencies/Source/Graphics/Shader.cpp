@@ -1,12 +1,15 @@
 #include "Graphics/Shader.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Graphics {
 
 void Shader::bind() {
     glUseProgram(id);
 }
 void Shader::unbind() {
     glUseProgram(0);
+}
+std::pair<std::string, std::string> Shader::getPaths() {
+    return {pathv, pathf};
 }
 unsigned int Shader::getUniformID(const std::string& name) {
     return glGetUniformLocation(id, name.c_str());

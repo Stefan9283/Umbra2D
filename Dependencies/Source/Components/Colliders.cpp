@@ -234,7 +234,7 @@ namespace Umbra2D::Components::Colliders {
     }
 
     // TODO
-    void Rectangle::draw(Shader* shader) {
+    void Rectangle::draw(Umbra2D::Graphics::Shader* shader) {
         shader->setInt("shape", RECTANGLE_SHAPE);
         shader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
 //        auto translation = pos;
@@ -246,7 +246,7 @@ namespace Umbra2D::Components::Colliders {
 //        colliderShader->setMat4("model", &model);
         LIBRARY->q->draw();
     }
-    void AARectangle::draw(Shader* shader) {
+    void AARectangle::draw(Umbra2D::Graphics::Shader* shader) {
         shader->setInt("shape", AARECTANGLE_SHAPE);
         shader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         glm::mat4 model =
@@ -255,7 +255,7 @@ namespace Umbra2D::Components::Colliders {
         shader->setMat4("model", &model);
         LIBRARY->q->draw();
     }
-    void Circle::draw(Shader* shader) {
+    void Circle::draw(Umbra2D::Graphics::Shader* shader) {
         shader->setInt("shape", CIRCLE_SHAPE);
         shader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         glm::mat4 model =
@@ -264,7 +264,7 @@ namespace Umbra2D::Components::Colliders {
         shader->setMat4("model", &model);
         LIBRARY->q->draw();
     }
-    void Line::draw(Shader* shader) {
+    void Line::draw(Umbra2D::Graphics::Shader* shader) {
         shader->setInt("shape", LINE_SHAPE);
         shader->setVec4("color", glm::vec4(0.2, 0.2, 0.5, 0.4));
         glm::mat4 model =

@@ -6,7 +6,7 @@
 namespace Umbra2D::Gui {
     class Editor : public ImGuiElement {
     private:
-        Umbra2D::FrameBuffer *frbuf;
+        Umbra2D::Graphics::FrameBuffer *frbuf;
         Umbra2D::Components::Camera* cam;
     public:
         explicit Editor(Window* window);

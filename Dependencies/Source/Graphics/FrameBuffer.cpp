@@ -6,8 +6,7 @@
 
 extern Umbra2D::Umbra2DEngine* umbra;
 
-namespace Umbra2D {
-
+namespace Umbra2D::Graphics {
     FrameBuffer::FrameBuffer(int type, glm::ivec2 resolution) {
         // framebuffer configuration
         // -------------------------

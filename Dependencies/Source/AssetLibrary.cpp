@@ -4,12 +4,13 @@
 #include "Entity.h"
 #include "Texture.h"
 #include "Graphics/Quad.h"
+#include "Graphics/Shader.h"
 
 namespace Umbra2D {
     AssetLibrary::AssetLibrary() {
         defaultTexture = new TEXTURE("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
-        q = new Quad();
-        dq = new DynamicQuad();
+        q = new Umbra2D::Graphics::Quad();
+        dq = new Umbra2D::Graphics::DynamicQuad();
     }
     AssetLibrary::~AssetLibrary() {
         for (auto* tex : textures)
@@ -56,6 +57,18 @@ namespace Umbra2D {
             index++;
         }
         this->textures.push_back(new TEXTURE(path, std::move(name)));
+        return index;
+    }
+
+    unsigned int AssetLibrary::addShader(const std::string &pathv, const std::string &pathf) {
+        unsigned int index = 0;
+        for (auto& sh : this->shaders) {
+            auto paths = sh->getPaths();
+            if (paths.first == pathv && paths.second == pathf)
+                return index;
+            index++;
+        }
+        this->shaders.push_back(new Umbra2D::Graphics::Shader(pathv, pathf));
         return index;
     }
 }

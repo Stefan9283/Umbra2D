@@ -4,7 +4,7 @@
 
 #include "Common.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Graphics {
     class FrameBuffer {
     private:
         unsigned int fbo, rbo;

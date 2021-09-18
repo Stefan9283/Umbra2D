@@ -15,6 +15,6 @@ namespace Umbra2D::Text {
 
         Font(std::string path);
         ~Font();
-        void RenderText(Shader* s, std::string text, float x, float y, float scale, glm::vec4 color, float depth);
+        void RenderText(Umbra2D::Graphics::Shader* s, std::string text, float x, float y, float scale, glm::vec4 color, float depth);
     };
 }

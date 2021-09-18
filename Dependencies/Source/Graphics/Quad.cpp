@@ -1,6 +1,6 @@
 #include "Graphics/Quad.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Graphics {
     Quad::Quad() {
         std::vector<Vertex> vertices{
                 { glm::vec2(-0.5, -0.5), glm::vec2(0, 0) },

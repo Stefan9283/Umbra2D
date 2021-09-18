@@ -16,7 +16,7 @@ namespace Umbra2D::Components::Renderables {
         void setTexture(const std::string& path, std::string name = "");
         void setTexture(TEXTURE* tex);
         void gui() override;
-        void draw(Shader* s);
+        void draw(Umbra2D::Graphics::Shader* s);
     };
     class Dynamic : public Renderable {
     private:
@@ -32,7 +32,7 @@ namespace Umbra2D::Components::Renderables {
                         unsigned int numOfSprites = 1, std::string name = "");
         void setAnimation(int animationID);
         void gui() override;
-        void draw(Shader* s);
+        void draw(Umbra2D::Graphics::Shader* s);
     };
 }
 

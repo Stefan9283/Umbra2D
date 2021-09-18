@@ -18,7 +18,7 @@ namespace Umbra2D::Components::Colliders {
         virtual bool checkCollision(Components::Colliders::Circle* c) = 0;
         virtual bool checkCollision(Components::Colliders::Line* c) = 0;
 
-        virtual void draw(Shader* s) = 0;
+        virtual void draw(Umbra2D::Graphics::Shader* s) = 0;
         void gui() override;
     };
     // TODO
@@ -33,7 +33,7 @@ namespace Umbra2D::Components::Colliders {
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw(Shader* s) override;
+        void draw(Umbra2D::Graphics::Shader* s) override;
         void gui() override;
     };
     // axis aligned rectangle
@@ -48,7 +48,7 @@ namespace Umbra2D::Components::Colliders {
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw(Shader* s) override;
+        void draw(Umbra2D::Graphics::Shader* s) override;
         void gui() override;
     };
     class Circle : public AbstractCollider {
@@ -62,7 +62,7 @@ namespace Umbra2D::Components::Colliders {
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw(Shader* s) override;
+        void draw(Umbra2D::Graphics::Shader* s) override;
         void gui() override;
     };
     
@@ -79,7 +79,7 @@ namespace Umbra2D::Components::Colliders {
         bool checkCollision(Components::Colliders::Circle* c) override;
         bool checkCollision(Components::Colliders::Line* c) override;
 
-        void draw(Shader* s) override;
+        void draw(Umbra2D::Graphics::Shader* s) override;
         void gui() override;
     };
 }

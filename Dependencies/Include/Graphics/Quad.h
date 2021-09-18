@@ -12,7 +12,7 @@ struct Vertex {
     glm::vec2 texture;
 };
 
-namespace Umbra2D {
+namespace Umbra2D::Graphics {
     class Quad {
     private:
         unsigned int VAO, VBO, EBO;

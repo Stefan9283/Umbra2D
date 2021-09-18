@@ -1,4 +1,4 @@
-#include "Fonts.h"
+#include "Graphics/Fonts.h"
 #include "Graphics/Shader.h"
 #include "AssetLibrary.h"
 #include "Graphics/Quad.h"
@@ -68,7 +68,7 @@ namespace Umbra2D::Text {
             glDeleteTextures(1, &c.second.TextureID);
     }
 
-    void Font::RenderText(Shader* s, std::string text, float x, float y, float scale, glm::vec4 color, float depth) {
+    void Font::RenderText(Umbra2D::Graphics::Shader* s, std::string text, float x, float y, float scale, glm::vec4 color, float depth) {
         // activate corresponding render state
         s->setVec4("color", color);
         s->setFloat("depth", depth);

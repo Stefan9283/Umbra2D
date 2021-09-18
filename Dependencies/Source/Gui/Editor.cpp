@@ -9,7 +9,7 @@ extern Umbra2D::Umbra2DEngine* umbra;
 
 namespace Umbra2D::Gui {
     Editor::Editor(Window* window) {
-        frbuf = new Umbra2D::FrameBuffer(GL_RGBA, {1920, 1080});
+        frbuf = new Umbra2D::Graphics::FrameBuffer(GL_RGBA, {1920, 1080});
         cam = new Umbra2D::Components::Camera(window);
     }
     void Editor::gui() {
@@ -44,7 +44,7 @@ namespace Umbra2D::Gui {
                 ImGuiIO& io = ImGui::GetIO();
                 if (ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
                     auto delta = ImGui::GetMouseDragDelta(0, 6.0f);
-                    std::cout << delta.x << " " << delta.y << "\n";
+//                    std::cout << delta.x << " " << delta.y << "\n";
 
                     auto dragInViewPortOld = glm::vec2(io.MousePos.x - pos.x - delta.x, pos2.y - io.MousePos.y + delta.y - ImGui::GetStyle().ItemSpacing.y);
                     auto dragInViewPortNew = glm::vec2(io.MousePos.x - pos.x, pos2.y - io.MousePos.y - ImGui::GetStyle().ItemSpacing.y);

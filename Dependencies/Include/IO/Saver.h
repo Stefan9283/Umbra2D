@@ -2,7 +2,7 @@
 
 #include "Common.h"
 
-namespace Umbra2D {
+namespace Umbra2D::IO {
 	class Saver {
 	private:
 		std::string path;

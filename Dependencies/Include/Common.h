@@ -96,18 +96,19 @@
 
 #define TRANSFORM Umbra2D::Components::Transform
 
-
 constexpr auto MAX_LEN = 1024;
 
 namespace Umbra2D {
-
     class Umbra2DEngine;
 
-
+    class Window;
+    class Scene;
     class AssetLibrary;
 
-    class Saver;
-    class Loader;
+    namespace IO {
+        class Saver;
+        class Loader;
+    }
 
     namespace Assets {
         class Animation;
@@ -115,20 +116,19 @@ namespace Umbra2D {
         class SpriteSheet;
     }
 
-    class Window;
-    class Scene;
-
-    class Shader;
-    class FrameBuffer;
-
-    class Quad;         // for entities rendering
-    class DynamicQuad; // for font rendering
-
-    namespace Gui {
-        class FileExplorer;
-        class ImGuiTheme;
+    namespace Graphics {
+        class Shader;
+        class FrameBuffer;
+        class GraphicsPipeline;
+        class RenderPass;
+        class Quad;         // for entities rendering
+        class DynamicQuad; // for font rendering
     }
-
+    namespace Gui {
+        class ImGuiTheme;
+        class FileExplorer;
+        class Editor;
+    }
     namespace Text {
        struct Character;
         class Font;
@@ -136,10 +136,9 @@ namespace Umbra2D {
 
     // TODO
     class Renderer;
-
+    // TODO
     namespace Physics {
         class RigidBody;
-
         namespace System {
             class AbstractEngine;
             class PlatformerEngine;
@@ -152,11 +151,8 @@ namespace Umbra2D {
 
     namespace Components {
         class Component;
-
-        class Camera;
-
         class Transform;
-
+        class Camera;
         namespace Colliders {
             class AbstractCollider;
             class Rectangle;
@@ -164,7 +160,6 @@ namespace Umbra2D {
             class Circle;
             class Line;
         }
-
         namespace Renderables {
             class Renderable;
             class Static;

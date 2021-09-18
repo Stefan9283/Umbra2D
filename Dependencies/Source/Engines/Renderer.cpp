@@ -10,7 +10,7 @@ bool Umbra2D::AbstractRenderer::isActive() { return render; }
 void Umbra2D::AbstractRenderer::toggle() { render = !render; }
 
 template<typename T>
-void drawType(Umbra2D::Scene* scene, Umbra2D::Shader* shader) {
+void drawType(Umbra2D::Scene* scene, Umbra2D::Graphics::Shader* shader) {
     auto view_circle = scene->registry.view<T>();
     for (auto ent : view_circle)
         scene->registry.get<T>(ent).draw(shader);
@@ -34,7 +34,7 @@ void Umbra2D::Renderer::onUpdate(Scene *scene, Shader* shader) {
     shader->unbind();
 }
 
-void Umbra2D::CollidersRenderer::onUpdate(Umbra2D::Scene *scene, Umbra2D::Shader *shader) {
+void Umbra2D::CollidersRenderer::onUpdate(Umbra2D::Scene *scene, Umbra2D::Graphics::Shader *shader) {
     if (!isActive()) return;
     shader->bind();
     drawType<CIRCLE>(scene);
@@ -42,13 +42,10 @@ void Umbra2D::CollidersRenderer::onUpdate(Umbra2D::Scene *scene, Umbra2D::Shader
     drawType<LINE>(scene);
     shader->unbind();
 }
-
- *
- *
  *
  */
 
-void Umbra2D::Renderer::onUpdate(Scene *scene, Shader* shader) {
+void Umbra2D::Renderer::onUpdate(Scene *scene, Graphics::Shader* shader) {
     if (!isActive()) return;
     shader->bind();
     drawType<STATIC>(scene, shader);
@@ -56,7 +53,7 @@ void Umbra2D::Renderer::onUpdate(Scene *scene, Shader* shader) {
     shader->unbind();
 }
 
-void Umbra2D::CollidersRenderer::onUpdate(Umbra2D::Scene *scene, Umbra2D::Shader *shader) {
+void Umbra2D::CollidersRenderer::onUpdate(Umbra2D::Scene *scene, Graphics::Shader *shader) {
     if (!isActive()) return;
     shader->bind();
     drawType<CIRCLE>(scene, shader);
