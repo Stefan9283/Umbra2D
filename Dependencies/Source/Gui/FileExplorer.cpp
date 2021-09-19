@@ -64,7 +64,10 @@ namespace Umbra2D::Gui {
         if (fileType == Audio)
             return std::string("Audio.png");
 
-        return std::string("Script.png");
+        if (fileType == Script)
+            return std::string("Script.png");
+
+        return std::string("Shader.png");
     }
 
     FileExplorer::FileType FileExplorer::getFileType(const std::string &path) {
@@ -91,6 +94,9 @@ namespace Umbra2D::Gui {
 
         if (scriptExtensions.find(extension) != scriptExtensions.end())
             return Script;
+
+        if (shaderExtensions.find(extension) != shaderExtensions.end())
+            return Shader;
 
         return File;
     }
@@ -183,15 +189,24 @@ namespace Umbra2D::Gui {
                         Umbra2D::Gui::showTexture(icons[enumToString(pair.first)], fileSize);
                         ImGui::SameLine();
 
-                        if (pair.first == Audio || pair.first == Script)
+                        if (pair.first == Audio || pair.first == Script || pair.first == Shader)
                             ImGui::Selectable(truncatePath(pair.second).c_str());
                         else
                             ImGui::Text(truncatePath(pair.second).c_str());
                     }
 
                     // Drag and drop
-                    if (pair.first == Texture || pair.first == Audio || pair.first == Script) {
-                        std::string type = pair.first == Texture ? "TEXTURE_PATH" : (pair.first == Audio ? "AUDIO_PATH" : "SCRIPT_PATH");
+                    if (pair.first == Texture || pair.first == Audio || pair.first == Script || pair.first == Shader) {
+                        std::string type;
+                        
+                        if (pair.first == Texture)
+                            type = "TEXTURE_PATH";
+                        else if (pair.first == Audio)
+                            type = "AUDIO_PATH";
+                        else if (pair.first == Script)
+                            type = "SCRIPT_PATH";
+                        else
+                            type = "SHADER_PATH";
 
                         if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
                             char path_buffer[MAX_LEN]{};
@@ -208,6 +223,8 @@ namespace Umbra2D::Gui {
                             std::cout << "Audio\n";
                         else if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("SCRIPT_PATH"))
                             std::cout << "Script\n";
+                        else if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SHADER_PATH"))
+                            std::cout << "Shader\n";
 
                         ImGui::EndDragDropTarget();
                     }

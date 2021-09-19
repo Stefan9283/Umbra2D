@@ -29,6 +29,6 @@ namespace Umbra2D {
 
         unsigned int addSpriteSheet(const std::string& path, glm::vec2 gridSize, unsigned int numSprites, std::string name = "");
         unsigned int addTexture(const std::string& path, std::string name = "");
-        unsigned int addShader(const std::string& pathv, const std::string& pathf);
+        unsigned int addShader(const std::string& name, const std::string& pathv, const std::string& pathf);
     };
 }

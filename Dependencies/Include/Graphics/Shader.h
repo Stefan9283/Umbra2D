@@ -22,12 +22,13 @@ namespace Umbra2D::Graphics {
 class Shader
 {
 	unsigned int id;
-    std::string pathv, pathf;
+    std::string name, pathv, pathf;
 public:
 
     void bind();
     void unbind();
 
+    std::string getName();
     std::pair<std::string, std::string> getPaths();
 
     unsigned int getUniformID(const std::string& name);
@@ -41,8 +42,9 @@ public:
     void setFloat(const std::string& name, const float value);
 
     void setTexture(const std::string& name, int value, int textureUnit);
+    void gui();
 
-    Shader(std::string filepath_v, std::string filepath_f, std::string filepath_g = "");
+    Shader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g = "");
     ~Shader();
 
 private:

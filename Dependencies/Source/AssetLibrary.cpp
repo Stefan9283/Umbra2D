@@ -34,6 +34,11 @@ namespace Umbra2D {
                     ss->gui();
                 ImGui::TreePop();
             }
+            if (ImGui::TreeNode(("Shaders (" + std::to_string(this->shaders.size()) + ")").c_str())) {
+                for (auto sh : this->shaders)
+                    sh->gui();
+                ImGui::TreePop();
+            }
         }
         ImGui::End();
     }
@@ -60,7 +65,7 @@ namespace Umbra2D {
         return index;
     }
 
-    unsigned int AssetLibrary::addShader(const std::string &pathv, const std::string &pathf) {
+    unsigned int AssetLibrary::addShader(const std::string& name, const std::string &pathv, const std::string &pathf) {
         unsigned int index = 0;
         for (auto& sh : this->shaders) {
             auto paths = sh->getPaths();
@@ -68,7 +73,7 @@ namespace Umbra2D {
                 return index;
             index++;
         }
-        this->shaders.push_back(new Umbra2D::Graphics::Shader(pathv, pathf));
+        this->shaders.push_back(new Umbra2D::Graphics::Shader(name, pathv, pathf));
         return index;
     }
 }

@@ -8,6 +8,9 @@ void Shader::bind() {
 void Shader::unbind() {
     glUseProgram(0);
 }
+std::string Shader::getName() {
+    return name;
+}
 std::pair<std::string, std::string> Shader::getPaths() {
     return {pathv, pathf};
 }
@@ -51,8 +54,17 @@ void Shader::setTexture(const std::string& name, int value, int textureUnit) {
     glBindTexture(GL_TEXTURE_2D, value);
 }
 
-Shader::Shader(std::string filepath_v, std::string filepath_f, std::string filepath_g) {
-    //std::cout << "Reading " << filepath_f << " " << filepath_v << "\n";
+void Shader::gui() {
+    if (ImGui::TreeNode("Shader")) {
+        ImGui::Text(name.c_str());
+        ImGui::Text(pathv.c_str());
+        ImGui::Text(pathf.c_str());
+        ImGui::TreePop();
+    }
+}
+
+Shader::Shader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g) {
+    this->name = name; this->pathv = filepath_v; this->pathf = filepath_f;
     ShaderProgramSource source = ParseShader(filepath_v, filepath_f, filepath_g);
     this->id = CreateShader(source.vertexShader, source.fragmentShader, source.geometryShader);
     free(source.fragmentShader);

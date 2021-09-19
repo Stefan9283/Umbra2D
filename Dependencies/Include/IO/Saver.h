@@ -17,6 +17,8 @@ namespace Umbra2D::IO {
 
 		void saveKeyFrame(std::ofstream& fout, std::pair<int, float>& keyFrame, int depth);
 
+		void saveShader(std::ofstream& fout, SHADER* shader, int depth);
+
 		void saveKeyFrames(std::ofstream& fout, std::vector<std::pair<int, float>>& keyFrames, int depth);
 
 		void saveAnimation(std::ofstream& fout, ANIMATION& animation, int depth);
@@ -30,6 +32,8 @@ namespace Umbra2D::IO {
 		void saveTextures(std::ofstream& fout, int depth);
 
 		void saveSpriteSheets(std::ofstream& fout, int depth);
+
+		void saveShaders(std::ofstream& fout, int depth);
 
 		void saveAssetLibrary(std::ofstream& fout, int depth);
 	public:
