@@ -5,7 +5,7 @@
 namespace Umbra2D::Gui {
 	class FileExplorer {
 	private:
-		enum FileType{EmptyFolder, Folder, File, Texture, Audio, Script};
+		enum FileType{EmptyFolder, Folder, File, Texture, Audio, Script, Shader};
 
 		std::string buffer;
 
@@ -18,6 +18,7 @@ namespace Umbra2D::Gui {
 		std::unordered_set<std::string> textureExtensions{"png", "jpg", "jpeg", "gif"};
 		std::unordered_set<std::string> audioExtensions{"wav", "mp3", "flac", "ogg"};
 		std::unordered_set<std::string> scriptExtensions{"py", "lua", "chai"};
+		std::unordered_set<std::string> shaderExtensions{"glsl"};
 
 		std::string formatPath(const std::string& path);
 

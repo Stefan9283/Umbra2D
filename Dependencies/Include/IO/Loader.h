@@ -21,6 +21,10 @@ namespace Umbra2D::IO {
             std::vector<std::string> frameDescriptions;
         };
 
+        struct ShaderInfo {
+            std::string name, path_v, path_f;
+        };
+
         void parseTexture(TextureInfo& textureInfo);
 
         void parseSpriteSize(int& noOfSprites, glm::ivec2& gridSize);
@@ -41,9 +45,13 @@ namespace Umbra2D::IO {
 
         void parseSpriteSheet(std::ifstream& fin, SpriteSheetInfo& spriteSheetInfo);
 
+        void parseShader(std::ifstream& fin, ShaderInfo& shaderInfo);
+
         void parseTextures(std::ifstream& fin);
 
         void parseSpriteSheets(std::ifstream& fin);
+
+        void parseShaders(std::ifstream& fin);
 
         void parseAssetLibrary(std::ifstream& fin);
 

@@ -76,6 +76,7 @@
 #define ANIMATION Umbra2D::Assets::Animation
 #define TEXTURE Umbra2D::Assets::Texture
 #define SPRITE_SHEET Umbra2D::Assets::SpriteSheet
+#define SHADER Umbra2D::Graphics::Shader
 
 #define WINDOW umbra->getWindow()
 #define LIBRARY umbra->getLibrary()

@@ -20,7 +20,7 @@ namespace Umbra2D {
     Umbra2DEngine::Umbra2DEngine() {
         w = new Umbra2D::Window;
         lib = new Umbra2D::AssetLibrary;
-        colliderShader = new Umbra2D::Graphics::Shader("Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
+        colliderShader = new Umbra2D::Graphics::Shader("shader1", "Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
         scene = new Scene;
         theme = new Gui::ImGuiTheme(glm::vec4(0.5, 0, 0, 1));
     }
@@ -59,8 +59,8 @@ namespace Umbra2D {
         Umbra2D::Renderer renderer;
         Umbra2D::CollidersRenderer collidersRenderer;
 
-        Umbra2D::Graphics::Shader spriteShader("Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
-        Umbra2D::Graphics::Shader textShader("Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
+        Umbra2D::Graphics::Shader spriteShader("shader2", "Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
+        Umbra2D::Graphics::Shader textShader("shader3", "Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
 
 //        auto bg = scene->addEntity("background");
 //        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");

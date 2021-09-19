@@ -37,8 +37,8 @@ namespace Umbra2D::IO {
                 break;
     
         noOfSprites = atoi(std::string(buffer + i + 1, buffer + j).c_str());
-        gridSize = { atoi(std::string(buffer + j + 2, buffer + k).c_str()),
-                    atoi(std::string(buffer + k + 2, buffer + strlen(buffer) - 1).c_str()) };
+        gridSize = {atoi(std::string(buffer + j + 2, buffer + k).c_str()),
+                    atoi(std::string(buffer + k + 2, buffer + strlen(buffer) - 1).c_str())};
     }
     
     void Loader::parseAnimationName(std::string& name) {
@@ -135,6 +135,26 @@ namespace Umbra2D::IO {
             else
                 break;
     }
+
+    void Loader::parseShader(std::ifstream& fin, ShaderInfo& shaderInfo) {
+        int i = 0, j, k;
+
+        for (i; i < strlen(buffer); i++)
+            if (buffer[i] == '[')
+                break;
+
+        for (j = i + 1; j < strlen(buffer); j++)
+            if (buffer[j] == ',')
+                break;
+
+        for (k = j + 1; k < strlen(buffer); k++)
+            if (buffer[k] == ',')
+                break;
+
+        shaderInfo.name = std::string(buffer + i + 1, buffer + j).c_str();
+        shaderInfo.path_v = std::string(buffer + j + 2, buffer + k).c_str();
+        shaderInfo.path_f = std::string(buffer + k + 2, buffer + strlen(buffer) - 1);
+    }
     
     void Loader::parseTextures(std::ifstream& fin) {
         while (fin.getline(buffer, MAX_LEN)) {
@@ -156,13 +176,24 @@ namespace Umbra2D::IO {
 
                 parseSpriteSheet(fin, spriteSheetInfo);
                 index = LIBRARY->addSpriteSheet(spriteSheetInfo.textureInfo.path, spriteSheetInfo.gridSize,
-                                            spriteSheetInfo.noOfSprites, spriteSheetInfo.textureInfo.name);
+                                                spriteSheetInfo.noOfSprites, spriteSheetInfo.textureInfo.name);
 
                 for (int i = 0; i < spriteSheetInfo.frameDescriptions.size(); i++)
                     LIBRARY->spriteSheets[index]->addSpriteDescription(spriteSheetInfo.frameDescriptions[i], i);
 
                 for (ANIMATION& animation : spriteSheetInfo.animations)
                     LIBRARY->spriteSheets[index]->addAnimation(animation);
+            } else if (strlen(buffer) > 0)
+                break;
+    }
+
+    void Loader::parseShaders(std::ifstream& fin) {
+        while (fin.getline(buffer, MAX_LEN))
+            if (strstr(buffer, "Shader")) {
+                ShaderInfo shaderInfo;
+
+                parseShader(fin, shaderInfo);
+                LIBRARY->addShader(shaderInfo.name, shaderInfo.path_v, shaderInfo.path_f);
             } else if (strlen(buffer) > 0)
                 break;
     }
@@ -173,6 +204,8 @@ namespace Umbra2D::IO {
                 parseTextures(fin);
             else if (strstr(buffer, "SpriteSheets"))
                 parseSpriteSheets(fin);
+            else if (strstr(buffer, "Shaders"))
+                parseShaders(fin);
             else if (strlen(buffer) > 0)
                 break;
     }
