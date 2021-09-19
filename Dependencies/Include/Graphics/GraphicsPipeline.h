@@ -5,9 +5,9 @@
 
 namespace Umbra2D::Graphics {
     struct RenderNode {
-        RenderPass* rp;
-        int index = -1;
-        RenderPass* fst = nullptr, *snd = nullptr;
+        RenderPass* rp; // attrib 0
+        RenderPass* fst = nullptr, // attrib1
+                    *snd = nullptr; // attrib2
         /* at first fst and snd are null
          * at runtime based on renderpasstype
          * the following pointers should be null
@@ -15,14 +15,17 @@ namespace Umbra2D::Graphics {
          * - FrBuf - snd = null
          * - Adder - fst != null && snd != null
         */
-        void gui();
+        RenderNode(RenderPass* rp);
+        void gui(int index) const;
     };
     class GraphicsPipeline {
         std::vector<RenderNode*> renderNodes;
+        std::vector<glm::ivec2> links;
     public:
-        // TODO should use ImNodes
         void gui();
-        
+        void addRenderPass(RenderPass* rp);
+        void linkRenderPasses(int fromNode, int toNode, int inputAttrib);
+        int getAttribID(int node, int attrib);
     };
 }
 

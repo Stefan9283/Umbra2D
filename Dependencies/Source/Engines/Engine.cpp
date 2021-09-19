@@ -1,3 +1,5 @@
+#include <Graphics/GraphicsPipeline.h>
+#include <Graphics/RenderPass.h>
 #include "AssetLibrary.h"
 #include "Window.h"
 #include "Scene.h"
@@ -69,21 +71,26 @@ namespace Umbra2D {
 //        camera->addComponent<CAMERA>(w);
 
 
-            auto hero1 = scene->addEntity("hero1");
-            hero1->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-            hero1->addComponent<TRANSFORM>()->setPos({-100, 0});
-            auto c1 = hero1->addComponent<CIRCLE>(200.f);
+        auto hero1 = scene->addEntity("hero1");
+        hero1->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
+        hero1->addComponent<TRANSFORM>()->setPos({-100, 0});
+        auto c1 = hero1->addComponent<CIRCLE>(200.f);
 
-            auto hero2 = scene->addEntity("hero2");
-            hero2->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-            hero2->addComponent<TRANSFORM>()->setPos({0, 0});
-            auto c2 = hero2->addComponent<AARECTANGLE>(200.f, 100.f);
+        auto hero2 = scene->addEntity("hero2");
+        hero2->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
+        hero2->addComponent<TRANSFORM>()->setPos({0, 0});
+        auto c2 = hero2->addComponent<AARECTANGLE>(200.f, 100.f);
 
-            auto hero3 = scene->addEntity("hero3");
-            hero3->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-            hero3->addComponent<TRANSFORM>()->setPos({100, 0});
-            auto c3 = hero3->addComponent<LINE>(100.f, glm::vec2(0), glm::vec2(0, 0));
+        auto hero3 = scene->addEntity("hero3");
+        hero3->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
+        hero3->addComponent<TRANSFORM>()->setPos({100, 0});
+        auto c3 = hero3->addComponent<LINE>(100.f, glm::vec2(0, 1), glm::vec2(0, 0));
 
+
+        Graphics::GraphicsPipeline ppl;
+        ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
 
         while (!w->shouldClose()) {
             if (w->wasKeyPressed(GLFW_KEY_ESCAPE))
@@ -99,44 +106,46 @@ namespace Umbra2D {
             ImGui::End();
 
             // ImNodes
-            if (ImGui::Begin("Nodes")) {
-                ImNodes::BeginNodeEditor();
+//            if (ImGui::Begin("Nodes")) {
+//                ImNodes::BeginNodeEditor();
+//
+//                int attribIndex = 0;
+//                int nodeIndex = 0;
+//
+//                ImNodes::BeginNode(nodeIndex++);
+//                    ImNodes::BeginInputAttribute(attribIndex++);
+//                    ImGui::Text("Big Bruh");
+//                    ImNodes::EndInputAttribute();
+//                ImGui::SameLine();
+//                    ImNodes::BeginOutputAttribute(attribIndex++);
+//                    ImGui::Text("out");
+//                    ImNodes::EndOutputAttribute();
+//                ImNodes::EndNode();
+//
+//
+//                ImNodes::BeginNode(nodeIndex++);
+//                    ImNodes::BeginInputAttribute(attribIndex++);
+//                    ImGui::Text("Small Bruh");
+//                    ImNodes::EndInputAttribute();
+//                ImGui::SameLine();
+//                    ImNodes::BeginOutputAttribute(attribIndex++);
+//                    ImGui::Text("out 2");
+//                    ImNodes::EndOutputAttribute();
+//                ImNodes::EndNode();
+//
+//                ImNodes::EndNodeEditor();
+//
+//                int start_attr, end_attr;
+//                if (ImNodes::IsLinkCreated(&start_attr, &end_attr)) {
+//                    std::cout << "Link (" << start_attr << ", " << end_attr << ") should have been created\n";
+//                }
+//                int link_id;
+//                if (ImNodes::IsLinkDestroyed(&link_id)) {
+//                }
+//            }
+//            ImGui::End();
 
-                int attribIndex = 0;
-                int nodeIndex = 0;
-
-                ImNodes::BeginNode(nodeIndex++);
-                    ImNodes::BeginInputAttribute(attribIndex++);
-                    ImGui::Text("Big Bruh");
-                    ImNodes::EndInputAttribute();
-                ImGui::SameLine();
-                    ImNodes::BeginOutputAttribute(attribIndex++);
-                    ImGui::Text("out");
-                    ImNodes::EndOutputAttribute();
-                ImNodes::EndNode();
-
-
-                ImNodes::BeginNode(nodeIndex++);
-                    ImNodes::BeginInputAttribute(attribIndex++);
-                    ImGui::Text("Small Bruh");
-                    ImNodes::EndInputAttribute();
-                ImGui::SameLine();
-                    ImNodes::BeginOutputAttribute(attribIndex++);
-                    ImGui::Text("out 2");
-                    ImNodes::EndOutputAttribute();
-                ImNodes::EndNode();
-
-                ImNodes::EndNodeEditor();
-
-                int start_attr, end_attr;
-                if (ImNodes::IsLinkCreated(&start_attr, &end_attr)) {
-                    std::cout << "Link (" << start_attr << ", " << end_attr << ") should have been created\n";
-                }
-                int link_id;
-                if (ImNodes::IsLinkDestroyed(&link_id)) {
-                }
-            }
-            ImGui::End();
+            ppl.gui();
 
             fe.gui();
             edit.gui();
