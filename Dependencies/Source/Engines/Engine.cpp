@@ -89,8 +89,14 @@ namespace Umbra2D {
 
         Graphics::GraphicsPipeline ppl;
         ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
         ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
 
         while (!w->shouldClose()) {
             if (w->wasKeyPressed(GLFW_KEY_ESCAPE))

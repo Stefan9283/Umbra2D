@@ -24,6 +24,7 @@ namespace Umbra2D::Graphics {
 //        ImGui::SameLine();
         ImNodes::BeginOutputAttribute(index + 0);
         ImGui::Text("output");
+        ImGui::Text("%d", index / 3);
         ImNodes::EndOutputAttribute();
         ImNodes::PopAttributeFlag();
         ImNodes::EndNode();
@@ -42,6 +43,7 @@ namespace Umbra2D::Graphics {
             }
 
             int linkIndex = 0;
+
             for (auto link : links)
                 ImNodes::Link(linkIndex++, link.x, link.y);
 
@@ -60,7 +62,51 @@ namespace Umbra2D::Graphics {
 //                        << ") should have been created\n";
                 linkRenderPasses(node1, node2, attr2);
                 links.emplace_back(start_attr, end_attr);
-                // TODO topsort here
+
+                // Topological sort(rule: output -> input)
+                std::vector<std::vector<int>> v(renderNodes.size());
+
+                for (const auto& link : links)
+                    v[link.x / 3].push_back(link.y / 3);
+
+                std::stack<int> stack;
+                std::vector<bool> visited(renderNodes.size());
+
+                for (auto& it : visited)
+                    it = false;
+
+                std::function<void(int)> dfs = [&](int i) {
+                    visited[i] = true;
+
+                    for (int j = 0; j < v[i].size(); j++)
+                        if (!visited[v[i][j]])
+                            dfs(v[i][j]);
+
+                    stack.push(i);
+                };
+
+                for (int i = 0; i < renderNodes.size(); i++)
+                    if (!visited[i])
+                        dfs(i);
+
+                std::unordered_map<int, int> newOrder;
+                std::vector<RenderNode*> newRenderNodes;
+                std::vector<glm::ivec2> newLinks;
+
+                for (int i = 0; i < renderNodes.size(); i++) {
+                    newRenderNodes.push_back(renderNodes[stack.top()]);
+                    newOrder[stack.top()] = i;
+                    stack.pop();
+                }
+
+                for (const auto& it : links)
+                    newLinks.push_back({newOrder[it.x / 3] * 3 + it.x % 3, newOrder[it.y / 3] * 3 + it.y % 3});
+
+                for (int i = 0; i < renderNodes.size(); i++)
+                    renderNodes[i] = newRenderNodes[i];
+
+                for (int i = 0; i < links.size(); i++)
+                    links[i] = newLinks[i];
             }
 
             if (ImNodes::IsLinkDestroyed(&linkIndex)) {
@@ -83,6 +129,7 @@ namespace Umbra2D::Graphics {
                         renderNodes[node2]->snd = nullptr;
                         break;
                 }
+
                 links.erase(links.begin() + linkIndex);
             }
         }

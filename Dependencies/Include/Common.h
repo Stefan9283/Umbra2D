@@ -20,6 +20,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <queue>
+#include <stack>
 #include <map>
 #include <unordered_map>
 #include <filesystem>
