@@ -6,8 +6,8 @@
 namespace Umbra2D::Graphics {
     struct RenderNode {
         RenderPass* rp; // attrib 0
-        RenderPass* fst = nullptr, // attrib1
-                    *snd = nullptr; // attrib2
+        RenderPass* fst = nullptr, // attrib 1
+                    *snd = nullptr; // attrib 2
         /* at first fst and snd are null
          * at runtime based on renderpasstype
          * the following pointers should be null
@@ -30,3 +30,4 @@ namespace Umbra2D::Graphics {
 }
 
 #endif //UMBRA2D_GRAPHICSPIPELINE_H
+

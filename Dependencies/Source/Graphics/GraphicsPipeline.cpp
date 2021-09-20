@@ -50,12 +50,11 @@ namespace Umbra2D::Graphics {
 
             int start_attr, end_attr;
             if (ImNodes::IsLinkCreated(&start_attr, &end_attr)) {
-                int node1, node2, attr1, attr2;
-//                std::cout << start_attr << " " << end_attr << "\n";
-                node1 = start_attr / 3;
-                node2 = end_attr / 3;
-                attr1 = start_attr % 3;
-                attr2 = end_attr % 3;
+                int
+                    node1 = start_attr / 3,
+                    node2 = end_attr / 3,
+                    attr1 = start_attr % 3,
+                    attr2 = end_attr % 3;
 //                std::cout << "Link (node: " << node1 << ", attrib: " << attr1
 //                        << ") -> (node: " << node2 << ", attrib: " << attr2
 //                        << ") should have been created\n";
@@ -67,9 +66,27 @@ namespace Umbra2D::Graphics {
             if (ImNodes::IsLinkDestroyed(&linkIndex)) {
 //                std::cout << linkIndex << "\n";
 //                std::cout << glm::to_string(links[linkIndex]) << "\n";
+//                std::cout << links[linkIndex][0] << " " << links[linkIndex][1] << "\n";
+                int
+                    node1 = links[linkIndex][0] / 3,
+                    node2 = links[linkIndex][1] / 3,
+                    attr1 = links[linkIndex][0] % 3,
+                    attr2 = links[linkIndex][1] % 3;
+
+                switch (attr2) {
+                    case 0:
+                        assert(false);
+                    case 1:
+                        renderNodes[node2]->fst = nullptr;
+                        break;
+                    case 2:
+                        renderNodes[node2]->snd = nullptr;
+                        break;
+                }
                 links.erase(links.begin() + linkIndex);
             }
         }
+
         ImGui::End();
     }
 
@@ -79,17 +96,17 @@ namespace Umbra2D::Graphics {
         auto newInput = this->renderNodes[fromNode]->rp;
         auto destNode = this->renderNodes[toNode];
         switch (inputAttrib) {
-            case 0:
+            case 1:
                 destNode->fst = newInput;
                 break;
-            case 1:
+            case 2:
                 destNode->snd = newInput;
                 break;
             default:
                 // shouldn't get to this branch
+                assert(false);
                 break;
         }
-        std::cout << getAttribID(fromNode, 0) << " " << getAttribID(toNode, inputAttrib) << "\n";
     }
 
     int GraphicsPipeline::getAttribID(int node, int attrib) {
