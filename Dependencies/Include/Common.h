@@ -7,8 +7,21 @@
  *  - Umbra2D namespace object
  *  in this header
 */
-
 #pragma region HEADERS
+
+// disable any warning coming from an external library
+#pragma warning(push, 0)
+
+// GUI library
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+#include <misc/cpp/imgui_stdlib.h>
+
+// ECS lib
+#include <entt/entt.hpp>
+
+#include <memplumber.h>
+#define new new(__FILE__, __LINE__)
 
 // C/C++ headers
 #include <cstdlib>
@@ -26,6 +39,7 @@
 #include <unordered_map>
 #include <filesystem>
 #include <unordered_set>
+
 
 // audio library
 #include <portaudio.h>
@@ -52,23 +66,19 @@
 #include <GLFW/glfw3.h>
 
 
-// GUI library
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-#include <misc/cpp/imgui_stdlib.h>
-
 // ImGui Node API
 #include <imnodes.h>
 
 // images loader
 #include <stb_image.h>
 
-// ECS lib
-#include <entt/entt.hpp>
-
 // ttf fonts loader
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+
+
+#pragma warning(pop)
 
 #pragma endregion
 

@@ -22,6 +22,7 @@ namespace Umbra2D::Graphics {
         std::vector<RenderNode*> renderNodes;
         std::vector<glm::ivec2> links;
     public:
+        ~GraphicsPipeline();
         void gui();
         void addRenderPass(RenderPass* rp);
         void linkRenderPasses(int fromNode, int toNode, int inputAttrib);

@@ -18,18 +18,20 @@ namespace Umbra2D::Assets {
 
     class Texture {
     private:
-        int id;
-        std::string path;
-        glm::ivec2 resolution;
+        int id = 0;
+        std::string path = "NONE";
+        glm::ivec2 resolution{0, 0};
     public:
-        std::string name;
+        std::string name = "NAMELESS";
 
-        Texture(unsigned int id, glm::ivec2 resolution, std::string name);
+//        Texture(unsigned int id, glm::ivec2 resolution, std::string name);
         // if the second field is omitted by default the name of the texture will be the same as the path
-        Texture(std::string path, std::string name = "");
+        Texture() = default;
         ~Texture();
 
         void gui();
+        Texture* setTexture(unsigned int id, glm::ivec2 resolution, std::string name);
+        Texture* setTexture(std::string path, std::string name = "");
         static std::pair<int, glm::vec2> loadFromFile(std::string path);
         int getID();
         std::string getPath();

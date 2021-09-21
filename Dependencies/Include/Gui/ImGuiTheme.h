@@ -9,9 +9,9 @@ namespace Umbra2D::Gui {
         glm::vec4 color {};
         std::vector<glm::vec4> defaultColors;
     public:
-        ImGuiTheme(glm::vec4 color);
+        ImGuiTheme(glm::vec4 newColor);
         void resetTheme();
-        void setColor(glm::vec4 color);
+        void setColor(glm::vec4 newColor);
         glm::vec4 getColor();
         void gui() override;
     };

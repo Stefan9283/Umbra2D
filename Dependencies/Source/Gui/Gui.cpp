@@ -1,5 +1,4 @@
-#include "Gui/Gui.h"
-#include "Texture.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Gui {
     void HelpMarker(const char* desc) {

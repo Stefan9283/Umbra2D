@@ -1,10 +1,4 @@
-#include "Components/Colliders.h"
-#include "Graphics/Shader.h"
-#include "AssetLibrary.h"
-#include "Graphics/Quad.h"
-#include "Engines/Engine.h"
-#include "Entity.h"
-#include "Components/PropertyComponent.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 #define colliderShader umbra->colliderShader

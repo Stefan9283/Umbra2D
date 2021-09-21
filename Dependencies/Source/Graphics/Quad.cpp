@@ -1,4 +1,4 @@
-#include "Graphics/Quad.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
     Quad::Quad() {

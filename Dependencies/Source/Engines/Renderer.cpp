@@ -1,8 +1,4 @@
-#include "Graphics/Shader.h"
-#include "Engines/Renderer.h"
-#include "Components/Renderable.h"
-#include "Components/Colliders.h"
-#include "Scene.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 

@@ -10,6 +10,7 @@ namespace Umbra2D::Gui {
         Umbra2D::Components::Camera* cam;
     public:
         explicit Editor(Window* window);
+        ~Editor();
         void gui() override;
         void startRender();
         void stopRender();

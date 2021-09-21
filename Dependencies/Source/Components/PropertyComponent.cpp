@@ -1,5 +1,4 @@
-#include "Components/PropertyComponent.h"
-#include "Entity.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Components {
     glm::mat4 Transform::toMat4() {
@@ -37,7 +36,7 @@ namespace Umbra2D::Components {
         }
     }
     glm::vec2 Transform::getPos() { return translation; }
-    float Transform::getLayer() { return layer; }
+    float Transform::getLayer() { return (float)layer; }
 
     void Transform::setPos(glm::vec2 pos) {
         this->translation = pos;

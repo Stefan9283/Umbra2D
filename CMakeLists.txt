@@ -21,10 +21,11 @@ add_subdirectory(Dependencies/Vendor/entt)
 
 message(STATUS " .............. Setting fancy compilation flags ...............")
 
+set (CMAKE_CXX_STANDARD 20)
+
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj /W4 /MDd /std:c++latest")
-    add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
-	set (CMAKE_CXX_STANDARD 20)
+	add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
 	set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/appicon.rc")
 
 else()
@@ -37,13 +38,15 @@ endif()
 
 message(STATUS " ............. Grabbing external libs source code .............")
 
-file(GLOB VENDORS_SOURCES 
+file(GLOB VENDORS_SOURCES
 		Dependencies/Vendor/glad/src/glad.c
 		Dependencies/Vendor/imgui/backends/imgui_impl_opengl3.cpp 
 		Dependencies/Vendor/imgui/backends/imgui_impl_glfw.cpp 
 		Dependencies/Vendor/imgui/*.cpp
 		Dependencies/Vendor/imgui/misc/cpp/*.cpp
-		Dependencies/Vendor/imnodes/imnodes.cpp)
+		Dependencies/Vendor/imnodes/imnodes.cpp
+		Dependencies/Vendor/MemPlumber/memplumber.cpp
+		)
 
 message(STATUS " ............... Grabbing all your source code ................")
 
@@ -73,6 +76,7 @@ include_directories(
 		Dependencies/Vendor/ChaiScript/include
 		Dependencies/Vendor/portaudio/include
 		Dependencies/Vendor/entt/single_include
+		Dependencies/Vendor/MemPlumber
 )
 
 add_definitions(-DGLFW_INCLUDE_NONE -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")

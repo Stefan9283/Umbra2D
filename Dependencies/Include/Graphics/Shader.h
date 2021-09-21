@@ -44,8 +44,10 @@ public:
     void setTexture(const std::string& name, int value, int textureUnit);
     void gui();
 
-    Shader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g = "");
+    Shader();
     ~Shader();
+
+    Shader* loadShader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g = "");
 
 private:
     // reads the shaders from the files and returns a ShaderProgramSource struct

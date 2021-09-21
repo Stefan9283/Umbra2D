@@ -1,5 +1,4 @@
-#include "Scene.h"
-#include "Entity.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D {
         Scene::Scene() {
@@ -19,5 +18,10 @@ namespace Umbra2D {
             for (auto e : entities)
                 e->gui();
         ImGui::End();
+    }
+
+    Scene::~Scene() {
+        for (auto& e : entities)
+            delete e;
     }
 }

@@ -1,9 +1,4 @@
-#include <Gui/Gui.h>
-#include "Gui/Editor.h"
-#include "Components/Camera.h"
-#include "Graphics/FrameBuffer.h"
-#include "Texture.h"
-#include "Engines/Engine.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 
@@ -11,6 +6,10 @@ namespace Umbra2D::Gui {
     Editor::Editor(Window* window) {
         frbuf = new Umbra2D::Graphics::FrameBuffer(GL_RGBA, {1920, 1080});
         cam = new Umbra2D::Components::Camera(window);
+    }
+    Editor::~Editor() {
+        delete frbuf;
+        delete cam;
     }
     void Editor::gui() {
         // DRAW FRAMEBUFFER AS IMGUI TEXTURE
@@ -84,4 +83,5 @@ namespace Umbra2D::Gui {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
     void Editor::stopRender() { frbuf->unbind(); }
+
 }

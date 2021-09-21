@@ -1,5 +1,4 @@
-#include <Gui/Gui.h>
-#include "Gui/ImGuiTheme.h"
+#include "Umbra2D.h"
 
 void Umbra2D::Gui::ImGuiTheme::resetTheme() {
     auto style = ImGui::GetStyle();
@@ -50,10 +49,10 @@ void Umbra2D::Gui::ImGuiTheme::gui() {
     ImGui::End();
 }
 
-void Umbra2D::Gui::ImGuiTheme::setColor(glm::vec4 color) { this->color = color; }
+void Umbra2D::Gui::ImGuiTheme::setColor(glm::vec4 newColor) { this->color = newColor; }
 
-Umbra2D::Gui::ImGuiTheme::ImGuiTheme(glm::vec4 color) {
-    setColor(color);
+Umbra2D::Gui::ImGuiTheme::ImGuiTheme(glm::vec4 newColor) {
+    setColor(newColor);
     defaultColors.resize(55);
     auto style = ImGui::GetStyle();
     for (int i = 0; i < 55; i++)

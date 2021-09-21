@@ -1,14 +1,10 @@
-#include "AssetLibrary.h"
-
-#include <utility>
-#include "Entity.h"
-#include "Texture.h"
-#include "Graphics/Quad.h"
-#include "Graphics/Shader.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D {
     AssetLibrary::AssetLibrary() {
-        defaultTexture = new TEXTURE("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
+        defaultTexture = new Assets::Texture;
+        defaultTexture->setTexture("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
+
         q = new Umbra2D::Graphics::Quad();
         dq = new Umbra2D::Graphics::DynamicQuad();
     }
@@ -61,7 +57,8 @@ namespace Umbra2D {
                 return index;
             index++;
         }
-        this->textures.push_back(new TEXTURE(path, std::move(name)));
+
+        this->textures.push_back((new TEXTURE)->setTexture(path, std::move(name)));
         return index;
     }
 
@@ -73,7 +70,7 @@ namespace Umbra2D {
                 return index;
             index++;
         }
-        this->shaders.push_back(new Umbra2D::Graphics::Shader(name, pathv, pathf));
+        this->shaders.push_back((new SHADER)->loadShader(name, pathv, pathf));
         return index;
     }
 }

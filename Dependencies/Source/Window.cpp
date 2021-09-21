@@ -1,5 +1,4 @@
-#include "Window.h"
-#include "AssetLibrary.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 

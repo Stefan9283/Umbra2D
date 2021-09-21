@@ -1,4 +1,4 @@
-#include "Graphics/Shader.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
 
@@ -14,42 +14,42 @@ std::string Shader::getName() {
 std::pair<std::string, std::string> Shader::getPaths() {
     return {pathv, pathf};
 }
-unsigned int Shader::getUniformID(const std::string& name) {
-    return glGetUniformLocation(id, name.c_str());
+unsigned int Shader::getUniformID(const std::string& uniformName) {
+    return glGetUniformLocation(id, uniformName.c_str());
 }
-void Shader::setMat4(const std::string& name, const glm::mat4* mat, size_t how_many) {
+void Shader::setMat4(const std::string& uniformName, const glm::mat4* mat, size_t how_many) {
     bind();
-    glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), (GLsizei)how_many, GL_FALSE, (const GLfloat*)mat);
+    glUniformMatrix4fv(glGetUniformLocation(id, uniformName.c_str()), (GLsizei)how_many, GL_FALSE, (const GLfloat*)mat);
 }
-void Shader::setMat4(const std::string& name, const glm::mat4 mat) {
-    setMat4(name, &mat, 1);
+void Shader::setMat4(const std::string& uniformName, const glm::mat4 mat) {
+    setMat4(uniformName, &mat, 1);
 }
-void Shader::setVec2(const std::string& name, const glm::vec2 value) {
+void Shader::setVec2(const std::string& uniformName, const glm::vec2 value) {
     bind();
-    glUniform2f(glGetUniformLocation(id, name.c_str()), value.x, value.y);
+    glUniform2f(glGetUniformLocation(id, uniformName.c_str()), value.x, value.y);
 }
-void Shader::setVec3(const std::string& name, const glm::vec3 vec) {
+void Shader::setVec3(const std::string& uniformName, const glm::vec3 vec) {
     bind();
-    glUniform3f(glGetUniformLocation(id, name.c_str()), vec.x, vec.y, vec.z);
+    glUniform3f(glGetUniformLocation(id, uniformName.c_str()), vec.x, vec.y, vec.z);
 }
-void Shader::setVec4(const std::string& name, glm::vec4 vec) {
+void Shader::setVec4(const std::string& uniformName, glm::vec4 vec) {
     bind();
-    glUniform4f(glGetUniformLocation(id, name.c_str()), vec.x, vec.y, vec.z, vec.a);
+    glUniform4f(glGetUniformLocation(id, uniformName.c_str()), vec.x, vec.y, vec.z, vec.a);
 }
-void Shader::setBool(const std::string& name, bool value) {
+void Shader::setBool(const std::string& uniformName, bool value) {
     bind();
-    glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+    glUniform1i(glGetUniformLocation(id, uniformName.c_str()), value);
 }
-void Shader::setInt(const std::string& name, int value) {
+void Shader::setInt(const std::string& uniformName, int value) {
     bind();
-    glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+    glUniform1i(glGetUniformLocation(id, uniformName.c_str()), value);
 }
-void Shader::setFloat(const std::string& name, const float value) {
+void Shader::setFloat(const std::string& uniformName, const float value) {
     bind();
-    glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+    glUniform1f(glGetUniformLocation(id, uniformName.c_str()), value);
 }
-void Shader::setTexture(const std::string& name, int value, int textureUnit) {
-    this->setInt(name, textureUnit);
+void Shader::setTexture(const std::string& uniformName, int value, int textureUnit) {
+    this->setInt(uniformName, textureUnit);
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, value);
 }
@@ -63,17 +63,24 @@ void Shader::gui() {
     }
 }
 
-Shader::Shader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g) {
+
+
+Shader::Shader() {
+
+}
+Shader::~Shader() {
+    glDeleteProgram(id);
+}
+
+Shader* Shader::loadShader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g) {
     this->name = name; this->pathv = filepath_v; this->pathf = filepath_f;
     ShaderProgramSource source = ParseShader(filepath_v, filepath_f, filepath_g);
     this->id = CreateShader(source.vertexShader, source.fragmentShader, source.geometryShader);
     free(source.fragmentShader);
     free(source.vertexShader);
-    if (source.geometryShader) 
+    if (source.geometryShader)
         free(source.geometryShader);
-}
-Shader::~Shader() {
-    glDeleteProgram(id);
+    return this;
 }
 
 void readShader(std::string path, char** writeHere) {
@@ -108,7 +115,7 @@ ShaderProgramSource Shader::ParseShader(std::string filepath_v, std::string file
 unsigned int Shader::CreateShader(const char* vertexShader, const char* fragmentShader, const char* geometryShader = nullptr) {
     unsigned int program = glCreateProgram();
     
-    unsigned int vs, fs, gs;
+    unsigned int vs{}, fs{}, gs{};
 
     vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
     glAttachShader(program, vs);
@@ -160,5 +167,6 @@ unsigned int Shader::CompileShader(unsigned int type, const char* source) {
 
     return shaderID;
 }
+
 
 }

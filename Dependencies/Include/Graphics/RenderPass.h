@@ -17,7 +17,10 @@ namespace Umbra2D::Graphics {
         Shader* shader;
     public:
 
-        RenderPass(renderpasstype type, glm::ivec2 frbufResolution, int framebufferType = GL_RGBA);
+        RenderPass() = default;
+        ~RenderPass();
+        RenderPass* setFrameBuffer(glm::ivec2 frbufResolution, int framebufferType = GL_RGBA);
+        RenderPass* setType(renderpasstype type);
         renderpasstype getType();
 
         int getTexture();

@@ -10,6 +10,7 @@
  *  - shaders used in various render passes
  *  - a unit quad used for rendering any in-game object
  */
+
 namespace Umbra2D {
     class AssetLibrary {
         public:
@@ -20,7 +21,7 @@ namespace Umbra2D {
         Umbra2D::Graphics::Quad* q;
         Umbra2D::Graphics::DynamicQuad* dq;
 
-        TEXTURE* defaultTexture;
+        TEXTURE* defaultTexture = nullptr;
 
         void gui();
 

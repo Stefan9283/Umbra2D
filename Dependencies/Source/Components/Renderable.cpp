@@ -1,13 +1,4 @@
-#include "Components/Renderable.h"
-
-#include <utility>
-#include "Components/PropertyComponent.h"
-#include "Engines/Engine.h"
-#include "Graphics/Shader.h"
-#include "Graphics/Quad.h"
-#include "AssetLibrary.h"
-#include "Texture.h"
-#include "Entity.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 

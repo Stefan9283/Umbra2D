@@ -1,28 +1,10 @@
-#include <Graphics/GraphicsPipeline.h>
-#include <Graphics/RenderPass.h>
-#include "AssetLibrary.h"
-#include "Window.h"
-#include "Scene.h"
-#include "Entity.h"
-#include "Engines/Engine.h"
-#include "Engines/Renderer.h"
-#include "IO/Saver.h"
-#include "IO/Loader.h"
-#include "Graphics/Shader.h"
-#include "Gui/Editor.h"
-#include "Gui/FileExplorer.h"
-#include "Components/Camera.h"
-#include "Components/Renderable.h"
-#include "Components/PropertyComponent.h"
-#include "Components/Colliders.h"
-#include "Texture.h"
-
+#include "Umbra2D.h"
 
 namespace Umbra2D {
     Umbra2DEngine::Umbra2DEngine() {
         w = new Umbra2D::Window;
         lib = new Umbra2D::AssetLibrary;
-        colliderShader = new Umbra2D::Graphics::Shader("shader1", "Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
+        colliderShader = (new SHADER)->loadShader("shader1", "Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
         scene = new Scene;
         theme = new Gui::ImGuiTheme(glm::vec4(0.5, 0, 0, 1));
     }
@@ -31,6 +13,7 @@ namespace Umbra2D {
         delete w;
         delete colliderShader;
         delete scene;
+        delete theme;
     }
     void Umbra2DEngine::loadProject() {
         Umbra2D::IO::Loader loader("Projects/Saves.txt");
@@ -61,8 +44,10 @@ namespace Umbra2D {
         Umbra2D::Renderer renderer;
         Umbra2D::CollidersRenderer collidersRenderer;
 
-        Umbra2D::Graphics::Shader spriteShader("shader2", "Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
-        Umbra2D::Graphics::Shader textShader("shader3", "Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
+        Umbra2D::Graphics::Shader spriteShader;
+        spriteShader.loadShader("shader2", "Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
+        Umbra2D::Graphics::Shader textShader;
+        textShader.loadShader("shader3", "Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
 
 //        auto bg = scene->addEntity("background");
 //        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
@@ -88,15 +73,9 @@ namespace Umbra2D {
 
 
         Graphics::GraphicsPipeline ppl;
-        ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(Void, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(Adder, glm::ivec2(1920, 1080)));
-        ppl.addRenderPass(new Graphics::RenderPass(FrBuf, glm::ivec2(1920, 1080)));
+        ppl.addRenderPass((new Graphics::RenderPass)->setType(Void )->setFrameBuffer(glm::ivec2(1920, 1080)));
+        ppl.addRenderPass((new Graphics::RenderPass)->setType(FrBuf)->setFrameBuffer(glm::ivec2(1920, 1080)));
+        ppl.addRenderPass((new Graphics::RenderPass)->setType(Adder)->setFrameBuffer(glm::ivec2(1920, 1080)));
 
         while (!w->shouldClose()) {
             if (w->wasKeyPressed(GLFW_KEY_ESCAPE))
@@ -176,8 +155,10 @@ namespace Umbra2D {
 
             w->endFrame();
         }
-
         saveProject();
+
+
+
     }
 
     glm::vec4 Umbra2DEngine::getThemeColor() { return theme->getColor(); }

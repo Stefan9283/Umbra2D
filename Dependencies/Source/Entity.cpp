@@ -1,11 +1,4 @@
-#include "Entity.h"
-
-#include <utility>
-#include "Engines/Engine.h"
-#include "Components/Colliders.h"
-#include "Components/Renderable.h"
-#include "Components/PropertyComponent.h"
-#include "Scene.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 

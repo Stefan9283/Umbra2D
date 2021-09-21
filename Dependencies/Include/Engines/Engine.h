@@ -1,7 +1,6 @@
 #ifndef UMBRA2D_ENGINE_H
 #define UMBRA2D_ENGINE_H
 
-#include <Gui/ImGuiTheme.h>
 #include "Common.h"
 
 namespace Umbra2D {

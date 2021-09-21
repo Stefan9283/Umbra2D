@@ -1,5 +1,4 @@
-#include "Graphics/GraphicsPipeline.h"
-#include "Graphics/RenderPass.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
     // TODO should use ImNodes
@@ -55,7 +54,7 @@ namespace Umbra2D::Graphics {
                 int
                     node1 = start_attr / 3,
                     node2 = end_attr / 3,
-                    attr1 = start_attr % 3,
+//                    attr1 = start_attr % 3,
                     attr2 = end_attr % 3;
 //                std::cout << "Link (node: " << node1 << ", attrib: " << attr1
 //                        << ") -> (node: " << node2 << ", attrib: " << attr2
@@ -71,16 +70,14 @@ namespace Umbra2D::Graphics {
 
                 std::stack<int> stack;
                 std::vector<bool> visited(renderNodes.size());
-
-                for (auto& it : visited)
-                    it = false;
+                std::vector<int> visitedin(renderNodes.size());
 
                 std::function<void(int)> dfs = [&](int i) {
                     visited[i] = true;
 
-                    for (int j = 0; j < v[i].size(); j++)
-                        if (!visited[v[i][j]])
-                            dfs(v[i][j]);
+                    for (int j : v[i])
+                        if (!visited[j])
+                            dfs(j);
 
                     stack.push(i);
                 };
@@ -100,7 +97,7 @@ namespace Umbra2D::Graphics {
                 }
 
                 for (const auto& it : links)
-                    newLinks.push_back({newOrder[it.x / 3] * 3 + it.x % 3, newOrder[it.y / 3] * 3 + it.y % 3});
+                    newLinks.emplace_back(newOrder[it.x / 3] * 3 + it.x % 3, newOrder[it.y / 3] * 3 + it.y % 3);
 
                 for (int i = 0; i < renderNodes.size(); i++)
                     renderNodes[i] = newRenderNodes[i];
@@ -114,9 +111,9 @@ namespace Umbra2D::Graphics {
 //                std::cout << glm::to_string(links[linkIndex]) << "\n";
 //                std::cout << links[linkIndex][0] << " " << links[linkIndex][1] << "\n";
                 int
-                    node1 = links[linkIndex][0] / 3,
+//                    node1 = links[linkIndex][0] / 3,
                     node2 = links[linkIndex][1] / 3,
-                    attr1 = links[linkIndex][0] % 3,
+//                    attr1 = links[linkIndex][0] % 3,
                     attr2 = links[linkIndex][1] % 3;
 
                 switch (attr2) {
@@ -158,5 +155,12 @@ namespace Umbra2D::Graphics {
 
     int GraphicsPipeline::getAttribID(int node, int attrib) {
         return node * 3 + attrib;
+    }
+
+    GraphicsPipeline::~GraphicsPipeline() {
+        for (auto& node : this->renderNodes) {
+            delete node->rp;
+            delete node;
+        }
     }
 }

@@ -26,6 +26,12 @@ AssetLibrary {
                                  // has a brief description/name
                                 // (it can be an empty string)
     }
+
+    [] Shaders {
+        nane, pathToVertexShader, pathToFragmentShader
+    }
+
+
 }
 ```
 
@@ -34,74 +40,80 @@ AssetLibrary {
 
 ```C++
 namespace Umbra2D {
-    class Engine;
+   class Umbra2DEngine;
 
-    class AssetLibrary;
+   class Window;
+   class Scene;
+   class AssetLibrary;
 
-    class Saver;
-    class Loader;
+   namespace IO {
+       class Saver;
+       class Loader;
+   }
 
-    class FileExplorer;
+   namespace Assets {
+       class Animation;
+       class Texture;
+       class SpriteSheet;
+   }
 
-    namespace Assets {
-        class Animation;
-        class Texture;
-        class SpriteSheet;
-    }
+   
+   class Renderer; // TODO
 
-    class Camera;
-    class Window;
+   namespace Graphics {
+       class Shader;
+       class FrameBuffer;
+       class GraphicsPipeline;
+       class RenderPass;
+       class Quad;         // for entities rendering
+       class DynamicQuad; // for font rendering
+   }
+   namespace Gui {
+       class ImGuiTheme;
+       class FileExplorer;
+       class Editor;
+   }
+   namespace Text {
+      struct Character;
+       class Font;
+   }
+   
+   namespace Physics { // TODO
+       class RigidBody;
+       namespace System {
+           class AbstractEngine;
+           class PlatformerEngine;
+           class TopDownEngine;
+       }
+   }
 
-    class Shader;
-    class FrameBuffer;
 
-    class Quad;
-    class DynamicQuad;
+   class Entity;
 
-    namespace Text {
-       struct Character;
-        class Font;
-    }
-
-    namespace Gui {
-    }
-
-    // TODO
-    namespace Colliders {
-        class AbstractCollider;
-        class Rectangle;
-        class Circle;
-        class Line;
-    }
-
-    // TODO
-    namespace Physics {
-        class AbstractEngine;
-        class PlatformerEngine;
-        class TopDownEngine;
-    }
-
-    // TODO
-    namespace GameObjects {
-        class Player;
-        class NPC;
-        class Prop;
-        class Bullet;
-
-        class Quest;
-        class SubQuest;
-    }
-
-    // TODO
-    class Entity;
-    class Static;
-    class Dynamic;
+   namespace Components {
+       class Component;
+       class Transform;
+       class Camera;
+       namespace Colliders {
+           class AbstractCollider;
+           class Rectangle;
+           class AARectangle;
+           class Circle;
+           class Line;
+       }
+       namespace Renderables {
+           class Renderable;
+           class Static;
+           class Dynamic;
+       }
+   }
 }
 ```
 
 ## TODOs
 #### Physics
-* [ ] Collision Detection (+ Object Picker)
+* [x] Collision Detection
+* [ ] Object Picker
 * [ ] Rigid Bodies
 * [ ] Platformer Physics Engine
 * [ ] TopDown RPG-Style Physics Engine
@@ -117,7 +129,7 @@ namespace Umbra2D {
 * [ ] Game Graph
 #### Game 
 * [ ] Game Structure
-* [ ] Rework on entities (component based)
+* [x] Rework on entities (component based)
 * [ ] Game Objects (goal, player, enemy, prop)
 #### Sound
 * [ ] Sound Player

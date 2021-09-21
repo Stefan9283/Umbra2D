@@ -1,6 +1,4 @@
-#include "Gui/FileExplorer.h"
-#include "Texture.h"
-#include "Gui/Gui.h"
+#include "Umbra2D.h"
 
 
 // Private members
@@ -109,7 +107,7 @@ namespace Umbra2D::Gui {
 
         for (const auto &pair : paths)
             if (pair.first == Texture)
-                textures[truncatePath(pair.second)] = new Umbra2D::Assets::Texture(pair.second, truncatePath(pair.second));
+                textures[truncatePath(pair.second)] = (new TEXTURE)->setTexture(pair.second, truncatePath(pair.second));
     }
 
     bool FileExplorer::isValid(const std::string &path) {
@@ -308,7 +306,7 @@ namespace Umbra2D::Gui {
         getAllPaths("Dependencies/Assets/Textures/Files");
 
         for (const auto &pair : paths)
-            icons[truncatePath(pair.second)] = new Umbra2D::Assets::Texture(pair.second, truncatePath(pair.second));
+            icons[truncatePath(pair.second)] = (new TEXTURE)->setTexture(pair.second, truncatePath(pair.second));
 
         buffer = path;
         getAllPaths(path);

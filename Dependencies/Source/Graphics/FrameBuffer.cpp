@@ -1,8 +1,4 @@
-
-#include "Graphics/FrameBuffer.h"
-#include "Window.h"
-#include "Texture.h"
-#include "Engines/Engine.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 
@@ -32,7 +28,7 @@ namespace Umbra2D::Graphics {
             std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!\n";
         glBindFramebuffer(GL_FRAMEBUFFER, 0);  // or unbind();
 
-        texture = new TEXTURE(textureID, resolution, "framebuffer");
+        texture = (new TEXTURE)->setTexture(textureID, resolution, "framebuffer");
     }
     FrameBuffer::~FrameBuffer() {
         delete texture;

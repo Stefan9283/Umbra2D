@@ -1,5 +1,4 @@
-#include "Texture.h"
-#include "Gui/Gui.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Assets {
 
@@ -26,24 +25,27 @@ namespace Umbra2D::Assets {
     }
 
     // Texture
-    Texture::Texture(unsigned int id, glm::ivec2 resolution, std::string name) {
+
+    Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
+
+    Texture* Texture::setTexture(unsigned int id, glm::ivec2 resolution, std::string name) {
         this->name = name;
         this->id = id;
         this->resolution = resolution;
         this->path = "NONE";
+        return this;
     }
-    Texture::Texture(std::string path, std::string name) {
+    Texture* Texture::setTexture(std::string path, std::string name) {
         auto r = loadFromFile(path);
         this->id = r.first;
         this->resolution = r.second;
         this->path = path;
         if (!name.empty())
             this->name = name;
-        else 
+        else
             this->name = path;
+        return this;
     }
-    Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
-
     void Texture::gui() {
         ImGui::InputText("name", &name);
         ImGui::Text(
@@ -106,13 +108,14 @@ namespace Umbra2D::Assets {
     int Texture::getID() { return id; }
     std::string Texture::getPath() { return path; }
     glm::ivec2 Texture::getResolution() { return resolution; }
-    
+
+
 
     // SpriteSheet
     SpriteSheet::SpriteSheet(std::string pathToImage, glm::vec2 gridSize, unsigned int numOfSprites, std::string name) {
         this->gridSize = gridSize;
         this->numOfSprites = numOfSprites;
-        tex = new Texture(pathToImage, name);
+        tex = (new Texture)->setTexture(pathToImage, name);
         frameDescriptions.resize(numOfSprites);
     }
     SpriteSheet::~SpriteSheet() { delete tex; }

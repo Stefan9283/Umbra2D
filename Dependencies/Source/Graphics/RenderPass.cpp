@@ -1,14 +1,14 @@
-#include "Graphics/RenderPass.h"
-#include "Graphics/FrameBuffer.h"
-#include "Graphics/Shader.h"
-#include "Texture.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
-    RenderPass::RenderPass(renderpasstype type, glm::ivec2 frbufResolution, int framebufferType) {
-        frbuf = new Umbra2D::Graphics::FrameBuffer(framebufferType, frbufResolution);
+    RenderPass *RenderPass::setType(renderpasstype type) {
         this->type = type;
+        return this;
     }
-
+    RenderPass *RenderPass::setFrameBuffer(glm::ivec2 frbufResolution, int framebufferType) {
+        frbuf = new Umbra2D::Graphics::FrameBuffer(framebufferType, frbufResolution);
+        return this;
+    }
     renderpasstype RenderPass::getType() { return type; }
     int RenderPass::getTexture() { return frbuf->getTexture()->getID(); }
 
@@ -26,5 +26,8 @@ namespace Umbra2D::Graphics {
         }
         if (!shader)
             ImGui::Text("Null Shader");
+    }
+    RenderPass::~RenderPass() {
+        delete frbuf;
     }
 }

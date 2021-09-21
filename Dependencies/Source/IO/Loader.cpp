@@ -1,7 +1,4 @@
-#include "IO/Loader.h"
-#include "Texture.h"
-#include "AssetLibrary.h"
-#include "Engines/Engine.h"
+#include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 

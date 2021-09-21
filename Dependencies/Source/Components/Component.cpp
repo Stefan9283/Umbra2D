@@ -1,5 +1,4 @@
-#include "Components/Component.h"
-#include "Entity.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Components {
     void Component::setParent(Entity* e) {

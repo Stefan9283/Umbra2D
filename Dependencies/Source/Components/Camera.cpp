@@ -1,6 +1,4 @@
-
-#include "Components/Camera.h"
-#include "Window.h"
+#include "Umbra2D.h"
 
 namespace Umbra2D::Components {
     Camera::Camera(Umbra2D::Window* window) {
