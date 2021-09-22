@@ -72,8 +72,8 @@ Shader::~Shader() {
     glDeleteProgram(id);
 }
 
-Shader* Shader::loadShader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g) {
-    this->name = name; this->pathv = filepath_v; this->pathf = filepath_f;
+Shader* Shader::loadShader(std::string shaderName, std::string filepath_v, std::string filepath_f, std::string filepath_g) {
+    this->name = shaderName; this->pathv = filepath_v; this->pathf = filepath_f;
     ShaderProgramSource source = ParseShader(filepath_v, filepath_f, filepath_g);
     this->id = CreateShader(source.vertexShader, source.fragmentShader, source.geometryShader);
     free(source.fragmentShader);

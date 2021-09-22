@@ -9,7 +9,7 @@ struct SoundFile {
     SF_INFO info;
 };
 
-namespace Umbra2D {
+namespace Umbra2D::Audio {
     class myFileHandler {
     public:
         myFileHandler();

@@ -1,8 +1,8 @@
 #include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
-    RenderPass *RenderPass::setType(renderpasstype type) {
-        this->type = type;
+    RenderPass *RenderPass::setType(renderpasstype passType) {
+        type = passType;
         return this;
     }
     RenderPass *RenderPass::setFrameBuffer(glm::ivec2 frbufResolution, int framebufferType) {

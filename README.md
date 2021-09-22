@@ -30,8 +30,6 @@ AssetLibrary {
     [] Shaders {
         nane, pathToVertexShader, pathToFragmentShader
     }
-
-
 }
 ```
 
@@ -50,7 +48,10 @@ namespace Umbra2D {
        class Saver;
        class Loader;
    }
-
+   namespace Audio {
+       class AudioPlayer;
+       class myFileHandler;
+   }
    namespace Assets {
        class Animation;
        class Texture;
@@ -58,6 +59,7 @@ namespace Umbra2D {
    }
 
    
+
    class Renderer; // TODO
 
    namespace Graphics {
@@ -128,10 +130,10 @@ namespace Umbra2D {
 * [ ] GUI Editor
 * [ ] Game Graph
 #### Game 
-* [ ] Game Structure
 * [x] Rework on entities (component based)
+* [ ] Game Structure
 * [ ] Game Objects (goal, player, enemy, prop)
 #### Sound
-* [ ] Sound Player
+* [x] Sound Player
 #### Misc
 * [ ] Framecap

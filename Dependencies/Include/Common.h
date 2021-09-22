@@ -8,9 +8,10 @@
  *  in this header
 */
 #pragma region HEADERS
-
-// disable any warning coming from an external library
 #pragma warning(push, 0)
+//      ^^^^^^^^^^^^^^^^
+// disable any warning coming
+// from an external library
 
 // GUI library
 #include <imgui_impl_glfw.h>
@@ -40,7 +41,6 @@
 #include <filesystem>
 #include <unordered_set>
 
-
 // audio library
 #include <portaudio.h>
 
@@ -65,7 +65,6 @@
 //#define GLFW_APIENTRY_DEFINED
 #include <GLFW/glfw3.h>
 
-
 // ImGui Node API
 #include <imnodes.h>
 
@@ -76,10 +75,9 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-
-
 #pragma warning(pop)
-
+//     ^^^^^^^^^^^^^
+// re-enable warnings
 #pragma endregion
 
 
@@ -118,14 +116,15 @@ namespace Umbra2D {
     class Scene;
     class AssetLibrary;
 
-
     namespace IO {
         class Saver;
         class Loader;
     }
 
-    class AudioPlayer;
-    class myFileHandler;
+    namespace Audio {
+        class AudioPlayer;
+        class myFileHandler;
+    }
 
     namespace Assets {
         class Animation;
@@ -133,6 +132,9 @@ namespace Umbra2D {
         class SpriteSheet;
     }
 
+    // TODO
+    class Renderer;
+    
     namespace Graphics {
         class Shader;
         class FrameBuffer;
@@ -151,8 +153,7 @@ namespace Umbra2D {
         class Font;
     }
 
-    // TODO
-    class Renderer;
+
     // TODO
     namespace Physics {
         class RigidBody;
@@ -162,7 +163,6 @@ namespace Umbra2D {
             class TopDownEngine;
         }
     }
-
 
     class Entity;
 

@@ -25,32 +25,24 @@ namespace Umbra2D::IO {
             std::string name, path_v, path_f;
         };
 
-        void parseTexture(TextureInfo& textureInfo);
-
-        void parseSpriteSize(int& noOfSprites, glm::ivec2& gridSize);
-
-        void parseAnimationName(std::string& name);
-
         void parseKeyFrame(int& index, float& timeUntilNextFrame);
-
-        void parseFrameDescription(std::string& frameDescription);
-
         void parseKeyFrames(std::ifstream& fin, std::vector<std::pair<int, float>>& keyFrames);
 
+        void parseAnimationName(std::string& name);
         void parseAnimation(std::ifstream& fin, std::vector<ANIMATION>& animations);
-
         void parseAnimations(std::ifstream& fin, std::vector<ANIMATION>& animations);
 
+        void parseFrameDescription(std::string& frameDescription);
         void parseFrameDescriptions(std::ifstream& fin, std::vector<std::string>& frameDescriptions);
 
-        void parseSpriteSheet(std::ifstream& fin, SpriteSheetInfo& spriteSheetInfo);
-
-        void parseShader(std::ifstream& fin, ShaderInfo& shaderInfo);
-
+        void parseTexture(TextureInfo& textureInfo);
         void parseTextures(std::ifstream& fin);
 
+        void parseSpriteSize(int& noOfSprites, glm::ivec2& gridSize);
+        void parseSpriteSheet(std::ifstream& fin, SpriteSheetInfo& spriteSheetInfo);
         void parseSpriteSheets(std::ifstream& fin);
 
+        void parseShader(ShaderInfo& shaderInfo);
         void parseShaders(std::ifstream& fin);
 
         void parseAssetLibrary(std::ifstream& fin);

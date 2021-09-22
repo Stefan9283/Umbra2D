@@ -1,8 +1,7 @@
 #include "Umbra2D.h"
 
-namespace Umbra2D {
-
-    myFileHandler::myFileHandler() :soundLibrary() {
+namespace Umbra2D::Audio {
+    myFileHandler::myFileHandler() : soundLibrary() {
         openSound(R"(Dependencies/Assets/Sounds/test.wav)", "test");
         openSound(R"(Dependencies/Assets/Sounds/loop.wav)", "loop");
         openSound(R"(Dependencies/Assets/Sounds/Powerup47.wav)", "short");

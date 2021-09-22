@@ -133,7 +133,7 @@ namespace Umbra2D::IO {
                 break;
     }
 
-    void Loader::parseShader(std::ifstream& fin, ShaderInfo& shaderInfo) {
+    void Loader::parseShader(ShaderInfo& shaderInfo) {
         int i = 0, j, k;
 
         for (i; i < strlen(buffer); i++)
@@ -189,7 +189,7 @@ namespace Umbra2D::IO {
             if (strstr(buffer, "Shader")) {
                 ShaderInfo shaderInfo;
 
-                parseShader(fin, shaderInfo);
+                parseShader(shaderInfo);
                 LIBRARY->addShader(shaderInfo.name, shaderInfo.path_v, shaderInfo.path_f);
             } else if (strlen(buffer) > 0)
                 break;

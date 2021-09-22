@@ -9,7 +9,7 @@ typedef struct {
     bool isLooped;
 } SoundQueueItem;
 
-namespace Umbra2D {
+namespace Umbra2D::Audio {
     class AudioPlayer {
     public:
         AudioPlayer();

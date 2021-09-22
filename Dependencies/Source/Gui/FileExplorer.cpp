@@ -6,11 +6,11 @@ namespace Umbra2D::Gui {
     std::string FileExplorer::formatPath(const std::string &path) {
         std::string formattedPath;
 
-        for (int i = 0; i < path.size(); i++) {
-            if (path[i] == '\\')
+        for (char i : path) {
+            if (i == '\\')
                 formattedPath += "/";
             else
-                formattedPath += path[i];
+                formattedPath += i;
         }
 
         return formattedPath;
@@ -24,7 +24,7 @@ namespace Umbra2D::Gui {
         paths.erase(paths.begin(), paths.end());
 
         for (const auto &file : std::filesystem::directory_iterator(path))
-            paths.push_back({getFileType(file.path().string()), formatPath(file.path().string())});
+            paths.emplace_back(getFileType(file.path().string()), formatPath(file.path().string()));
     }
 
     std::vector<std::string> FileExplorer::getAllSubpaths(std::string path) {
@@ -38,7 +38,7 @@ namespace Umbra2D::Gui {
                 if (!subpaths.empty())
                     subpaths.push_back(subpaths.back() + "/" + std::string(path.begin() + prev, path.begin() + i));
                 else
-                    subpaths.push_back(std::string(path.begin() + prev, path.begin() + i));
+                    subpaths.emplace_back(path.begin() + prev, path.begin() + i);
 
                 prev = i + 1;
             }
@@ -142,7 +142,7 @@ namespace Umbra2D::Gui {
         }
     }
 
-    void FileExplorer::showFiles(const glm::vec2 &fileSize, const int &gridSize) {
+    void FileExplorer::showFiles() {
         if (!paths.empty()) {
             int i = 0;
 
@@ -169,7 +169,7 @@ namespace Umbra2D::Gui {
                             Umbra2D::Gui::showTexture(icons[enumToString(pair.first)], fileSize);
                             min = ImGui::GetItemRectMin();
                             ImGui::SameLine();
-                            ImGui::Text(truncatePath(pair.second).c_str());
+                            ImGui::Text("%s", truncatePath(pair.second).c_str());
                             max = ImGui::GetItemRectMax();
                             pos = ImGui::GetMousePos();
                             max.x = ImGui::GetWindowPos().x + ImGui::GetWindowSize().x / gridSize * (i + 1);
@@ -190,7 +190,7 @@ namespace Umbra2D::Gui {
                         if (pair.first == Audio || pair.first == Script || pair.first == Shader)
                             ImGui::Selectable(truncatePath(pair.second).c_str());
                         else
-                            ImGui::Text(truncatePath(pair.second).c_str());
+                            ImGui::Text("%s", truncatePath(pair.second).c_str());
                     }
 
                     // Drag and drop
@@ -215,13 +215,13 @@ namespace Umbra2D::Gui {
                     }
 
                     if (ImGui::BeginDragDropTarget()) {
-                        if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("TEXTURE_PATH"))
+                        if (const ImGuiPayload *payload1 = ImGui::AcceptDragDropPayload("TEXTURE_PATH"))
                             std::cout << "Texture\n";
-                        else if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("AUDIO_PATH"))
+                        else if (const ImGuiPayload *payload2 = ImGui::AcceptDragDropPayload("AUDIO_PATH"))
                             std::cout << "Audio\n";
-                        else if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("SCRIPT_PATH"))
+                        else if (const ImGuiPayload *payload3 = ImGui::AcceptDragDropPayload("SCRIPT_PATH"))
                             std::cout << "Script\n";
-                        else if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SHADER_PATH"))
+                        else if (const ImGuiPayload* payload4 = ImGui::AcceptDragDropPayload("SHADER_PATH"))
                             std::cout << "Shader\n";
 
                         ImGui::EndDragDropTarget();
@@ -240,7 +240,7 @@ namespace Umbra2D::Gui {
         }
     }
 
-    void FileExplorer::showChoiceListAndFiles(const glm::vec2 &fileSize, const int &gridSize) {
+    void FileExplorer::showChoiceListAndFiles() {
         ImGui::InputText("##input", &buffer);
         ImGui::SameLine(0, 0);
 
@@ -270,7 +270,7 @@ namespace Umbra2D::Gui {
             if (wasChanged)
                 loadTextures();
 
-            showFiles(fileSize, gridSize);
+            showFiles();
         } else {
             ImGui::SameLine();
             ImGui::Text("Current directory");
@@ -329,7 +329,7 @@ namespace Umbra2D::Gui {
             if (currentDirectory.size() > 1)
                 buffer = currentDirectory[currentDirectory.size() - 2];
 
-        showChoiceListAndFiles(fileSize, gridSize);
+        showChoiceListAndFiles();
         ImGui::End();
     }
 }

@@ -11,6 +11,7 @@ add_subdirectory(Dependencies/Vendor/glfw)
 add_subdirectory(Dependencies/Vendor/glad)
 add_subdirectory(Dependencies/Vendor/ChaiScript)
 add_subdirectory(Dependencies/Vendor/freetype)
+add_subdirectory(Dependencies/Vendor/MemPlumber)
 
 option(ENABLE_EXTERNAL_LIBS ON)
 option(ENABLE_MPEG ON)
@@ -101,7 +102,9 @@ target_link_libraries(
 		PortAudio
 		freetype
 		EnTT
-		glfw)
+		glfw
+		memplumber
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME}

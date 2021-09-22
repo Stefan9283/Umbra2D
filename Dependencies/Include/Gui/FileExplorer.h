@@ -38,9 +38,9 @@ namespace Umbra2D::Gui {
 
 		void showChoiceList();
 
-		void showFiles(const glm::vec2& fileSize, const int& gridSize);
+		void showFiles();
 
-		void showChoiceListAndFiles(const glm::vec2& fileSize, const int& gridSize);
+		void showChoiceListAndFiles();
 
 	public:
 		glm::vec2 fileSize = {20, 20};

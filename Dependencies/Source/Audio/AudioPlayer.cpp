@@ -1,6 +1,6 @@
 #include "Umbra2D.h"
 
-namespace Umbra2D {
+namespace Umbra2D::Audio {
     AudioPlayer::AudioPlayer() : fileHandler() {
         PaError error = Pa_Initialize();
         if (error != paNoError) {
