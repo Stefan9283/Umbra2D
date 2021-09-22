@@ -28,9 +28,9 @@ namespace Umbra2D::Assets {
 
     Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
 
-    Texture* Texture::setTexture(unsigned int id, glm::ivec2 resolution, std::string name) {
+    Texture* Texture::setTexture(unsigned int texId, glm::ivec2 resolution, std::string name) {
         this->name = name;
-        this->id = id;
+        this->id = texId;
         this->resolution = resolution;
         this->path = "NONE";
         return this;

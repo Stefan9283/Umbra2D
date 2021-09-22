@@ -9,7 +9,6 @@ cmake_install.cmake
 cmake-build-debug
 Umbra2D.exe.manifest
 Umbra2D.cbp
-Umbra2D*
 x64*
 *vcxproj*
 imgui.ini

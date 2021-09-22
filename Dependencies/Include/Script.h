@@ -11,7 +11,7 @@ namespace Umbra2D {
         std::string asText = "";
         std::string path = "";
         bool needsReload = false;
-
+    public:
         Script* readFromFile(std::string path);
         void evaluate();
         void gui();

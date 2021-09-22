@@ -1,0 +1,7 @@
+
+for (i : [1, 2, 3]) { print(i); }
+print("Buna siua")
+str = ""
+for (var i = 0; i < 10000; ++i) {
+    str = str + i;
+}
