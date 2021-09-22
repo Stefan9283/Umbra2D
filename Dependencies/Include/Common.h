@@ -118,10 +118,14 @@ namespace Umbra2D {
     class Scene;
     class AssetLibrary;
 
+
     namespace IO {
         class Saver;
         class Loader;
     }
+
+    class AudioPlayer;
+    class myFileHandler;
 
     namespace Assets {
         class Animation;
