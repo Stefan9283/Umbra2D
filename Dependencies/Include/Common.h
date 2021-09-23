@@ -22,7 +22,9 @@
 #include <entt/entt.hpp>
 
 #include <memplumber.h>
+#if WIN32
 #define new new(__FILE__, __LINE__)
+#endif
 
 // C/C++ headers
 #include <cstdlib>
