@@ -56,7 +56,9 @@
 #include <glm/gtx/closest_point.hpp>
 
 // scripting with C++ binding
-#include <chaiscript/chaiscript.hpp>
+#define SOL_ALL_SAFETIES_ON 1
+#include <sol/sol.hpp>
+//#include <sol/config.hpp>
 
 // OpenGL funcs loader
 #include <glad/glad.h>

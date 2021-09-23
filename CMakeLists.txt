@@ -7,9 +7,11 @@ option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_EXAMPLES OFF)
 option(GLFW_BUILD_TESTS OFF)
 
+add_subdirectory(Dependencies/Vendor/lua-5.4.3)
 add_subdirectory(Dependencies/Vendor/glfw)
 add_subdirectory(Dependencies/Vendor/glad)
-add_subdirectory(Dependencies/Vendor/ChaiScript)
+#add_subdirectory(Dependencies/Vendor/ChaiScript)
+#add_subdirectory(Dependencies/Vendor/sol2-3.2.2)
 add_subdirectory(Dependencies/Vendor/freetype)
 add_subdirectory(Dependencies/Vendor/MemPlumber)
 
@@ -47,6 +49,7 @@ file(GLOB VENDORS_SOURCES
 		Dependencies/Vendor/imgui/misc/cpp/*.cpp
 		Dependencies/Vendor/imnodes/imnodes.cpp
 		Dependencies/Vendor/MemPlumber/memplumber.cpp
+#		Dependencies/Vendor/lua-5.4.3/src/*.c
 		)
 
 message(STATUS " ............... Grabbing all your source code ................")
@@ -74,10 +77,12 @@ include_directories(
 		Dependencies/Vendor/glfw/include
 		Dependencies/Vendor/glad/include
 		Dependencies/Vendor/freetype/include
-		Dependencies/Vendor/ChaiScript/include
+#		Dependencies/Vendor/ChaiScript/include
 		Dependencies/Vendor/portaudio/include
 		Dependencies/Vendor/entt/single_include
 		Dependencies/Vendor/MemPlumber
+		Dependencies/Vendor/sol2-3.2.2/include
+		Dependencies/Vendor/lua-5.4.3/include
 )
 
 add_definitions(-DGLFW_INCLUDE_NONE -DPROJECT_SOURCE_DIR=\"${PROJECT_SOURCE_DIR}\")
@@ -104,6 +109,8 @@ target_link_libraries(
 		EnTT
 		glfw
 		memplumber
+		lua
+#		sol2
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

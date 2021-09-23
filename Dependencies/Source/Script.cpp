@@ -3,14 +3,15 @@
 
 Umbra2D::Script *Umbra2D::Script::readFromFile(std::string path) {
     if (std::filesystem::exists(path)) {
-        this->path = true;
+        this->path = path;
         IO::loadFile(asText, path);
+        needsReload = false;
     }
     return this;
 }
 
 void Umbra2D::Script::evaluate() {
-    asScript.eval(asText);
+//    asScript.eval(asText);
 }
 
 void Umbra2D::Script::gui() {

@@ -11,8 +11,8 @@ extern Umbra2D::Umbra2DEngine* umbra;
 // geeksforgeeks adapted code
 bool onSegment(glm::vec2 p, glm::vec2 q, glm::vec2 r)
 {
-    if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) &&
-        q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y))
+    if (q.x <= glm::max(p.x, r.x) && q.x >= glm::min(p.x, r.x) &&
+        q.y <= glm::max(p.y, r.y) && q.y >= glm::min(p.y, r.y))
         return true;
 
     return false;
@@ -110,8 +110,8 @@ namespace Umbra2D::Components::Colliders {
 
         // find nearest point to centre of circle
         // on both axis
-        float xn = max(x1, min(xc, x2));
-        float yn = max(y1, min(yc, y2));
+        float xn = glm::max(x1, glm::min(xc, x2));
+        float yn = glm::max(y1, glm::min(yc, y2));
 
         // distance between centre of circle and
         // the found nearest point
