@@ -7,7 +7,7 @@
 namespace Umbra2D {
     class Script {
         std::string label = "";
-        chaiscript::ChaiScript asScript;
+//        chaiscript::ChaiScript asScript;
         std::string asText = "";
         std::string path = "";
         bool needsReload = false;

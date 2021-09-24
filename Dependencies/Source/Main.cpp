@@ -23,5 +23,6 @@ int main() {
         printf("Number of leaked objects: %d\nTotal amount of memory leaked: %d[bytes]\n", (int)memLeakCount, (int)memLeakSize);
     else
         printf("G f*ckin' G! There are no leaks to be seen");
+
     return 0;
 }

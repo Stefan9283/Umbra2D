@@ -1,5 +1,4 @@
 #pragma once
-
 /*
  *  add any
  *  - STL
@@ -7,6 +6,7 @@
  *  - Umbra2D namespace object
  *  in this header
 */
+
 #pragma region HEADERS
 #pragma warning(push, 0)
 //      ^^^^^^^^^^^^^^^^
@@ -18,30 +18,16 @@
 #include <imgui_impl_opengl3.h>
 #include <misc/cpp/imgui_stdlib.h>
 
+#include <lua.hpp>
+
+// Lua scripting with C++ binding
+#define SOL_ALL_SAFETIES_ON 1
+//      ^^^^^^^^^^^^^^^^^^^^^
+// this define 
+#include <sol/sol.hpp>
+ 
 // ECS lib
 #include <entt/entt.hpp>
-
-#include <memplumber.h>
-#if WIN32
-#define new new(__FILE__, __LINE__)
-#endif
-
-// C/C++ headers
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
-#include <cstring>
-
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <queue>
-#include <stack>
-#include <map>
-#include <unordered_map>
-#include <filesystem>
-#include <unordered_set>
 
 // audio library
 #include <portaudio.h>
@@ -56,9 +42,6 @@
 #include <glm/gtx/string_cast.hpp>
 // for projection i.e. glm::closestPointOnLine()
 #include <glm/gtx/closest_point.hpp>
-
-// scripting with C++ binding
-#include <chaiscript/chaiscript.hpp>
 
 // OpenGL funcs loader
 #include <glad/glad.h>
@@ -76,6 +59,29 @@
 // ttf fonts loader
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+// C headers
+#include <cstdlib>
+#include <cstdio>
+#include <ctime>
+#include <cstring>
+
+// C++ headers
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <filesystem>
+#include <unordered_set>
+
+// memory leaks detector
+#include <memplumber.h>
+#define new new(__FILE__, __LINE__)
+
 
 #pragma warning(pop)
 //     ^^^^^^^^^^^^^
