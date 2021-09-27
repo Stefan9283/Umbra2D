@@ -37,6 +37,7 @@
 #include "Gui/FileExplorer.h"
 #include "Gui/ImGuiTheme.h"
 #include "Gui/Editor.h"
+#include "Gui/Logger.h"
 
 #include "IO/Saver.h"
 #include "IO/Loader.h"

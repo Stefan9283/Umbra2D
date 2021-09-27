@@ -39,6 +39,16 @@ namespace Umbra2D {
         loadProject();
         Umbra2D::Gui::FileExplorer fe;
         Umbra2D::Gui::Editor edit(w);
+        Umbra2D::Gui::Logger logger;
+
+        for (int i = 0; i < 1024; i++) {
+            logger.addLog("error", "A aparut o eroare!");
+            logger.addLog("success", "S-a finalizat cu succes!");
+            logger.addLog("status", "Este o zi frumoasa!");
+            logger.addLog("warning", "Atentie, se inchid usile!");
+        }
+
+        logger.addLog("status", "Este o zi frumoasa!");
 
         // TODO don't generate entity, shader or renderer objects in this func. It should be done in the GUI
         Umbra2D::Renderer renderer;
@@ -134,6 +144,7 @@ namespace Umbra2D {
 
             fe.gui();
             edit.gui();
+            logger.gui();
             ImGui::ShowDemoWindow();
             theme->gui();
             scene->gui();

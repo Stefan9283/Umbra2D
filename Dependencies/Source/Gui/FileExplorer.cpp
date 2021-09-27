@@ -1,6 +1,5 @@
 #include "Umbra2D.h"
 
-
 // Private members
 namespace Umbra2D::Gui {
     std::string FileExplorer::formatPath(const std::string &path) {

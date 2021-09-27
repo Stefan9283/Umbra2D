@@ -155,6 +155,7 @@ namespace Umbra2D {
         class ImGuiTheme;
         class FileExplorer;
         class Editor;
+        class Logger;
     }
     namespace Text {
        struct Character;
