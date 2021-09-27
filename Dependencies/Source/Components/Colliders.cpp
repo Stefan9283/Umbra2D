@@ -279,7 +279,7 @@ namespace Umbra2D::Components::Colliders {
     glm::vec2 AbstractCollider::getPosition() {
         glm::vec2 translation = offset;
         if (getParent()->hasComponent<TRANSFORM>())
-            translation += getParent()->getComponent<TRANSFORM>()->getPos();
+            translation += getParent()->getComponent<TRANSFORM>()->translation;
         return translation;
     }
 

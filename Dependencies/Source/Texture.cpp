@@ -28,22 +28,22 @@ namespace Umbra2D::Assets {
 
     Texture::~Texture() { glDeleteTextures(1, (GLuint*)&id); }
 
-    Texture* Texture::setTexture(unsigned int texId, glm::ivec2 resolution, std::string name) {
-        this->name = name;
+    Texture* Texture::setTexture(unsigned int texId, glm::ivec2 resolutionVec, std::string namestr) {
+        this->name = namestr;
         this->id = texId;
-        this->resolution = resolution;
+        this->resolution = resolutionVec;
         this->path = "NONE";
         return this;
     }
-    Texture* Texture::setTexture(std::string path, std::string name) {
-        auto r = loadFromFile(path);
+    Texture* Texture::setTexture(std::string pathStr, std::string nameStr) {
+        auto r = loadFromFile(pathStr);
         this->id = r.first;
         this->resolution = r.second;
-        this->path = path;
-        if (!name.empty())
-            this->name = name;
+        this->path = pathStr;
+        if (!nameStr.empty())
+            this->name = nameStr;
         else
-            this->name = path;
+            this->name = pathStr;
         return this;
     }
     void Texture::gui() {

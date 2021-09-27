@@ -77,6 +77,7 @@
 #include <unordered_map>
 #include <filesystem>
 #include <unordered_set>
+#include <typeinfo>
 
 // memory leaks detector
 #include <memplumber.h>

@@ -7,11 +7,12 @@
 namespace Umbra2D {
     class Script {
         std::string label = "";
-//        chaiscript::ChaiScript asScript;
+        sol::state lua;
         std::string asText = "";
         std::string path = "";
         bool needsReload = false;
     public:
+        Script();
         Script* readFromFile(std::string path);
         void evaluate();
         void gui();

@@ -1,7 +1,6 @@
 #include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
-    // TODO should use ImNodes
     void RenderNode::gui(int index) const {
         ImNodes::BeginNode(index);
         ImNodes::PushAttributeFlag(ImNodesAttributeFlags_EnableLinkDetachWithDragClick);

@@ -4,6 +4,11 @@
 #include "Components/Component.h"
 #include "Scene.h"
 
+#include "Engines/Engine.h"
+#include "Gui/Logger.h"
+
+extern Umbra2D::Umbra2DEngine *umbra;
+
 namespace Umbra2D {
     class Entity {
      private:
@@ -23,11 +28,17 @@ namespace Umbra2D {
                 ((COMPONENT *) &comp)->setParent(this);
                 return &comp;
             } else {
-                // TODO log to some console
+                umbra->logger->addLog("warning",
+                          std::string("Component of type ")
+                          .append(typeid(T).name())
+                          .append(" already exists for entity ")
+                          .append(label)
+                          .append(" (id ")
+                          .append(std::to_string(getID()))
+                          .append(")"));
                 return getComponent<T>();
             }
         }
-
         template<typename T>
         T* addComponent() {
             if (!hasComponent<T>()) {
@@ -35,18 +46,23 @@ namespace Umbra2D {
                 ((COMPONENT *) &comp)->setParent(this);
                 return &comp;
             } else {
-                // TODO log to some console
+                umbra->logger->addLog("warning",
+                        std::string("Component of type ")
+                        .append(typeid(T).name())
+                        .append(" already exists for entity ")
+                        .append(label)
+                        .append(" (id ")
+                        .append(std::to_string(getID()))
+                        .append(")"));
                 return getComponent<T>();
             }
         }
-
 //        template<typename T, typename S>
 //        S* addComponent(S* comp) {
 //            auto comp = scene->registry.emplace<T*>(id, (T*)comp);
 //            ((COMPONENT*)comp)->setParent(this);
 //            return (S*)comp;
 //        }
-
 
         template<typename T>
         bool hasComponent() {
@@ -61,7 +77,9 @@ namespace Umbra2D {
 
         template<typename T>
         T* getComponent() {
-            return &scene->registry.get<T>(id);
+            if (hasComponent<T>())
+                return &scene->registry.get<T>(id);
+            return nullptr;
         }
 //        template<typename T>
 //        T* getPointerComponent() {

@@ -3,44 +3,44 @@ project (lua CXX)
 
 
 file(GLOB HEADERS
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/lua.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/lua.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/luaconf.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/lualib.h
+        include/lua.h
+        include/lua.hpp
+        include/luaconf.h
+        include/lualib.h
         )
 file(GLOB SOURCE 
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lua.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lstate.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lapi.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ltm.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lgc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lvm.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lobject.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ldo.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lfunc.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ltable.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lstring.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lmem.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/llex.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ldump.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lundump.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ldebug.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lzio.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lcode.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lopcodes.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lparser.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lctype.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/liolib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ltablib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/ldblib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lauxlib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/loadlib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lutf8lib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lmathlib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lbaselib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lstrlib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/lcorolib.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/loslib.c
+        src/lua.c
+        src/lstate.c
+        src/lapi.c
+        src/ltm.c
+        src/lgc.c
+        src/lvm.c
+        src/lobject.c
+        src/ldo.c
+        src/lfunc.c
+        src/ltable.c
+        src/lstring.c
+        src/lmem.c
+        src/llex.c
+        src/ldump.c
+        src/lundump.c
+        src/ldebug.c
+        src/lzio.c
+        src/lcode.c
+        src/lopcodes.c
+        src/lparser.c
+        src/lctype.c
+        src/liolib.c
+        src/ltablib.c
+        src/ldblib.c
+        src/lauxlib.c
+        src/loadlib.c
+        src/lutf8lib.c
+        src/lmathlib.c
+        src/lbaselib.c
+        src/lstrlib.c
+        src/lcorolib.c
+        src/loslib.c
 )
 add_library (lua
         ${HEADERS}
@@ -48,5 +48,5 @@ add_library (lua
         )
 
 target_include_directories(lua PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        include
         )

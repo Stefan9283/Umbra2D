@@ -11,6 +11,7 @@ namespace Umbra2D {
         Umbra2D::Scene *scene;
         Umbra2D::Gui::ImGuiTheme* theme;
     public:
+        Umbra2D::Gui::Logger* logger;
         Umbra2D::Graphics::Shader* colliderShader {}; // TODO ????
 
         Umbra2DEngine();

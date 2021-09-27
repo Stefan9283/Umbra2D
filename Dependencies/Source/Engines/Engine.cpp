@@ -7,6 +7,7 @@ namespace Umbra2D {
         colliderShader = (new SHADER)->loadShader("shader1", "Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
         scene = new Scene;
         theme = new Gui::ImGuiTheme(glm::vec4(0.5, 0, 0, 1));
+        logger = new Umbra2D::Gui::Logger;
     }
     Umbra2DEngine::~Umbra2DEngine() {
         delete lib;
@@ -14,6 +15,7 @@ namespace Umbra2D {
         delete colliderShader;
         delete scene;
         delete theme;
+        delete logger;
     }
     void Umbra2DEngine::loadProject() {
         Umbra2D::IO::Loader loader("Projects/Saves.txt");
@@ -39,16 +41,8 @@ namespace Umbra2D {
         loadProject();
         Umbra2D::Gui::FileExplorer fe;
         Umbra2D::Gui::Editor edit(w);
-        Umbra2D::Gui::Logger logger;
 
-        for (int i = 0; i < 1024; i++) {
-            logger.addLog("error", "A aparut o eroare!");
-            logger.addLog("success", "S-a finalizat cu succes!");
-            logger.addLog("status", "Este o zi frumoasa!");
-            logger.addLog("warning", "Atentie, se inchid usile!");
-        }
-
-        logger.addLog("status", "Este o zi frumoasa!");
+        logger->addLog("status", "The Engine is ready to go!");
 
         // TODO don't generate entity, shader or renderer objects in this func. It should be done in the GUI
         Umbra2D::Renderer renderer;
@@ -59,26 +53,30 @@ namespace Umbra2D {
         Umbra2D::Graphics::Shader textShader;
         textShader.loadShader("shader3", "Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
 
-//        auto bg = scene->addEntity("background");
-//        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
-//        auto camera = scene->addEntity("camera");
+        auto bg = scene->addEntity("background");
+        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
+        auto t = bg->addComponent<TRANSFORM>();
+        t->scale = {2000, 1000};
+        t->layer = 100;
 
+//        auto camera = scene->addEntity("camera");
 //        camera->addComponent<CAMERA>(w);
 
 
         auto hero1 = scene->addEntity("hero1");
         hero1->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-        hero1->addComponent<TRANSFORM>()->setPos({-100, 0});
+        hero1->addComponent<TRANSFORM>()->translation = {-100, 0};
         auto c1 = hero1->addComponent<CIRCLE>(200.f);
 
         auto hero2 = scene->addEntity("hero2");
         hero2->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-        hero2->addComponent<TRANSFORM>()->setPos({0, 0});
+        hero2->addComponent<TRANSFORM>()->translation = {0, 0};
+        hero2->addComponent<TRANSFORM>()->translation = {0, 0};
         auto c2 = hero2->addComponent<AARECTANGLE>(200.f, 100.f);
 
         auto hero3 = scene->addEntity("hero3");
         hero3->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-        hero3->addComponent<TRANSFORM>()->setPos({100, 0});
+        hero3->addComponent<TRANSFORM>()->translation = {100, 0};
         auto c3 = hero3->addComponent<LINE>(100.f, glm::vec2(0, 1), glm::vec2(0, 0));
 
 
@@ -100,51 +98,11 @@ namespace Umbra2D {
             }
             ImGui::End();
 
-            // ImNodes
-//            if (ImGui::Begin("Nodes")) {
-//                ImNodes::BeginNodeEditor();
-//
-//                int attribIndex = 0;
-//                int nodeIndex = 0;
-//
-//                ImNodes::BeginNode(nodeIndex++);
-//                    ImNodes::BeginInputAttribute(attribIndex++);
-//                    ImGui::Text("Big Bruh");
-//                    ImNodes::EndInputAttribute();
-//                ImGui::SameLine();
-//                    ImNodes::BeginOutputAttribute(attribIndex++);
-//                    ImGui::Text("out");
-//                    ImNodes::EndOutputAttribute();
-//                ImNodes::EndNode();
-//
-//
-//                ImNodes::BeginNode(nodeIndex++);
-//                    ImNodes::BeginInputAttribute(attribIndex++);
-//                    ImGui::Text("Small Bruh");
-//                    ImNodes::EndInputAttribute();
-//                ImGui::SameLine();
-//                    ImNodes::BeginOutputAttribute(attribIndex++);
-//                    ImGui::Text("out 2");
-//                    ImNodes::EndOutputAttribute();
-//                ImNodes::EndNode();
-//
-//                ImNodes::EndNodeEditor();
-//
-//                int start_attr, end_attr;
-//                if (ImNodes::IsLinkCreated(&start_attr, &end_attr)) {
-//                    std::cout << "Link (" << start_attr << ", " << end_attr << ") should have been created\n";
-//                }
-//                int link_id;
-//                if (ImNodes::IsLinkDestroyed(&link_id)) {
-//                }
-//            }
-//            ImGui::End();
-
             ppl.gui();
 
             fe.gui();
             edit.gui();
-            logger.gui();
+            logger->gui();
             ImGui::ShowDemoWindow();
             theme->gui();
             scene->gui();

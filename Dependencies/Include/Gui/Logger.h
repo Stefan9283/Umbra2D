@@ -10,9 +10,17 @@ namespace Umbra2D::Gui {
 	public:
 		Logger();
 
-		void addFlag(std::string flag, ImVec4 color);
+		void addFlag(const std::string& flag, ImVec4 color);
 
-		void addLog(std::string flag, std::string log);
+		/*
+		 * adds another log to the logger
+		 * default flag options are:
+		 * - status
+		 * - success
+		 * - warning
+		 * - error
+		 */
+		void addLog(std::string flag, const std::string& log);
 
 		void gui();
 	};

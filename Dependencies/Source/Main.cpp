@@ -6,7 +6,7 @@
 Umbra2D::Umbra2DEngine* umbra;
 
 int main() {
-    // start collecting mem allocations info
+    //  start collecting mem allocations info
     MemPlumber::start();
 
     umbra = new Umbra2D::Umbra2DEngine();
@@ -22,7 +22,11 @@ int main() {
     if (memLeakCount)
         printf("Number of leaked objects: %d\nTotal amount of memory leaked: %d[bytes]\n", (int)memLeakCount, (int)memLeakSize);
     else
-        printf("G f*ckin' G! There are no leaks to be seen");
+        printf("G f*ckin' G! There are no leaks to be seen\n");
+
+//    Umbra2D::Script s;
+//    s.readFromFile("script.lua");
+//    s.evaluate();
 
     return 0;
 }

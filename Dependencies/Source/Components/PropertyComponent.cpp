@@ -35,10 +35,4 @@ namespace Umbra2D::Components {
             ImGui::TreePop();
         }
     }
-    glm::vec2 Transform::getPos() { return translation; }
-    float Transform::getLayer() { return (float)layer; }
-
-    void Transform::setPos(glm::vec2 pos) {
-        this->translation = pos;
-    }
 }
