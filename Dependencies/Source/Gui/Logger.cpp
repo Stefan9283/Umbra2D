@@ -15,7 +15,11 @@ void Umbra2D::Gui::Logger::addLog(std::string flag, std::string log) {
 	if (logs.size() > MAX_LEN)
 		logs.erase(logs.begin());
 
-	logs.push_back({log, flag});
+	auto currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	std::stringstream ss;
+
+	ss << std::put_time(std::localtime(&currentTime), "%X");
+	logs.push_back({ "[" + ss.str() + "] " + log, flag});
 }
 
 void Umbra2D::Gui::Logger::gui() {
