@@ -2,20 +2,24 @@
 
 namespace Umbra2D {
     AssetLibrary::AssetLibrary() {
-        defaultTexture = new Assets::Texture;
-        defaultTexture->setTexture("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
-
         q = new Umbra2D::Graphics::Quad();
         dq = new Umbra2D::Graphics::DynamicQuad();
+        defaultTexture = new Assets::Texture;
+        defaultTexture->setTexture("Dependencies/Assets/Textures/DefaultTexture.png", "DefaultTexture");
     }
     AssetLibrary::~AssetLibrary() {
         for (auto* tex : textures)
             delete tex;
-        for (auto spritesh : spriteSheets)
-            delete spritesh;
-        delete q;
-        delete dq;
+        for (auto* spriteSheet : spriteSheets)
+            delete spriteSheet;
+
+        for (auto* shader : shaders)
+            delete shader;
+
         delete defaultTexture;
+
+        delete dq;
+        delete q;
     }
 
     void AssetLibrary::gui() {
@@ -31,8 +35,9 @@ namespace Umbra2D {
                 ImGui::TreePop();
             }
             if (ImGui::TreeNode(("Shaders (" + std::to_string(this->shaders.size()) + ")").c_str())) {
-                for (auto sh : this->shaders)
+                for (auto sh : this->shaders) {
                     sh->gui();
+                }
                 ImGui::TreePop();
             }
         }
@@ -61,7 +66,6 @@ namespace Umbra2D {
         this->textures.push_back((new TEXTURE)->setTexture(path, std::move(name)));
         return index;
     }
-
     unsigned int AssetLibrary::addShader(const std::string& name, const std::string &pathv, const std::string &pathf) {
         unsigned int index = 0;
         for (auto& sh : this->shaders) {

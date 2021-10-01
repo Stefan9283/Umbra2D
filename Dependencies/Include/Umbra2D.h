@@ -16,7 +16,6 @@
 #include "Components/Renderable.h"
 
 #include "Engines/Engine.h"
-#include "Engines/Renderer.h"
 
 #include "Components/Component.h"
 #include "Components/Camera.h"
@@ -24,10 +23,10 @@
 #include "Components/Renderable.h"
 #include "Components/PropertyComponent.h"
 
-
 #include "Graphics/Shader.h"
 #include <Graphics/GraphicsPipeline.h>
-#include <Graphics/RenderPass.h>
+#include <Graphics/RenderPasses/RenderPass.h>
+#include <Graphics/RenderPasses/OneTypeVoidPass.h>
 #include "Graphics/FrameBuffer.h"
 #include "Graphics/Fonts.h"
 #include "Graphics/Quad.h"
@@ -38,6 +37,7 @@
 #include "Gui/ImGuiTheme.h"
 #include "Gui/Editor.h"
 #include "Gui/Logger.h"
+#include "Gui/EngineSettings.h"
 
 #include "IO/Saver.h"
 #include "IO/Loader.h"

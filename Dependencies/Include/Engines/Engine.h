@@ -1,6 +1,7 @@
 #ifndef UMBRA2D_ENGINE_H
 #define UMBRA2D_ENGINE_H
 
+#include <Gui/EngineSettings.h>
 #include "Common.h"
 
 namespace Umbra2D {
@@ -8,8 +9,8 @@ namespace Umbra2D {
     private:
         Umbra2D::Window* w = nullptr;
         Umbra2D::AssetLibrary* lib = nullptr;
+        Umbra2D::Gui::EngineSettings* settings;
         Umbra2D::Scene *scene;
-        Umbra2D::Gui::ImGuiTheme* theme;
     public:
         Umbra2D::Gui::Logger* logger;
         Umbra2D::Graphics::Shader* colliderShader {}; // TODO ????

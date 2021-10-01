@@ -27,6 +27,7 @@ namespace Umbra2D::Graphics {
         void addRenderPass(RenderPass* rp);
         void linkRenderPasses(int fromNode, int toNode, int inputAttrib);
         int getAttribID(int node, int attrib);
+        FrameBuffer* getDrawnFrameBuffer(Umbra2D::Components::Camera* cam, Scene* s);
     };
 }
 

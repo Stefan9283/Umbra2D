@@ -1,3 +1,6 @@
+
+#include <Graphics/GraphicsPipeline.h>
+
 #include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
@@ -161,5 +164,35 @@ namespace Umbra2D::Graphics {
             delete node->rp;
             delete node;
         }
+    }
+
+    FrameBuffer* GraphicsPipeline::getDrawnFrameBuffer(Umbra2D::Components::Camera* cam, Scene* s) {
+        RenderNode* last = nullptr;
+        for (auto* node : renderNodes) {
+            switch (node->rp->getType()) {
+                case Void:
+                    node->rp->render(cam, s);
+                    last = node;
+                    break;
+                case FrBuf:
+                    if (node->fst) {
+                        node->rp->render(cam, s,
+                            node->fst->getFrameBuffer());
+                        last = node;
+                    }
+                    break;
+                case Adder:
+                    if (node->fst && node->snd) {
+                        node->rp->render(cam, s,
+                             node->fst->getFrameBuffer(),
+                             node->snd->getFrameBuffer());
+                        last = node;
+                    }
+                    break;
+            }
+        }
+        if (!last) return nullptr;
+
+        return last->rp->getFrameBuffer();
     }
 }

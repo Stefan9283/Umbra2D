@@ -12,10 +12,10 @@ namespace Umbra2D::Gui {
         explicit Editor(Window* window);
         ~Editor();
         void gui() override;
-        void startRender();
-        void stopRender();
+        Umbra2D::Components::Camera* getCamera();
         glm::mat4 getProj();
         glm::mat4 getView();
+        void setFrameBuffer(Umbra2D::Graphics::FrameBuffer* pFrameBuffer);
     };
 }
 

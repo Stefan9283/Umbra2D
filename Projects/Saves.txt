@@ -99,5 +99,8 @@ AssetLibrary[
 	]
 
 	Shaders[
+		Shader[colliderShader, Dependencies/Shader/collider/vert.glsl, Dependencies/Shader/collider/frag.glsl]
+		Shader[spritesShader, Dependencies/Shader/sprite/vert.glsl, Dependencies/Shader/sprite/frag.glsl]
+		Shader[fontShader, Dependencies/Shader/text/vert.glsl, Dependencies/Shader/text/frag.glsl]
 	]
 ]

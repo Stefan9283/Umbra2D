@@ -4,18 +4,17 @@ namespace Umbra2D {
     Umbra2DEngine::Umbra2DEngine() {
         w = new Umbra2D::Window;
         lib = new Umbra2D::AssetLibrary;
-        colliderShader = (new SHADER)->loadShader("shader1", "Dependencies/Shader/collider/vert.glsl", "Dependencies/Shader/collider/frag.glsl");
         scene = new Scene;
-        theme = new Gui::ImGuiTheme(glm::vec4(0.5, 0, 0, 1));
         logger = new Umbra2D::Gui::Logger;
+        settings = new Umbra2D::Gui::EngineSettings;
     }
     Umbra2DEngine::~Umbra2DEngine() {
         delete lib;
         delete w;
         delete colliderShader;
         delete scene;
-        delete theme;
         delete logger;
+        delete settings;
     }
     void Umbra2DEngine::loadProject() {
         Umbra2D::IO::Loader loader("Projects/Saves.txt");
@@ -37,6 +36,7 @@ namespace Umbra2D {
         return w;
     }
 
+
     void Umbra2DEngine::run() {
         loadProject();
         Umbra2D::Gui::FileExplorer fe;
@@ -45,14 +45,6 @@ namespace Umbra2D {
         logger->addLog("status", "The Engine is ready to go!");
 
         // TODO don't generate entity, shader or renderer objects in this func. It should be done in the GUI
-        Umbra2D::Renderer renderer;
-        Umbra2D::CollidersRenderer collidersRenderer;
-
-        Umbra2D::Graphics::Shader spriteShader;
-        spriteShader.loadShader("shader2", "Dependencies/Shader/sprite/vert.glsl", "Dependencies/Shader/sprite/frag.glsl");
-        Umbra2D::Graphics::Shader textShader;
-        textShader.loadShader("shader3", "Dependencies/Shader/text/vert.glsl", "Dependencies/Shader/text/frag.glsl");
-
         auto bg = scene->addEntity("background");
         bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
         auto t = bg->addComponent<TRANSFORM>();
@@ -71,7 +63,6 @@ namespace Umbra2D {
         auto hero2 = scene->addEntity("hero2");
         hero2->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
         hero2->addComponent<TRANSFORM>()->translation = {0, 0};
-        hero2->addComponent<TRANSFORM>()->translation = {0, 0};
         auto c2 = hero2->addComponent<AARECTANGLE>(200.f, 100.f);
 
         auto hero3 = scene->addEntity("hero3");
@@ -81,9 +72,7 @@ namespace Umbra2D {
 
 
         Graphics::GraphicsPipeline ppl;
-        ppl.addRenderPass((new Graphics::RenderPass)->setType(Void )->setFrameBuffer(glm::ivec2(1920, 1080)));
-        ppl.addRenderPass((new Graphics::RenderPass)->setType(FrBuf)->setFrameBuffer(glm::ivec2(1920, 1080)));
-        ppl.addRenderPass((new Graphics::RenderPass)->setType(Adder)->setFrameBuffer(glm::ivec2(1920, 1080)));
+        ppl.addRenderPass((new Graphics::OneTypeVoidPass<DYNAMIC>)->setFrameBuffer(glm::ivec2(1920, 1080)));
 
         while (!w->shouldClose()) {
             if (w->wasKeyPressed(GLFW_KEY_ESCAPE))
@@ -98,29 +87,17 @@ namespace Umbra2D {
             }
             ImGui::End();
 
-            ppl.gui();
+            edit.setFrameBuffer(ppl.getDrawnFrameBuffer(edit.getCamera(), scene));
 
+            ppl.gui();
             fe.gui();
-            edit.gui();
             logger->gui();
-            ImGui::ShowDemoWindow();
-            theme->gui();
+            settings->gui();
             scene->gui();
             lib->gui();
+            edit.gui();
 
-            edit.startRender();
-
-            spriteShader.setMat4("proj", edit.getProj());
-            spriteShader.setMat4("view", edit.getView());
-
-            colliderShader->setMat4("proj", edit.getProj());
-            colliderShader->setMat4("view", edit.getView());
-
-            // add here your render passes
-            collidersRenderer.onUpdate(scene, colliderShader);
-            renderer.onUpdate(scene, &spriteShader);
-
-            edit.stopRender();
+            ImGui::ShowDemoWindow();
 
             w->endFrame();
         }
@@ -130,5 +107,5 @@ namespace Umbra2D {
 
     }
 
-    glm::vec4 Umbra2DEngine::getThemeColor() { return theme->getColor(); }
+    glm::vec4 Umbra2DEngine::getThemeColor() { return settings->getColor(); }
 }

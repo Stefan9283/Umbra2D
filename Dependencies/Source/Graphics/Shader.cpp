@@ -55,19 +55,23 @@ void Shader::setTexture(const std::string& uniformName, int value, int textureUn
 }
 
 void Shader::gui() {
-    if (ImGui::TreeNode("Shader")) {
-        ImGui::Text(name.c_str());
-        ImGui::Text(pathv.c_str());
-        ImGui::Text(pathf.c_str());
+    if (ImGui::TreeNode(name.c_str())) {
+        ImGui::Button(name.c_str());
+
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+            void* shaderPtr = this;
+            ImGui::SetDragDropPayload("SHADER_PTR", &shaderPtr, sizeof(void*));
+            ImGui::Text("possible targets:\n - any renderpass");
+            ImGui::EndDragDropSource();
+        }
+        ImGui::Text("%s", pathv.c_str());
+        ImGui::Text("%s", pathf.c_str());
         ImGui::TreePop();
     }
 }
 
 
 
-Shader::Shader() {
-
-}
 Shader::~Shader() {
     glDeleteProgram(id);
 }

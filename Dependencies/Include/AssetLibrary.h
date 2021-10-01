@@ -14,9 +14,10 @@
 namespace Umbra2D {
     class AssetLibrary {
         public:
+        std::vector<SHADER*> shaders;
+        std::vector<Umbra2D::Graphics::GraphicsPipeline*> pipelines;
         std::vector<TEXTURE*> textures;
         std::vector<SPRITE_SHEET*> spriteSheets;
-        std::vector<Umbra2D::Graphics::Shader*> shaders;
 
         Umbra2D::Graphics::Quad* q;
         Umbra2D::Graphics::DynamicQuad* dq;

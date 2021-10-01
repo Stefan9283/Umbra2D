@@ -1,23 +1,24 @@
+
+#include <Gui/Editor.h>
+
 #include "Umbra2D.h"
 
 extern Umbra2D::Umbra2DEngine* umbra;
 
 namespace Umbra2D::Gui {
     Editor::Editor(Window* window) {
-        frbuf = new Umbra2D::Graphics::FrameBuffer(GL_RGBA, {1920, 1080});
         cam = new Umbra2D::Components::Camera(window);
     }
     Editor::~Editor() {
-        delete frbuf;
         delete cam;
     }
     void Editor::gui() {
         // DRAW FRAMEBUFFER AS IMGUI TEXTURE
-        if (ImGui::Begin("Editor", (bool*)true, ImGuiWindowFlags_NoScrollbar)) {
+        if (ImGui::Begin("Editor", (bool*)true, ImGuiWindowFlags_NoScrollbar) && frbuf) {
+            glm::vec2 resolution = frbuf->getTexture()->getResolution();
             ImVec2 windowSize = ImGui::GetWindowSize();
 
             auto targetResolution = glm::vec2(windowSize.x, windowSize.y);
-            glm::vec2 resolution = frbuf->getTexture()->getResolution();
 
             float ratio = resolution.x / resolution.y;
 
@@ -76,12 +77,12 @@ namespace Umbra2D::Gui {
     glm::mat4 Editor::getProj() { return cam->getProj(); }
     glm::mat4 Editor::getView() { return cam->getView(); }
 
-    void Editor::startRender() {
-        frbuf->bind();
-        glm::vec4 color = umbra->getThemeColor();
-        glClearColor(color.r, color.g, color.b, color.a);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    void Editor::setFrameBuffer(Umbra2D::Graphics::FrameBuffer* pFrameBuffer) {
+        this->frbuf = pFrameBuffer;
     }
-    void Editor::stopRender() { frbuf->unbind(); }
+
+    Umbra2D::Components::Camera *Editor::getCamera() {
+        return this->cam;
+    }
 
 }

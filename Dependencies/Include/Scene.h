@@ -10,7 +10,7 @@ namespace Umbra2D {
         public:
             entt::registry registry;
 
-            Scene();
+            Scene() = default;
             ~Scene();
             Entity* addEntity(std::string name = "");
 

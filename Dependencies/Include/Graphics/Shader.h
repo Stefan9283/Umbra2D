@@ -44,7 +44,7 @@ public:
     void setTexture(const std::string& name, int value, int textureUnit);
     void gui();
 
-    Shader();
+    Shader() = default;
     ~Shader();
 
     Shader* loadShader(std::string name, std::string filepath_v, std::string filepath_f, std::string filepath_g = "");
@@ -60,7 +60,5 @@ private:
     unsigned int CompileShader(unsigned int type, const char* source);
     //* Links the shaders together and returns the internal id of the group
     unsigned int CreateShader(const char* vertexShader, const char* fragmentShader, const char* geometryShader);
-
 };
-
 }

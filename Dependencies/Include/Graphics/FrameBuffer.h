@@ -9,6 +9,8 @@ namespace Umbra2D::Graphics {
     private:
         unsigned int fbo, rbo;
         TEXTURE* texture;
+
+        int type;
     public:
         /*
          * type can have one of the following values:

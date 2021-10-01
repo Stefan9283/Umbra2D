@@ -5,6 +5,7 @@ namespace Umbra2D {
     Script::Script() {
         lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::package);
     }
+
     Script *Script::readFromFile(std::string path) {
         if (std::filesystem::exists(path)) {
             this->path = path;

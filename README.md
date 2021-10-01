@@ -2,7 +2,7 @@
 
 ## Save File Structure:
 
-```
+```C++
 AssetLibrary {
     [] Texture {
         str name, path
@@ -29,6 +29,25 @@ AssetLibrary {
 
     [] Shaders {
         nane, pathToVertexShader, pathToFragmentShader
+    }
+
+    // TODO
+    [] Pipelines {
+        [] RenderPassNodes {
+            Renderpass {
+                int shaderIndex
+                int (?) type
+                Framebuffer {
+                    int type
+                    ivec2 resolution (can be extracted from the internal texture)
+                }           
+            }
+            inputs {
+                int fstIndex, sndIndex (Indices for the first and second 
+                                        input nodes in the RenderPassNodes array. 
+                                        Use -1 for not yet set input nodes)
+            }
+        }
     }
 }
 ```

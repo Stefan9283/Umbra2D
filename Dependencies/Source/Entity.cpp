@@ -47,6 +47,8 @@ namespace Umbra2D {
                             // TODO add scripts
 //                            addComponent<SCRIPT>();
                             break;
+                        default:
+                            break;
                     }
                     addingComponentTo = -1;
                 }
