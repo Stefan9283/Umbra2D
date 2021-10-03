@@ -17,6 +17,7 @@ namespace Umbra2D {
     void Entity::gui() {
         ImGui::PushID(getID());
         if (ImGui::TreeNode(label.c_str())) {
+            ImGui::InputText("name", &label);
             if (ImGui::Button("+") || addingComponentTo == (int)getID()) {
                 ImGui::SameLine();
                 addingComponentTo = getID();

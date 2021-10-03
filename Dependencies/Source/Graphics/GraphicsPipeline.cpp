@@ -14,7 +14,7 @@ namespace Umbra2D::Graphics {
                 ImNodes::BeginInputAttribute(index + 2);
                 ImGui::Text("frbuf in2");
                 ImNodes::EndInputAttribute();
-            case FrBuf:
+            case Filter:
                 ImNodes::BeginInputAttribute(index + 1);
                 ImGui::Text("frbuf in1");
                 ImNodes::EndInputAttribute();
@@ -174,7 +174,7 @@ namespace Umbra2D::Graphics {
                     node->rp->render(cam, s);
                     last = node;
                     break;
-                case FrBuf:
+                case Filter:
                     if (node->fst) {
                         node->rp->render(cam, s,
                             node->fst->getFrameBuffer());

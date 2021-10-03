@@ -30,9 +30,10 @@ namespace Umbra2D {
                 ImGui::TreePop();
             }
             if (ImGui::TreeNode(("SpriteSheets (" + std::to_string(this->spriteSheets.size()) + ")").c_str())) {
-                for (auto ss : this->spriteSheets)
+                for (auto ss : this->spriteSheets) {
                     ss->gui();
-                ImGui::TreePop();
+                    ImGui::TreePop();
+                }
             }
             if (ImGui::TreeNode(("Shaders (" + std::to_string(this->shaders.size()) + ")").c_str())) {
                 for (auto sh : this->shaders) {

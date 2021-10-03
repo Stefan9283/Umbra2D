@@ -12,7 +12,7 @@ namespace Umbra2D::Graphics {
          * at runtime based on renderpasstype
          * the following pointers should be null
          * - void  - fst = snd = null
-         * - FrBuf - snd = null
+         * - Filter - snd = null
          * - Adder - fst != null && snd != null
         */
         RenderNode(RenderPass* rp);

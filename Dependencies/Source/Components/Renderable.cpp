@@ -37,6 +37,12 @@ namespace Umbra2D::Components::Renderables {
                 }
                 ImGui::EndDragDropTarget();
             }
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("SPRITESHEET_PTR")) {
+                    setSpriteSheet((SPRITE_SHEET*)payload->Data);
+                }
+                ImGui::EndDragDropTarget();
+            }
 
             ImGui::SliderFloat(("Animation Speed " + parentID).c_str(), &animationSpeed, 0.f, 100.f);
             ImGui::Checkbox(("Loop Animation " + parentID).c_str(), &loopAnimation);
@@ -105,7 +111,11 @@ namespace Umbra2D::Components::Renderables {
                 }
                 ImGui::EndDragDropTarget();
             }
-
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("TEXTURE_PTR"))
+                    setTexture((TEXTURE*)payload->Data);
+                ImGui::EndDragDropTarget();
+            }
             if (t) t->gui();
             ImGui::TreePop();
         }

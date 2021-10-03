@@ -1,4 +1,6 @@
 
+#include <Graphics/RenderPasses/RenderPass.h>
+
 #include "Umbra2D.h"
 
 namespace Umbra2D::Graphics {
@@ -7,16 +9,18 @@ namespace Umbra2D::Graphics {
         frbuf = new Umbra2D::Graphics::FrameBuffer(framebufferType, frbufResolution);
         return this;
     }
-    renderpasstype RenderPass::getType() { return type; }
+    RenderPassInputType RenderPass::getType() { return type; }
     int RenderPass::getTexture() { return frbuf->getTexture()->getID(); }
 
     void RenderPass::gui() {
+
+        ImGui::Text("name: %s", label.c_str());
         switch (type) {
             case Adder:
                 ImGui::Text("Type: Adder");
                 break;
-            case FrBuf:
-                ImGui::Text("Type: FrBuf");
+            case Filter:
+                ImGui::Text("Type: Filter");
                 break;
             case Void:
                 ImGui::Text("Type: Void");
@@ -62,7 +66,7 @@ namespace Umbra2D::Graphics {
         shader->setTexture("tex2", 0, 1);
     }
 
-    RenderPass::RenderPass(renderpasstype type) {
+    RenderPass::RenderPass(RenderPassInputType type) {
         this->type = type;
         this->frbuf = new FrameBuffer(GL_RGBA, {1,1});
     }

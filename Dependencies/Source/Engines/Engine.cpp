@@ -36,7 +36,6 @@ namespace Umbra2D {
         return w;
     }
 
-
     void Umbra2DEngine::run() {
         loadProject();
         Umbra2D::Gui::FileExplorer fe;
@@ -45,30 +44,29 @@ namespace Umbra2D {
         logger->addLog("status", "The Engine is ready to go!");
 
         // TODO don't generate entity, shader or renderer objects in this func. It should be done in the GUI
-        auto bg = scene->addEntity("background");
-        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
-        auto t = bg->addComponent<TRANSFORM>();
-        t->scale = {2000, 1000};
-        t->layer = 100;
+//        auto bg = scene->addEntity("background");
+//        bg->addComponent<STATIC>()->setTexture("Dependencies/Assets/Textures/UndertaleFin.png");
+//        auto t = bg->addComponent<TRANSFORM>();
+//        t->scale = {2000, 1000};
+//        t->layer = 100;
 
 //        auto camera = scene->addEntity("camera");
 //        camera->addComponent<CAMERA>(w);
 
-
-        auto hero1 = scene->addEntity("hero1");
-        hero1->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-        hero1->addComponent<TRANSFORM>()->translation = {-100, 0};
-        auto c1 = hero1->addComponent<CIRCLE>(200.f);
-
-        auto hero2 = scene->addEntity("hero2");
-        hero2->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-        hero2->addComponent<TRANSFORM>()->translation = {0, 0};
-        auto c2 = hero2->addComponent<AARECTANGLE>(200.f, 100.f);
-
-        auto hero3 = scene->addEntity("hero3");
-        hero3->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
-        hero3->addComponent<TRANSFORM>()->translation = {100, 0};
-        auto c3 = hero3->addComponent<LINE>(100.f, glm::vec2(0, 1), glm::vec2(0, 0));
+//        auto hero1 = scene->addEntity("hero1");
+//        hero1->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
+//        hero1->addComponent<TRANSFORM>()->translation = {-100, 0};
+//        auto c1 = hero1->addComponent<CIRCLE>(200.f);
+//
+//        auto hero2 = scene->addEntity("hero2");
+//        hero2->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
+//        hero2->addComponent<TRANSFORM>()->translation = {0, 0};
+//        auto c2 = hero2->addComponent<AARECTANGLE>(200.f, 100.f);
+//
+//        auto hero3 = scene->addEntity("hero3");
+//        hero3->addComponent<DYNAMIC>()->setSpriteSheet("Dependencies/Assets/Textures/Adventurer/adventurer-Sheet.png", glm::vec2(7, 11), 72, "adventurer");
+//        hero3->addComponent<TRANSFORM>()->translation = {100, 0};
+//        auto c3 = hero3->addComponent<LINE>(100.f, glm::vec2(0, 1), glm::vec2(0, 0));
 
 
         Graphics::GraphicsPipeline ppl;
@@ -80,12 +78,12 @@ namespace Umbra2D {
 
             w->startFrame();
 
-            if (ImGui::Begin("Collisions")) {
-                ImGui::Text("c1 - c2 %d", c1->checkCollision(c2));
-                ImGui::Text("c1 - c3 %d", c3->checkCollision(c1));
-                ImGui::Text("c2 - c3 %d", c3->checkCollision(c2));
-            }
-            ImGui::End();
+//            if (ImGui::Begin("Collisions")) {
+//                ImGui::Text("c1 - c2 %d", c1->checkCollision(c2));
+//                ImGui::Text("c1 - c3 %d", c3->checkCollision(c1));
+//                ImGui::Text("c2 - c3 %d", c3->checkCollision(c2));
+//            }
+//            ImGui::End();
 
             edit.setFrameBuffer(ppl.getDrawnFrameBuffer(edit.getCamera(), scene));
 
@@ -102,9 +100,6 @@ namespace Umbra2D {
             w->endFrame();
         }
         saveProject();
-
-
-
     }
 
     glm::vec4 Umbra2DEngine::getThemeColor() { return settings->getColor(); }

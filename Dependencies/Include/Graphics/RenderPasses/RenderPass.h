@@ -4,29 +4,30 @@
 #include "Common.h"
 #include "Graphics/FrameBuffer.h"
 
-enum renderpasstype {
+enum RenderPassInputType {
     Void,
-    FrBuf,
+    Filter,
     Adder
 };
 
+
 namespace Umbra2D::Graphics {
     class RenderPass {
-        renderpasstype type;
+        std::string label = "";
+        RenderPassInputType type;
         Umbra2D::Graphics::FrameBuffer *frbuf = nullptr;
         Shader* shader = nullptr;
     public:
-        RenderPass(renderpasstype type);
+        RenderPass(RenderPassInputType type);
         ~RenderPass();
 
         RenderPass* setFrameBuffer(glm::ivec2 frbufResolution, int framebufferType = GL_RGBA);
         FrameBuffer* getFrameBuffer();
         int getTexture();
 
-        RenderPass* setShader(SHADER* shader);
         Shader* getShader();
 
-        renderpasstype getType();
+        RenderPassInputType getType();
 
         virtual void render(Umbra2D::Components::Camera* cam, Scene* s) = 0;
         void render(Umbra2D::Components::Camera* cam, Scene* s, FrameBuffer* fb);

@@ -14,7 +14,6 @@ void drawType(Umbra2D::Scene* scene, Umbra2D::Graphics::Shader* shader) {
 }
 
 namespace Umbra2D::Graphics {
-
     template<typename T>
     class OneTypeVoidPass : public RenderPass {
     public:
@@ -44,7 +43,6 @@ namespace Umbra2D::Graphics {
         }
         pFrameBuffer->unbind();
     }
-
 }
 
 #endif //UMBRA2D_ONETYPEVOIDPASS_H

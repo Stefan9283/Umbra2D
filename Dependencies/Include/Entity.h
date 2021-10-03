@@ -12,7 +12,7 @@ extern Umbra2D::Umbra2DEngine *umbra;
 namespace Umbra2D {
     class Entity {
      private:
-        std::string label;
+        std::string label = "";
         Umbra2D::Scene* scene { nullptr };
         entt::entity id { entt::null };
      public:

@@ -8,9 +8,12 @@ namespace Umbra2D {
     }
 
     void Scene::gui() {
-        if (ImGui::Begin("Scene"))
+        if (ImGui::Begin("Scene")) {
+            if (ImGui::Button("Create New Entity"))
+                addEntity();
             for (auto e : entities)
                 e->gui();
+        }
         ImGui::End();
     }
 
