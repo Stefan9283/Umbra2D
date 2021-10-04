@@ -17,12 +17,6 @@
 [submodule "Dependencies/Vendor/freetype"]
 	path = Dependencies/Vendor/freetype
 	url = https://github.com/freetype/freetype
-[submodule "Dependencies/Vendor/ChaiScript"]
-	path = Dependencies/Vendor/ChaiScript
-	url = https://github.com/ChaiScript/ChaiScript
-[submodule "Dependencies/Vendor/imgui-node-editor"]
-	path = Dependencies/Vendor/imgui-node-editor
-	url = https://github.com/thedmd/imgui-node-editor
 [submodule "Dependencies/Vendor/portaudio"]
 	path = Dependencies/Vendor/portaudio
 	url = https://github.com/PortAudio/portaudio
