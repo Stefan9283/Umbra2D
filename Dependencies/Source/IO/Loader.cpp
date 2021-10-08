@@ -19,7 +19,7 @@ namespace Umbra2D::IO {
     }
     
     void Loader::parseSpriteSize(int& noOfSprites, glm::ivec2& gridSize) {
-        int i = 0, j, k;
+        unsigned int i = 0, j, k;
     
         for (i; i < strlen(buffer); i++)
             if (buffer[i] == '[')

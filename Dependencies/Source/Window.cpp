@@ -42,6 +42,7 @@ namespace Umbra2D {
 
         ImGui::StyleColorsDark();
 
+        // TODO fix imgui docking
         /*
          * If this raises a compilation error you need to switch to the "docking" branch of ImGui:
          * cd to the Dependencies/Vendor/imgui
@@ -49,8 +50,8 @@ namespace Umbra2D {
          * git branch docking
          * git checkout docking
          */
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+//        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+//        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
         // Setup Platform/Renderer backends
         ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -78,7 +79,9 @@ namespace Umbra2D {
         ImGuiWindowFlags rootFlags =
                 ImGuiWindowFlags_NoMove
                 | ImGuiWindowFlags_NoCollapse
-                | ImGuiWindowFlags_NoDocking
+
+                  // TODO fix imgui docking
+                //| ImGuiWindowFlags_NoDocking
                 | ImGuiWindowFlags_NoResize
                 | ImGuiWindowFlags_NoTitleBar
                 | ImGuiWindowFlags_MenuBar
@@ -90,20 +93,21 @@ namespace Umbra2D {
         ImGui::SetNextWindowSize(use_work_area ? viewport->WorkSize : viewport->Size);
 
         ImGui::Begin("RootWindow", (bool*)use_work_area, rootFlags);
-        ImGui::DockSpace(ImGui::GetID("MainWindow"));
+        // TODO fix imgui docking
+        //ImGui::DockSpace(ImGui::GetID("MainWindow"));
     }
     void Window::endFrame() {
         ImGui::End();
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+        // TODO fix imgui docking
         // Update and Render additional Platform Windows
-        if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
-            GLFWwindow* backup_current_context = glfwGetCurrentContext();
-            ImGui::UpdatePlatformWindows();
-            ImGui::RenderPlatformWindowsDefault();
-            glfwMakeContextCurrent(backup_current_context);
-        }
+//        if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+//            GLFWwindow* backup_current_context = glfwGetCurrentContext();
+//            ImGui::UpdatePlatformWindows();
+//            ImGui::RenderPlatformWindowsDefault();
+//            glfwMakeContextCurrent(backup_current_context);
+//        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();

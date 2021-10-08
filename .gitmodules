@@ -7,10 +7,6 @@
 [submodule "Dependencies/Vendor/glad"]
 	path = Dependencies/Vendor/glad
 	url = https://github.com/Dav1dde/glad
-[submodule "Dependencies/Vendor/imgui"]
-	path = Dependencies/Vendor/imgui
-	url = https://github.com/ocornut/imgui
-	branch = docking
 [submodule "Dependencies/Vendor/stb"]
 	path = Dependencies/Vendor/stb
 	url = https://github.com/nothings/stb
@@ -29,3 +25,7 @@
 [submodule "Dependencies/Vendor/imnodes"]
 	path = Dependencies/Vendor/imnodes
 	url = https://github.com/Nelarius/imnodes
+[submodule "Dependencies/Vendor/imgui"]
+	path = Dependencies/Vendor/imgui
+	url = https://github.com/ocornut/imgui
+	branch = docking
